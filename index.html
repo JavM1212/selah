@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Selah Music Academia</title>
+  <meta name="description" content="Academia de música en San José, Costa Rica. 9 años formando músicos de todas las edades. Guitarra, piano, canto, batería, violín, saxofón y más.">
+  <link rel="icon" type="image/png" href="favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --white: #FFFFFF;
+      --bg: #FAFAF8;
+      --warm: #F5F2EE;
+      --ink: #1D1D1F;
+      --ink-soft: #48464A;
+      --ink-muted: #8E8C91;
+      --terra: #C4836A;
+      --terra-soft: #F8F0EC;
+      --border: #ECEAE6;
+
+      --font-display: 'DM Serif Display', Georgia, serif;
+      --font-body: 'DM Sans', system-ui, sans-serif;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-body);
+      color: var(--ink-soft);
+      background: var(--white);
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    /* ─── NAV ─── */
+    .nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      padding: 1.25rem 2.5rem;
+      display: flex; align-items: center; justify-content: space-between;
+      transition: all 0.4s;
+    }
+    .nav.scrolled {
+      background: rgba(255,255,255,0.92);
+      backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
+      border-bottom: 1px solid var(--border);
+      padding: 0.75rem 2.5rem;
+    }
+    .nav-logo {
+      display: flex; align-items: center; gap: 0.6rem; text-decoration: none;
+    }
+    .nav-logo img { height: 36px; transition: height 0.3s; }
+    .nav.scrolled .nav-logo img { height: 30px; }
+    .nav-name {
+      font-family: var(--font-display); font-size: 1.15rem;
+      color: var(--ink); letter-spacing: -0.01em;
+    }
+    .nav-links {
+      display: flex; gap: 2.5rem; list-style: none; align-items: center;
+    }
+    .nav-links a {
+      text-decoration: none; color: var(--ink-muted); font-size: 0.8125rem;
+      font-weight: 500; letter-spacing: 0.02em; transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--ink); }
+    .nav-cta {
+      background: var(--ink) !important; color: var(--white) !important;
+      padding: 0.5rem 1.25rem !important; border-radius: 100px;
+      font-size: 0.8125rem !important; letter-spacing: 0.02em;
+      transition: opacity 0.2s !important;
+    }
+    .nav-cta:hover { opacity: 0.8; }
+
+    .hamburger {
+      display: none; background: none; border: none; cursor: pointer;
+      width: 24px; height: 18px; position: relative; z-index: 101;
+    }
+    .hamburger span {
+      display: block; width: 100%; height: 1.5px; background: var(--ink);
+      position: absolute; left: 0; border-radius: 1px;
+      transition: transform 0.3s, opacity 0.3s;
+    }
+    .hamburger span:nth-child(1) { top: 0; }
+    .hamburger span:nth-child(2) { top: 8px; }
+    .hamburger span:nth-child(3) { top: 16px; }
+    .hamburger.active span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+    .hamburger.active span:nth-child(2) { opacity: 0; }
+    .hamburger.active span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+    .nav-overlay { display: none; position: fixed; inset: 0; background: rgba(29,29,31,0.2); z-index: 99; }
+    .nav-overlay.active { display: block; }
+
+    /* ─── HERO ─── */
+    .hero {
+      min-height: 100vh; position: relative; overflow: hidden;
+      display: grid; grid-template-columns: 1fr 1fr;
+    }
+    .hero-left {
+      display: flex; flex-direction: column; justify-content: center;
+      padding: 8rem 3.5rem 5rem 6vw;
+      position: relative; z-index: 2;
+    }
+    .hero-eyebrow {
+      font-size: 0.75rem; font-weight: 500; letter-spacing: 0.15em;
+      text-transform: uppercase; color: var(--terra);
+      margin-bottom: 1.25rem;
+    }
+    .hero h1 {
+      font-family: var(--font-display); font-size: clamp(2.75rem, 5vw, 4rem);
+      font-weight: 400; line-height: 1.1; color: var(--ink);
+      margin-bottom: 1.5rem;
+    }
+    .hero h1 em { font-style: italic; }
+    .hero-desc {
+      font-size: 1rem; color: var(--ink-muted); max-width: 380px;
+      margin-bottom: 2.5rem; line-height: 1.75; font-weight: 300;
+    }
+    .hero-btns { display: flex; gap: 0.75rem; flex-wrap: wrap; margin-bottom: 4rem; }
+
+    .btn {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 0.85rem 1.75rem; border-radius: 100px; font-size: 0.875rem;
+      font-weight: 500; text-decoration: none; border: none; cursor: pointer;
+      transition: all 0.2s; font-family: var(--font-body);
+    }
+    .btn-dark { background: var(--ink); color: var(--white); }
+    .btn-dark:hover { opacity: 0.85; }
+    .btn-outline { background: transparent; color: var(--ink); border: 1px solid var(--border); }
+    .btn-outline:hover { border-color: var(--ink-muted); }
+    .btn-wa { background: #25D366; color: var(--white); }
+    .btn-wa:hover { background: #1EBE5A; }
+
+    .hero-stats {
+      display: flex; gap: 3.5rem;
+    }
+    .stat {}
+    .stat-num {
+      font-family: var(--font-display); font-size: 2rem;
+      color: var(--ink); line-height: 1;
+    }
+    .stat-label {
+      font-size: 0.7rem; color: var(--ink-muted); font-weight: 500;
+      letter-spacing: 0.08em; text-transform: uppercase; margin-top: 0.25rem;
+    }
+
+    .hero-right { position: relative; overflow: hidden; }
+    .hero-right img {
+      width: 100%; height: 100%; object-fit: cover; display: block;
+    }
+    .hero-right::after {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(to right, var(--white) 0%, transparent 15%);
+      pointer-events: none;
+    }
+
+    /* ─── MARQUEE ─── */
+    .marquee {
+      padding: 1.5rem 0; overflow: hidden;
+      border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+    }
+    .marquee-track {
+      display: flex; gap: 3rem; align-items: center;
+      animation: slide 40s linear infinite;
+      width: max-content;
+    }
+    .marquee-track img { height: 38px; opacity: 0.25; transition: opacity 0.3s; }
+    .marquee-track img:hover { opacity: 0.6; }
+    .marquee-dot { width: 3px; height: 3px; border-radius: 50%; background: var(--border); flex-shrink: 0; }
+    @keyframes slide {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    /* ─── SECTIONS ─── */
+    .sec { padding: 7rem 2.5rem; }
+    .sec-inner { max-width: 1000px; margin: 0 auto; }
+    .sec-label {
+      font-size: 0.7rem; font-weight: 500; letter-spacing: 0.15em;
+      text-transform: uppercase; color: var(--terra); margin-bottom: 0.75rem;
+    }
+    .sec-title {
+      font-family: var(--font-display); font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+      font-weight: 400; color: var(--ink); line-height: 1.15;
+    }
+    .sec-desc {
+      color: var(--ink-muted); font-size: 0.95rem; max-width: 440px;
+      margin-top: 0.75rem; font-weight: 300; line-height: 1.75;
+    }
+
+    /* ─── CARRERAS ─── */
+    .carreras { background: var(--bg); }
+    .carreras-header { text-align: center; max-width: 500px; margin: 0 auto 3.5rem; }
+    .carreras-header .sec-desc { margin: 0.75rem auto 0; }
+
+    .tags {
+      display: flex; flex-wrap: wrap; justify-content: center; gap: 0.4rem;
+      max-width: 700px; margin: 0 auto 4rem;
+    }
+    .tag {
+      padding: 0.5rem 1rem; border-radius: 100px; font-size: 0.8rem;
+      font-weight: 400; background: var(--white); color: var(--ink-soft);
+      transition: all 0.2s; cursor: default;
+    }
+    .tag:hover { background: var(--terra-soft); color: var(--terra); }
+
+    .modes {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 2.5rem;
+    }
+    .mode {}
+    .mode-num {
+      font-family: var(--font-display); font-size: 2.5rem;
+      color: var(--border); line-height: 1; margin-bottom: 1rem;
+    }
+    .mode h3 {
+      font-family: var(--font-display); font-size: 1.25rem; font-weight: 400;
+      color: var(--ink); margin-bottom: 0.5rem;
+    }
+    .mode p { font-size: 0.85rem; color: var(--ink-muted); line-height: 1.7; font-weight: 300; }
+
+    /* ─── PGM (Pequeño Gran Músico) ─── */
+    .pgm {
+      margin-top: 5rem; display: grid; grid-template-columns: 1fr 1fr;
+      gap: 3rem; align-items: center;
+      background: var(--warm); border-radius: 24px; overflow: hidden;
+    }
+    .pgm-body { padding: 3.5rem; }
+    .pgm-body .sec-label { color: var(--terra); }
+    .pgm-body h3 {
+      font-family: var(--font-display); color: var(--ink);
+      font-size: clamp(1.5rem, 2.5vw, 2rem); font-weight: 400;
+      font-style: italic; margin-bottom: 0.75rem;
+    }
+    .pgm-body p { color: var(--ink-muted); font-size: 0.9rem; line-height: 1.75; font-weight: 300; }
+    .pgm-age {
+      display: inline-block; margin-top: 1.25rem;
+      background: var(--white); color: var(--terra); padding: 0.4rem 1rem;
+      border-radius: 100px; font-size: 0.75rem; font-weight: 500;
+      letter-spacing: 0.03em;
+    }
+    .pgm-photo { height: 100%; min-height: 280px; }
+    .pgm-photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+    /* ─── EXTRAS ─── */
+    .extras { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 4rem; }
+    .extra {
+      padding: 2.5rem; border-radius: 20px; background: var(--white);
+      border: 1px solid var(--border);
+    }
+    .extra h3 {
+      font-family: var(--font-display); font-size: 1.25rem; font-weight: 400;
+      margin-bottom: 0.5rem; color: var(--ink);
+    }
+    .extra p { font-size: 0.85rem; color: var(--ink-muted); line-height: 1.7; font-weight: 300; }
+
+    /* ─── NOSOTROS ─── */
+    .nosotros-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center;
+    }
+    .nosotros-photo { position: relative; border-radius: 20px; overflow: hidden; }
+    .nosotros-photo img { width: 100%; display: block; aspect-ratio: 4/3; object-fit: cover; }
+    .years-badge {
+      position: absolute; bottom: 1.5rem; left: 1.5rem;
+      background: rgba(255,255,255,0.9); backdrop-filter: blur(12px);
+      border-radius: 12px; padding: 0.75rem 1rem;
+      display: flex; align-items: center; gap: 0.6rem;
+    }
+    .years-num {
+      font-family: var(--font-display); font-size: 1.75rem;
+      color: var(--terra); line-height: 1;
+    }
+    .years-text { font-size: 0.65rem; color: var(--ink-muted); font-weight: 500; line-height: 1.3; text-transform: uppercase; letter-spacing: 0.05em; }
+    .nosotros-body .sec-title { margin-bottom: 1.25rem; }
+    .nosotros-body p { color: var(--ink-muted); margin-bottom: 0.75rem; font-weight: 300; line-height: 1.75; }
+
+    .vm-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 2rem; }
+    .vm-card { padding-top: 1.5rem; border-top: 1px solid var(--border); }
+    .vm-card h4 {
+      font-family: var(--font-display); font-size: 1.05rem; font-weight: 400;
+      margin-bottom: 0.35rem; color: var(--ink);
+    }
+    .vm-card p { font-size: 0.8rem; color: var(--ink-muted); margin: 0; font-weight: 300; line-height: 1.7; }
+
+    /* ─── PRECIOS ─── */
+    .precios { background: var(--bg); }
+    .precios-header { text-align: center; max-width: 400px; margin: 0 auto 3rem; }
+    .precios-header .sec-desc { margin: 0.75rem auto 0; }
+    .precios-note {
+      display: inline-block; margin-top: 0.75rem;
+      font-size: 0.75rem; color: var(--ink-muted); font-weight: 400;
+    }
+    .prices {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 1.25rem; max-width: 820px; margin: 0 auto;
+    }
+    .price-card {
+      background: var(--white); border-radius: 20px;
+      padding: 2.5rem 1.75rem; text-align: center;
+      transition: transform 0.2s; position: relative;
+    }
+    .price-card:hover { transform: translateY(-2px); }
+    .price-card.featured {
+      background: var(--ink); color: var(--white);
+    }
+    .featured-label {
+      position: absolute; top: -9px; left: 50%; transform: translateX(-50%);
+      background: var(--terra); color: var(--white);
+      font-size: 0.65rem; font-weight: 500; padding: 0.2rem 0.9rem;
+      border-radius: 100px; letter-spacing: 0.05em;
+    }
+    .price-type {
+      font-size: 0.65rem; font-weight: 500; text-transform: uppercase;
+      letter-spacing: 0.12em; color: var(--ink-muted); margin-bottom: 1rem;
+    }
+    .price-card.featured .price-type { color: rgba(255,255,255,0.4); }
+    .price-val {
+      font-family: var(--font-display); font-size: 2.25rem;
+      color: var(--ink); line-height: 1;
+    }
+    .price-card.featured .price-val { color: var(--white); }
+    .price-per { font-size: 0.8rem; color: var(--ink-muted); margin-top: 0.25rem; font-weight: 300; }
+    .price-card.featured .price-per { color: rgba(255,255,255,0.4); }
+    .price-detail {
+      font-size: 0.8rem; color: var(--ink-muted); margin-top: 1.25rem;
+      padding-top: 1.25rem; border-top: 1px solid var(--border); line-height: 1.6; font-weight: 300;
+    }
+    .price-card.featured .price-detail { border-top-color: rgba(255,255,255,0.08); color: rgba(255,255,255,0.4); }
+
+    /* ─── CONTACTO ─── */
+    .contacto { border-top: 1px solid var(--border); }
+    .contacto-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 5rem;
+      align-items: start;
+    }
+    .contacto-left .sec-title { margin-bottom: 0.75rem; }
+    .contacto-left > p { color: var(--ink-muted); margin-bottom: 2.5rem; font-weight: 300; }
+    .contact-rows { display: flex; flex-direction: column; gap: 1.5rem; }
+    .c-row { display: flex; gap: 1rem; align-items: center; }
+    .c-icon {
+      width: 40px; height: 40px; min-width: 40px; border-radius: 50%;
+      background: var(--bg);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .c-icon svg { width: 16px; height: 16px; stroke: var(--terra); fill: none; stroke-width: 1.5; }
+    .c-label { font-weight: 500; font-size: 0.85rem; color: var(--ink); }
+    .c-val { font-size: 0.8rem; color: var(--ink-muted); font-weight: 300; }
+
+    .social-row { display: flex; gap: 0.5rem; margin-top: 2rem; }
+    .social-link {
+      width: 36px; height: 36px; border-radius: 50%;
+      background: var(--bg);
+      display: flex; align-items: center; justify-content: center;
+      text-decoration: none; transition: all 0.2s;
+    }
+    .social-link:hover { background: var(--border); }
+    .social-link svg { width: 15px; height: 15px; fill: var(--ink-muted); }
+    .social-link:hover svg { fill: var(--ink); }
+
+    .wa-box {
+      background: var(--bg); border-radius: 24px;
+      padding: 3rem; text-align: center;
+    }
+    .wa-box h3 {
+      font-family: var(--font-display); color: var(--ink); font-size: 1.5rem;
+      font-weight: 400; margin: 1rem 0 0.5rem;
+    }
+    .wa-box > p { color: var(--ink-muted); font-size: 0.85rem; margin-bottom: 1.5rem; font-weight: 300; }
+    .wa-num {
+      font-family: var(--font-display); font-size: 1.2rem;
+      color: var(--terra); margin-top: 1rem; user-select: all;
+    }
+    .wa-hint { font-size: 0.7rem; color: var(--ink-muted); margin-top: 0.25rem; font-weight: 300; }
+
+    /* ─── FOOTER ─── */
+    footer {
+      padding: 2rem 2.5rem;
+      border-top: 1px solid var(--border);
+    }
+    .foot {
+      max-width: 1000px; margin: 0 auto;
+      display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: 1rem;
+    }
+    .foot-brand { display: flex; align-items: center; gap: 0.5rem; }
+    .foot-brand img { height: 22px; opacity: 0.4; }
+    .foot-brand span {
+      font-family: var(--font-display); font-size: 0.85rem;
+      color: var(--ink-muted);
+    }
+    .foot-copy { font-size: 0.7rem; color: var(--ink-muted); font-weight: 300; }
+
+    /* ─── REVEAL ─── */
+    .reveal {
+      opacity: 0; transform: translateY(20px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.vis { opacity: 1; transform: translateY(0); }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 900px) {
+      .hero { grid-template-columns: 1fr; min-height: auto; }
+      .hero-left { padding: 7rem 1.5rem 3rem; }
+      .hero-right { height: 50vw; min-height: 260px; }
+      .hero-right::after { background: linear-gradient(to bottom, var(--white) 0%, transparent 20%); }
+      .modes, .extras, .vm-row { grid-template-columns: 1fr; }
+      .nosotros-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+      .pgm { grid-template-columns: 1fr; }
+      .pgm-body { padding: 2.5rem; }
+      .pgm-photo { min-height: 220px; }
+      .prices { grid-template-columns: 1fr; max-width: 320px; }
+      .contacto-grid { grid-template-columns: 1fr; gap: 3rem; }
+    }
+    @media (max-width: 768px) {
+      .nav { padding: 0.75rem 1.5rem; }
+      .nav-links {
+        position: fixed; top: 0; right: -100%; width: 80%; max-width: 280px;
+        height: 100vh; height: 100dvh; background: var(--white);
+        flex-direction: column; padding: 5rem 2rem; gap: 1.5rem;
+        transition: right 0.3s; box-shadow: -12px 0 40px rgba(0,0,0,0.06); z-index: 100;
+      }
+      .nav-links.open { right: 0; }
+      .nav-links a { font-size: 0.95rem; color: var(--ink-soft); }
+      .hamburger { display: block; }
+      .sec { padding: 4.5rem 1.5rem; }
+      .foot { flex-direction: column; text-align: center; }
+      .hero-stats { flex-wrap: wrap; gap: 2rem; }
+    }
+    @media (max-width: 480px) {
+      .hero-btns { flex-direction: column; }
+      .btn { width: 100%; justify-content: center; }
+      .tags { gap: 0.3rem; }
+      .tag { font-size: 0.75rem; padding: 0.4rem 0.85rem; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .reveal { opacity: 1; transform: none; transition: none; }
+      .marquee-track { animation: none; }
+      * { transition-duration: 0.01ms !important; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="nav" id="nav">
+    <a href="#" class="nav-logo">
+      <img src="img/img-8.png" alt="Selah Music">
+      <span class="nav-name">Selah Music</span>
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#carreras" onclick="closeMenu()">Carreras</a></li>
+      <li><a href="#nosotros" onclick="closeMenu()">Nosotros</a></li>
+      <li><a href="#precios" onclick="closeMenu()">Precios</a></li>
+      <li><a href="#contacto" onclick="closeMenu()" class="nav-cta">Contactar</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger" aria-label="Men&uacute;">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+  <div class="nav-overlay" id="navOverlay"></div>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-left">
+      <p class="hero-eyebrow">9 a&ntilde;os formando m&uacute;sicos</p>
+      <h1>Tu sue&ntilde;o musical<br>empieza <em>aqu&iacute;</em></h1>
+      <p class="hero-desc">M&aacute;s de 15 instrumentos, canto y teor&iacute;a musical. Para ni&ntilde;os, j&oacute;venes y adultos en San Jos&eacute;, Costa Rica.</p>
+      <div class="hero-btns">
+        <a href="https://wa.me/50688053997?text=Hola%2C%20me%20interesa%20info%20sobre%20las%20clases%20en%20Selah%20Music%20Academia" class="btn btn-dark" target="_blank" rel="noopener">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51l-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          Escribir por WhatsApp
+        </a>
+        <a href="#carreras" class="btn btn-outline">Ver carreras</a>
+      </div>
+      <div class="hero-stats">
+        <div class="stat">
+          <div class="stat-num">9</div>
+          <div class="stat-label">A&ntilde;os</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">15+</div>
+          <div class="stat-label">Instrumentos</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">100+</div>
+          <div class="stat-label">Alumnos</div>
+        </div>
+      </div>
+    </div>
+    <div class="hero-right">
+      <img src="img/img-9.png" alt="Recital de alumnos de Selah Music Academia">
+    </div>
+  </section>
+
+  <!-- MARQUEE -->
+  <div class="marquee">
+    <div class="marquee-track" aria-hidden="true">
+      <img src="img/img-1.png" alt="Guitarra"><span class="marquee-dot"></span>
+      <img src="img/img-2.png" alt="Piano"><span class="marquee-dot"></span>
+      <img src="img/img-3.png" alt="Saxof&oacute;n"><span class="marquee-dot"></span>
+      <img src="img/img-5.png" alt="El&eacute;ctrica"><span class="marquee-dot"></span>
+      <img src="img/img-6.png" alt="Bater&iacute;a"><span class="marquee-dot"></span>
+      <img src="img/img-7.png" alt="Viol&iacute;n"><span class="marquee-dot"></span>
+      <img src="img/img-4.png" alt="Bajo"><span class="marquee-dot"></span>
+      <img src="img/img-1.png" alt="Guitarra"><span class="marquee-dot"></span>
+      <img src="img/img-2.png" alt="Piano"><span class="marquee-dot"></span>
+      <img src="img/img-3.png" alt="Saxof&oacute;n"><span class="marquee-dot"></span>
+      <img src="img/img-5.png" alt="El&eacute;ctrica"><span class="marquee-dot"></span>
+      <img src="img/img-6.png" alt="Bater&iacute;a"><span class="marquee-dot"></span>
+      <img src="img/img-7.png" alt="Viol&iacute;n"><span class="marquee-dot"></span>
+      <img src="img/img-4.png" alt="Bajo"><span class="marquee-dot"></span>
+    </div>
+  </div>
+
+  <!-- CARRERAS -->
+  <section class="sec carreras" id="carreras">
+    <div class="sec-inner">
+      <div class="carreras-header reveal">
+        <p class="sec-label">Carreras disponibles</p>
+        <h2 class="sec-title">Encontr&aacute; tu instrumento</h2>
+        <p class="sec-desc">Cada carrera incluye teor&iacute;a musical, preparaci&oacute;n de canciones y atenci&oacute;n personalizada.</p>
+      </div>
+
+      <div class="tags reveal">
+        <span class="tag">Guitarra cl&aacute;sica</span>
+        <span class="tag">Guitarra pop</span>
+        <span class="tag">Guitarra el&eacute;ctrica</span>
+        <span class="tag">Piano</span>
+        <span class="tag">Teclado</span>
+        <span class="tag">Canto</span>
+        <span class="tag">Bajo el&eacute;ctrico</span>
+        <span class="tag">Bater&iacute;a</span>
+        <span class="tag">Viol&iacute;n</span>
+        <span class="tag">Saxof&oacute;n</span>
+        <span class="tag">Clarinete</span>
+        <span class="tag">Flauta dulce</span>
+        <span class="tag">Flauta traversa</span>
+        <span class="tag">Ukelele</span>
+        <span class="tag">Teor&iacute;a y composici&oacute;n</span>
+        <span class="tag">Ensamble grupal</span>
+      </div>
+
+      <div class="modes reveal">
+        <div class="mode">
+          <div class="mode-num">01</div>
+          <h3>Presencial</h3>
+          <p>Lecci&oacute;n privada donde aprender&aacute;s todo lo relevante al instrumento, teor&iacute;a musical y preparaci&oacute;n de canciones.</p>
+        </div>
+        <div class="mode">
+          <div class="mode-num">02</div>
+          <h3>Virtual</h3>
+          <p>Aprend&eacute; desde la comodidad de tu hogar con atenci&oacute;n personalizada y la misma calidad de estar presencialmente.</p>
+        </div>
+        <div class="mode">
+          <div class="mode-num">03</div>
+          <h3>Grupal</h3>
+          <p>Para amigos, familia o banda. Un sistema din&aacute;mico donde todos aprenden de manera uniforme y satisfactoria.</p>
+        </div>
+      </div>
+
+      <!-- PGM -->
+      <div class="pgm reveal">
+        <div class="pgm-body">
+          <p class="sec-label">Programa infantil</p>
+          <h3>&ldquo;Peque&ntilde;o Gran M&uacute;sico&rdquo;</h3>
+          <p>Carrera adecuada para ni&ntilde;os de 4 a 10 a&ntilde;os en canto e instrumentos, fortaleciendo destrezas y seguridad en distintas &aacute;reas.</p>
+          <span class="pgm-age">4 a 10 a&ntilde;os</span>
+        </div>
+        <div class="pgm-photo">
+          <img src="img/img-10.png" alt="Ni&ntilde;os aprendiendo m&uacute;sica">
+        </div>
+      </div>
+
+      <!-- Extras -->
+      <div class="extras reveal">
+        <div class="extra">
+          <p class="sec-label">Talleres</p>
+          <h3>Aprend&eacute; en equipo</h3>
+          <p>Talleres en temas espec&iacute;ficos que fortalecen el conocimiento, desarrollando un trabajo en equipo e integral como m&uacute;sico.</p>
+        </div>
+        <div class="extra">
+          <p class="sec-label">Presentaciones en vivo</p>
+          <h3>Sub&iacute; al escenario</h3>
+          <p>Presentaciones musicales de medio y fin de a&ntilde;o. Brindamos la oportunidad de participar de esta gran experiencia.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- NOSOTROS -->
+  <section class="sec" id="nosotros">
+    <div class="sec-inner">
+      <div class="nosotros-grid reveal">
+        <div class="nosotros-photo">
+          <img src="img/img-11.png" alt="Presentaci&oacute;n musical">
+          <div class="years-badge">
+            <div class="years-num">9</div>
+            <div class="years-text">a&ntilde;os de<br>experiencia</div>
+          </div>
+        </div>
+        <div class="nosotros-body">
+          <p class="sec-label">Nosotros</p>
+          <h2 class="sec-title">Creando arte desde 2017</h2>
+          <p>Somos una academia musical ideada para todas las edades. Ofrecemos carreras musicales en distintos instrumentos y canto.</p>
+          <p>Hemos visto el fruto y crecimiento de muchos talentos que se han desarrollado con nuestro sistema, de manera que ni&ntilde;os, j&oacute;venes y adultos disfruten y logren su sue&ntilde;o musical sin l&iacute;mite.</p>
+          <div class="vm-row">
+            <div class="vm-card">
+              <h4>Visi&oacute;n</h4>
+              <p>Que cada estudiante descubra sus habilidades y disfrute de una carrera musical profesional de manera divertida y din&aacute;mica.</p>
+            </div>
+            <div class="vm-card">
+              <h4>Misi&oacute;n</h4>
+              <p>Crear arte en nuestra sociedad, promoviendo el placer de la m&uacute;sica e inspirando a grandes y peque&ntilde;os a so&ntilde;ar.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRECIOS -->
+  <section class="sec precios" id="precios">
+    <div class="sec-inner">
+      <div class="precios-header reveal">
+        <p class="sec-label">Inversi&oacute;n</p>
+        <h2 class="sec-title">Precios accesibles</h2>
+        <p class="sec-desc">La m&uacute;sica al alcance de todos.</p>
+        <span class="precios-note">Lecci&oacute;n de 90 minutos por semana</span>
+      </div>
+      <div class="prices reveal">
+        <div class="price-card">
+          <div class="price-type">Matr&iacute;cula</div>
+          <div class="price-val">&#8353;10,000</div>
+          <div class="price-per">&uacute;nico pago</div>
+          <div class="price-detail">Incluye inscripci&oacute;n y materiales iniciales</div>
+        </div>
+        <div class="price-card featured">
+          <span class="featured-label">Popular</span>
+          <div class="price-type">Clase individual</div>
+          <div class="price-val">&#8353;40,000</div>
+          <div class="price-per">por mes</div>
+          <div class="price-detail">90 min por semana &middot; Atenci&oacute;n personalizada</div>
+        </div>
+        <div class="price-card">
+          <div class="price-type">Clase grupal</div>
+          <div class="price-val">&#8353;25,000</div>
+          <div class="price-per">por persona / mes</div>
+          <div class="price-detail">A partir de 3 personas &middot; Amigos, familia o banda</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACTO -->
+  <section class="sec contacto" id="contacto">
+    <div class="sec-inner">
+      <div class="contacto-grid reveal">
+        <div class="contacto-left">
+          <p class="sec-label">Contacto</p>
+          <h2 class="sec-title">Habl&aacute; con nosotros</h2>
+          <p>Escribinos por WhatsApp para agendar tu primera lecci&oacute;n. Sin compromiso.</p>
+          <div class="contact-rows">
+            <div class="c-row">
+              <div class="c-icon"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6A19.79 19.79 0 012.12 4.18 2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg></div>
+              <div><div class="c-label">WhatsApp</div><div class="c-val" style="user-select:all;">+506 8805 3997</div></div>
+            </div>
+            <div class="c-row">
+              <div class="c-icon"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+              <div><div class="c-label">Ubicaci&oacute;n</div><div class="c-val">San Jos&eacute;, Costa Rica</div></div>
+            </div>
+            <div class="c-row">
+              <div class="c-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div>
+              <div><div class="c-label">Horarios</div><div class="c-val">Lunes a s&aacute;bado &middot; Horarios flexibles</div></div>
+            </div>
+          </div>
+
+          <div class="social-row">
+            <a href="#" class="social-link" aria-label="Instagram" title="Instagram">
+              <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z" fill="none" stroke="currentColor" stroke-width="1.5"/><circle cx="17.5" cy="6.5" r="0.9" fill="currentColor" stroke="none"/></svg>
+            </a>
+            <a href="#" class="social-link" aria-label="TikTok" title="TikTok">
+              <svg viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.89 2.89 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.4a6.27 6.27 0 00-.79-.05A6.34 6.34 0 003.14 15.7a6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.34-6.34V9.18a8.16 8.16 0 004.77 1.53v-3.4a4.85 4.85 0 01-1-.62z"/></svg>
+            </a>
+            <a href="#" class="social-link" aria-label="YouTube" title="YouTube">
+              <svg viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+            </a>
+            <a href="#" class="social-link" aria-label="Facebook" title="Facebook">
+              <svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+            </a>
+            <a href="#" class="social-link" aria-label="Google Maps" title="Google Maps">
+              <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z" fill="none" stroke="currentColor" stroke-width="1.5"/><circle cx="12" cy="10" r="3" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <div class="wa-box">
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="var(--terra)" stroke-width="1.2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6A19.79 19.79 0 012.12 4.18 2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+          <h3>Tu primera lecci&oacute;n</h3>
+          <p>Escribinos y te contamos todo sobre carreras, horarios y c&oacute;mo empezar.</p>
+          <a href="https://wa.me/50688053997?text=Hola%2C%20me%20interesa%20info%20sobre%20las%20clases%20en%20Selah%20Music%20Academia" class="btn btn-wa" target="_blank" rel="noopener">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51l-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            Abrir WhatsApp
+          </a>
+          <div class="wa-num">+506 8805 3997</div>
+          <div class="wa-hint">O copi&aacute; el n&uacute;mero y escribinos directo</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="foot">
+      <div class="foot-brand">
+        <img src="img/img-8.png" alt="Selah Music">
+        <span>Selah Music Academia</span>
+      </div>
+      <div class="foot-copy">&copy; 2026 Selah Music Academia &middot; San Jos&eacute;, Costa Rica</div>
+    </div>
+  </footer>
+
+  <script>
+    var nav = document.getElementById('nav');
+    window.addEventListener('scroll', function() {
+      nav.classList.toggle('scrolled', window.scrollY > 60);
+    });
+    var hamburger = document.getElementById('hamburger');
+    var navLinks = document.getElementById('navLinks');
+    var overlay = document.getElementById('navOverlay');
+    hamburger.addEventListener('click', function() {
+      hamburger.classList.toggle('active');
+      navLinks.classList.toggle('open');
+      overlay.classList.toggle('active');
+      document.body.style.overflow = navLinks.classList.contains('open') ? 'hidden' : '';
+    });
+    overlay.addEventListener('click', closeMenu);
+    function closeMenu() {
+      hamburger.classList.remove('active');
+      navLinks.classList.remove('open');
+      overlay.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+    document.querySelectorAll('a[href^="#"]').forEach(function(a) {
+      a.addEventListener('click', function(e) {
+        var t = document.querySelector(this.getAttribute('href'));
+        if (t) { e.preventDefault(); closeMenu(); t.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+      });
+    });
+    var obs = new IntersectionObserver(function(entries) {
+      entries.forEach(function(en) {
+        if (en.isIntersecting) { en.target.classList.add('vis'); obs.unobserve(en.target); }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+    document.querySelectorAll('.reveal').forEach(function(el) { obs.observe(el); });
+  </script>
+
+</body>
+</html>
