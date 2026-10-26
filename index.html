@@ -209,9 +209,31 @@
     .tag {
       padding: 0.5rem 1rem; border-radius: 100px; font-size: 0.8rem;
       font-weight: 400; background: var(--white); color: var(--ink-soft);
-      transition: all 0.2s; cursor: default;
+      transition: all 0.2s; cursor: pointer; border: none; font-family: inherit;
     }
     .tag:hover { background: var(--accent-soft); color: var(--accent); }
+    .tag.active { background: var(--accent); color: var(--white); }
+    .instrument-detail {
+      max-width: 700px; margin: -2.5rem auto 3rem; padding: 2rem 2.5rem;
+      background: var(--white); border-radius: 20px; border: 1px solid var(--border);
+      display: none; animation: fadeSlide 0.3s ease;
+    }
+    .instrument-detail.open { display: block; }
+    @keyframes fadeSlide {
+      from { opacity: 0; transform: translateY(-8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .instrument-detail h3 {
+      font-family: var(--font-display); font-size: 1.15rem; font-weight: 400;
+      color: var(--ink); margin-bottom: 0.5rem;
+    }
+    .instrument-detail p { font-size: 0.85rem; color: var(--ink-muted); line-height: 1.7; font-weight: 300; margin-bottom: 0.5rem; }
+    .instrument-levels { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 0.75rem; }
+    .instrument-level {
+      padding: 0.3rem 0.75rem; border-radius: 100px; font-size: 0.7rem;
+      font-weight: 500; background: var(--accent-soft); color: var(--accent);
+      letter-spacing: 0.03em;
+    }
 
     .modes {
       display: grid; grid-template-columns: repeat(3, 1fr); gap: 2.5rem;
@@ -452,6 +474,7 @@
       .btn { width: 100%; justify-content: center; }
       .tags { gap: 0.3rem; }
       .tag { font-size: 0.75rem; padding: 0.4rem 0.85rem; }
+      .instrument-detail { padding: 1.5rem; margin: -2rem auto 2rem; }
     }
     /* ─── TIENDA ─── */
     .tienda-grid {
@@ -635,22 +658,28 @@
       </div>
 
       <div class="tags reveal">
-        <span class="tag">Guitarra cl&aacute;sica</span>
-        <span class="tag">Guitarra pop</span>
-        <span class="tag">Guitarra el&eacute;ctrica</span>
-        <span class="tag">Piano</span>
-        <span class="tag">Teclado</span>
-        <span class="tag">Canto</span>
-        <span class="tag">Bajo el&eacute;ctrico</span>
-        <span class="tag">Bater&iacute;a</span>
-        <span class="tag">Viol&iacute;n</span>
-        <span class="tag">Saxof&oacute;n</span>
-        <span class="tag">Clarinete</span>
-        <span class="tag">Flauta dulce</span>
-        <span class="tag">Flauta traversa</span>
-        <span class="tag">Ukelele</span>
-        <span class="tag">Teor&iacute;a y composici&oacute;n</span>
-        <span class="tag">Ensamble grupal</span>
+        <button class="tag" data-instrument="guitarra-clasica">Guitarra cl&aacute;sica</button>
+        <button class="tag" data-instrument="guitarra-pop">Guitarra pop</button>
+        <button class="tag" data-instrument="guitarra-electrica">Guitarra el&eacute;ctrica</button>
+        <button class="tag" data-instrument="piano">Piano</button>
+        <button class="tag" data-instrument="teclado">Teclado</button>
+        <button class="tag" data-instrument="canto">Canto</button>
+        <button class="tag" data-instrument="bajo-electrico">Bajo el&eacute;ctrico</button>
+        <button class="tag" data-instrument="bateria">Bater&iacute;a</button>
+        <button class="tag" data-instrument="violin">Viol&iacute;n</button>
+        <button class="tag" data-instrument="saxofon">Saxof&oacute;n</button>
+        <button class="tag" data-instrument="clarinete">Clarinete</button>
+        <button class="tag" data-instrument="flauta-dulce">Flauta dulce</button>
+        <button class="tag" data-instrument="flauta-traversa">Flauta traversa</button>
+        <button class="tag" data-instrument="ukelele">Ukelele</button>
+        <button class="tag" data-instrument="teoria">Teor&iacute;a y composici&oacute;n</button>
+        <button class="tag" data-instrument="ensamble">Ensamble grupal</button>
+      </div>
+
+      <div class="instrument-detail" id="instrumentDetail">
+        <h3 id="instrumentTitle"></h3>
+        <p id="instrumentDesc"></p>
+        <div class="instrument-levels" id="instrumentLevels"></div>
       </div>
 
       <div class="modes reveal">
@@ -1135,6 +1164,53 @@
       });
     }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
     document.querySelectorAll('.reveal').forEach(function(el) { obs.observe(el); });
+
+    var instruments = {
+      'guitarra-clasica': { name: 'Guitarra clásica', desc: 'Aprendizaje de guitarra clásica con técnica de dedos, lectura de partituras y repertorio clásico. Desde piezas sencillas hasta obras de concierto.', levels: ['Nivel 1 – Iniciación', 'Nivel 2 – Intermedio', 'Nivel 3 – Avanzado'] },
+      'guitarra-pop': { name: 'Guitarra pop', desc: 'Acordes, rasgueos, fingerpicking y canciones populares. Ideal para tocar tus canciones favoritas y acompañar con la voz.', levels: ['Nivel 1 – Iniciación', 'Nivel 2 – Intermedio', 'Nivel 3 – Avanzado'] },
+      'guitarra-electrica': { name: 'Guitarra eléctrica', desc: 'Técnicas de rock, blues, jazz y más. Uso de amplificador, pedales y efectos. Preparación para tocar en banda.', levels: ['Nivel 1 – Iniciación', 'Nivel 2 – Intermedio', 'Nivel 3 – Avanzado'] },
+      'piano': { name: 'Piano', desc: 'Formación clásica y moderna en piano acústico. Lectura de partituras, técnica, armonía e interpretación.', levels: ['Nivel 1 – Iniciación', 'Nivel 2 – Intermedio', 'Nivel 3 – Avanzado'] },
+      'teclado': { name: 'Teclado', desc: 'Aprendizaje de teclado electrónico con acompañamiento automático, estilos musicales y bases rítmicas.', levels: ['Nivel 1 – Iniciación', 'Nivel 2 – Intermedio', 'Nivel 3 – Avanzado'] },
+      'canto': { name: 'Canto', desc: 'Técnica vocal, respiración, afinación, interpretación y preparación de repertorio. Géneros populares y clásicos.', levels: ['Nivel 1 – Iniciación', 'Nivel 2 – Intermedio', 'Nivel 3 – Avanzado'] },
+      'bajo-electrico': { name: 'Bajo eléctrico', desc: 'Fundamentos del bajo, líneas de bajo en diferentes géneros, slap, grooves y trabajo en ensamble.', levels: ['Nivel 1 – Iniciación', 'Nivel 2 – Intermedio', 'Nivel 3 – Avanzado'] },
+      'bateria': { name: 'Batería', desc: 'Coordinación, ritmos básicos y avanzados, lectura rítmica, fills e independencia de manos y pies.', levels: ['Nivel 1 – Iniciación', 'Nivel 2 – Intermedio', 'Nivel 3 – Avanzado'] },
+      'violin': { name: 'Violín', desc: 'Técnica de arco, postura, afinación, lectura de partituras y repertorio clásico y popular.', levels: ['Nivel 1 – Iniciación', 'Nivel 2 – Intermedio', 'Nivel 3 – Avanzado'] },
+      'saxofon': { name: 'Saxofón', desc: 'Embocadura, respiración, digitación y repertorio en jazz, clásico y popular. Saxofón alto y tenor.', levels: ['Nivel 1 – Iniciación', 'Nivel 2 – Intermedio', 'Nivel 3 – Avanzado'] },
+      'clarinete': { name: 'Clarinete', desc: 'Técnica de viento, caña, digitación y repertorio clásico. Desarrollo de sonido limpio y expresivo.', levels: ['Nivel 1 – Iniciación', 'Nivel 2 – Intermedio', 'Nivel 3 – Avanzado'] },
+      'flauta-dulce': { name: 'Flauta dulce', desc: 'Introducción ideal a los instrumentos de viento. Técnica básica, lectura musical y canciones didácticas.', levels: ['Nivel 1 – Iniciación', 'Nivel 2 – Intermedio'] },
+      'flauta-traversa': { name: 'Flauta traversa', desc: 'Embocadura, postura, digitación avanzada y repertorio clásico y contemporáneo.', levels: ['Nivel 1 – Iniciación', 'Nivel 2 – Intermedio', 'Nivel 3 – Avanzado'] },
+      'ukelele': { name: 'Ukelele', desc: 'Acordes, rasgueos y canciones populares en un instrumento portátil y divertido. Perfecto para todas las edades.', levels: ['Nivel 1 – Iniciación', 'Nivel 2 – Intermedio'] },
+      'teoria': { name: 'Teoría y composición', desc: 'Lectura musical, armonía, contrapunto, arreglo y composición de canciones originales. Complemento ideal para cualquier instrumento.', levels: ['Básico', 'Intermedio', 'Avanzado'] },
+      'ensamble': { name: 'Ensamble grupal', desc: 'Práctica en grupo con diferentes instrumentos. Aprendizaje de trabajo en equipo musical, dinámica de banda y presentaciones en vivo.', levels: ['Abierto a todos los niveles'] }
+    };
+    var detail = document.getElementById('instrumentDetail');
+    var detailTitle = document.getElementById('instrumentTitle');
+    var detailDesc = document.getElementById('instrumentDesc');
+    var detailLevels = document.getElementById('instrumentLevels');
+    var activeTag = null;
+    document.querySelectorAll('.tag[data-instrument]').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        var key = this.getAttribute('data-instrument');
+        if (activeTag === this) {
+          this.classList.remove('active');
+          detail.classList.remove('open');
+          activeTag = null;
+          return;
+        }
+        if (activeTag) activeTag.classList.remove('active');
+        this.classList.add('active');
+        activeTag = this;
+        var info = instruments[key];
+        detailTitle.textContent = info.name;
+        detailDesc.textContent = info.desc;
+        detailLevels.innerHTML = info.levels.map(function(l) {
+          return '<span class="instrument-level">' + l + '</span>';
+        }).join('');
+        detail.classList.remove('open');
+        void detail.offsetWidth;
+        detail.classList.add('open');
+      });
+    });
   </script>
 
 </body>
