@@ -3,8 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Selah Music Academia</title>
+  <title>Selah Music Academia | Clases de Música en San José, Costa Rica</title>
   <meta name="description" content="Academia de música en San José, Costa Rica. 9 años formando músicos de todas las edades. Guitarra, piano, canto, batería, violín, saxofón y más.">
+  <meta property="og:title" content="Selah Music Academia | Clases de Música en San José, Costa Rica">
+  <meta property="og:description" content="Academia de música en San José, Costa Rica. 9 años formando músicos de todas las edades. Guitarra, piano, canto, batería, violín, saxofón y más.">
+  <meta property="og:type" content="website">
   <link rel="icon" type="image/png" href="favicon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -12,14 +15,14 @@
   <style>
     :root {
       --white: #FFFFFF;
-      --bg: #FAFAF8;
-      --warm: #F5F2EE;
-      --ink: #1D1D1F;
-      --ink-soft: #48464A;
-      --ink-muted: #8E8C91;
-      --terra: #C4836A;
-      --terra-soft: #F8F0EC;
-      --border: #ECEAE6;
+      --bg: #F8FAFA;
+      --warm: #F0F4F4;
+      --ink: #1A1D2B;
+      --ink-soft: #3D4155;
+      --ink-muted: #7B7F91;
+      --accent: #4EAAA0;
+      --accent-soft: #E8F5F3;
+      --border: #E4E8EA;
 
       --font-display: 'DM Serif Display', Georgia, serif;
       --font-body: 'DM Sans', system-ui, sans-serif;
@@ -105,7 +108,7 @@
     }
     .hero-eyebrow {
       font-size: 0.75rem; font-weight: 500; letter-spacing: 0.15em;
-      text-transform: uppercase; color: var(--terra);
+      text-transform: uppercase; color: var(--accent);
       margin-bottom: 1.25rem;
     }
     .hero h1 {
@@ -179,7 +182,7 @@
     .sec-inner { max-width: 1000px; margin: 0 auto; }
     .sec-label {
       font-size: 0.7rem; font-weight: 500; letter-spacing: 0.15em;
-      text-transform: uppercase; color: var(--terra); margin-bottom: 0.75rem;
+      text-transform: uppercase; color: var(--accent); margin-bottom: 0.75rem;
     }
     .sec-title {
       font-family: var(--font-display); font-size: clamp(1.75rem, 3.5vw, 2.5rem);
@@ -204,7 +207,7 @@
       font-weight: 400; background: var(--white); color: var(--ink-soft);
       transition: all 0.2s; cursor: default;
     }
-    .tag:hover { background: var(--terra-soft); color: var(--terra); }
+    .tag:hover { background: var(--accent-soft); color: var(--accent); }
 
     .modes {
       display: grid; grid-template-columns: repeat(3, 1fr); gap: 2.5rem;
@@ -227,7 +230,7 @@
       background: var(--warm); border-radius: 24px; overflow: hidden;
     }
     .pgm-body { padding: 3.5rem; }
-    .pgm-body .sec-label { color: var(--terra); }
+    .pgm-body .sec-label { color: var(--accent); }
     .pgm-body h3 {
       font-family: var(--font-display); color: var(--ink);
       font-size: clamp(1.5rem, 2.5vw, 2rem); font-weight: 400;
@@ -236,7 +239,7 @@
     .pgm-body p { color: var(--ink-muted); font-size: 0.9rem; line-height: 1.75; font-weight: 300; }
     .pgm-age {
       display: inline-block; margin-top: 1.25rem;
-      background: var(--white); color: var(--terra); padding: 0.4rem 1rem;
+      background: var(--white); color: var(--accent); padding: 0.4rem 1rem;
       border-radius: 100px; font-size: 0.75rem; font-weight: 500;
       letter-spacing: 0.03em;
     }
@@ -269,7 +272,7 @@
     }
     .years-num {
       font-family: var(--font-display); font-size: 1.75rem;
-      color: var(--terra); line-height: 1;
+      color: var(--accent); line-height: 1;
     }
     .years-text { font-size: 0.65rem; color: var(--ink-muted); font-weight: 500; line-height: 1.3; text-transform: uppercase; letter-spacing: 0.05em; }
     .nosotros-body .sec-title { margin-bottom: 1.25rem; }
@@ -306,7 +309,7 @@
     }
     .featured-label {
       position: absolute; top: -9px; left: 50%; transform: translateX(-50%);
-      background: var(--terra); color: var(--white);
+      background: var(--accent); color: var(--white);
       font-size: 0.65rem; font-weight: 500; padding: 0.2rem 0.9rem;
       border-radius: 100px; letter-spacing: 0.05em;
     }
@@ -343,7 +346,7 @@
       background: var(--bg);
       display: flex; align-items: center; justify-content: center;
     }
-    .c-icon svg { width: 16px; height: 16px; stroke: var(--terra); fill: none; stroke-width: 1.5; }
+    .c-icon svg { width: 16px; height: 16px; stroke: var(--accent); fill: none; stroke-width: 1.5; }
     .c-label { font-weight: 500; font-size: 0.85rem; color: var(--ink); }
     .c-val { font-size: 0.8rem; color: var(--ink-muted); font-weight: 300; }
 
@@ -369,7 +372,7 @@
     .wa-box > p { color: var(--ink-muted); font-size: 0.85rem; margin-bottom: 1.5rem; font-weight: 300; }
     .wa-num {
       font-family: var(--font-display); font-size: 1.2rem;
-      color: var(--terra); margin-top: 1rem; user-select: all;
+      color: var(--accent); margin-top: 1rem; user-select: all;
     }
     .wa-hint { font-size: 0.7rem; color: var(--ink-muted); margin-top: 0.25rem; font-weight: 300; }
 
@@ -450,6 +453,7 @@
     </a>
     <ul class="nav-links" id="navLinks">
       <li><a href="#carreras" onclick="closeMenu()">Carreras</a></li>
+      <li><a href="#servicios" onclick="closeMenu()">Servicios</a></li>
       <li><a href="#nosotros" onclick="closeMenu()">Nosotros</a></li>
       <li><a href="#precios" onclick="closeMenu()">Precios</a></li>
       <li><a href="#contacto" onclick="closeMenu()" class="nav-cta">Contactar</a></li>
@@ -489,27 +493,27 @@
       </div>
     </div>
     <div class="hero-right">
-      <img src="img/img-9.png" alt="Recital de alumnos de Selah Music Academia">
+      <img src="img/img-9.webp" alt="Recital de alumnos de Selah Music Academia" width="799" height="620">
     </div>
   </section>
 
   <!-- MARQUEE -->
   <div class="marquee">
     <div class="marquee-track" aria-hidden="true">
-      <img src="img/img-1.png" alt="Guitarra"><span class="marquee-dot"></span>
-      <img src="img/img-2.png" alt="Piano"><span class="marquee-dot"></span>
-      <img src="img/img-3.png" alt="Saxof&oacute;n"><span class="marquee-dot"></span>
-      <img src="img/img-5.png" alt="El&eacute;ctrica"><span class="marquee-dot"></span>
-      <img src="img/img-6.png" alt="Bater&iacute;a"><span class="marquee-dot"></span>
-      <img src="img/img-7.png" alt="Viol&iacute;n"><span class="marquee-dot"></span>
-      <img src="img/img-4.png" alt="Bajo"><span class="marquee-dot"></span>
-      <img src="img/img-1.png" alt="Guitarra"><span class="marquee-dot"></span>
-      <img src="img/img-2.png" alt="Piano"><span class="marquee-dot"></span>
-      <img src="img/img-3.png" alt="Saxof&oacute;n"><span class="marquee-dot"></span>
-      <img src="img/img-5.png" alt="El&eacute;ctrica"><span class="marquee-dot"></span>
-      <img src="img/img-6.png" alt="Bater&iacute;a"><span class="marquee-dot"></span>
-      <img src="img/img-7.png" alt="Viol&iacute;n"><span class="marquee-dot"></span>
-      <img src="img/img-4.png" alt="Bajo"><span class="marquee-dot"></span>
+      <img src="img/img-1.webp" alt="Guitarra" loading="lazy"><span class="marquee-dot"></span>
+      <img src="img/img-2.webp" alt="Piano" loading="lazy"><span class="marquee-dot"></span>
+      <img src="img/img-3.webp" alt="Saxof&oacute;n" loading="lazy"><span class="marquee-dot"></span>
+      <img src="img/img-5.webp" alt="El&eacute;ctrica" loading="lazy"><span class="marquee-dot"></span>
+      <img src="img/img-6.webp" alt="Bater&iacute;a" loading="lazy"><span class="marquee-dot"></span>
+      <img src="img/img-7.webp" alt="Viol&iacute;n" loading="lazy"><span class="marquee-dot"></span>
+      <img src="img/img-4.webp" alt="Bajo" loading="lazy"><span class="marquee-dot"></span>
+      <img src="img/img-1.webp" alt="Guitarra" loading="lazy"><span class="marquee-dot"></span>
+      <img src="img/img-2.webp" alt="Piano" loading="lazy"><span class="marquee-dot"></span>
+      <img src="img/img-3.webp" alt="Saxof&oacute;n" loading="lazy"><span class="marquee-dot"></span>
+      <img src="img/img-5.webp" alt="El&eacute;ctrica" loading="lazy"><span class="marquee-dot"></span>
+      <img src="img/img-6.webp" alt="Bater&iacute;a" loading="lazy"><span class="marquee-dot"></span>
+      <img src="img/img-7.webp" alt="Viol&iacute;n" loading="lazy"><span class="marquee-dot"></span>
+      <img src="img/img-4.webp" alt="Bajo" loading="lazy"><span class="marquee-dot"></span>
     </div>
   </div>
 
@@ -568,7 +572,7 @@
           <span class="pgm-age">4 a 10 a&ntilde;os</span>
         </div>
         <div class="pgm-photo">
-          <img src="img/img-10.png" alt="Ni&ntilde;os aprendiendo m&uacute;sica">
+          <img src="img/img-10.webp" alt="Ni&ntilde;os aprendiendo m&uacute;sica" loading="lazy" width="612" height="408">
         </div>
       </div>
 
@@ -588,12 +592,48 @@
     </div>
   </section>
 
+  <!-- SERVICIOS -->
+  <section class="sec" id="servicios">
+    <div class="sec-inner">
+      <div class="carreras-header reveal">
+        <p class="sec-label">Servicios</p>
+        <h2 class="sec-title">M&aacute;s que una academia</h2>
+        <p class="sec-desc">Ofrecemos servicios profesionales de m&uacute;sica para cada necesidad.</p>
+      </div>
+
+      <div class="extras reveal">
+        <div class="extra">
+          <p class="sec-label">Grabaci&oacute;n</p>
+          <h3>Estudio de grabaci&oacute;n</h3>
+          <p>Producci&oacute;n de podcasts, anuncios radiales, m&uacute;sica virtual y en vivo. Equipo profesional para tu proyecto.</p>
+        </div>
+        <div class="extra">
+          <p class="sec-label">Eventos</p>
+          <h3>M&uacute;sica para bodas y eventos</h3>
+          <p>Repertorio personalizado de 5 canciones a elecci&oacute;n del cliente. M&uacute;sica en vivo para momentos especiales.</p>
+        </div>
+        <div class="extra">
+          <p class="sec-label">Mantenimiento</p>
+          <h3>Reparaci&oacute;n de instrumentos</h3>
+          <p>Servicio t&eacute;cnico y mantenimiento para instrumentos musicales y equipo de sonido.</p>
+        </div>
+        <div class="extra">
+          <p class="sec-label">Producci&oacute;n</p>
+          <h3>Curso de audio y sonido</h3>
+          <p>Aprend&eacute; producci&oacute;n musical, sonido en vivo y t&eacute;cnicas de grabaci&oacute;n con nuestro equipo profesional.</p>
+        </div>
+      </div>
+
+      <p class="reveal" style="text-align: center; font-size: 0.8rem; color: var(--ink-muted); margin-top: 2.5rem; font-weight: 300; font-style: italic;">Pr&oacute;ximamente: venta de instrumentos y accesorios con facilidades de pago.</p>
+    </div>
+  </section>
+
   <!-- NOSOTROS -->
   <section class="sec" id="nosotros">
     <div class="sec-inner">
       <div class="nosotros-grid reveal">
         <div class="nosotros-photo">
-          <img src="img/img-11.png" alt="Presentaci&oacute;n musical">
+          <img src="img/img-11.webp" alt="Presentaci&oacute;n musical" loading="lazy" width="612" height="408">
           <div class="years-badge">
             <div class="years-num">9</div>
             <div class="years-text">a&ntilde;os de<br>experiencia</div>
@@ -602,7 +642,7 @@
         <div class="nosotros-body">
           <p class="sec-label">Nosotros</p>
           <h2 class="sec-title">Creando arte desde 2017</h2>
-          <p>Somos una academia musical ideada para todas las edades. Ofrecemos carreras musicales en distintos instrumentos y canto.</p>
+          <p>Fundada por Bryan Mart&iacute;nez, Selah Music Academia es un espacio ideado para todas las edades. Con m&aacute;s de 15 a&ntilde;os de experiencia musical y material did&aacute;ctico 100% original y patentado, ofrecemos carreras en distintos instrumentos y canto.</p>
           <p>Hemos visto el fruto y crecimiento de muchos talentos que se han desarrollado con nuestro sistema, de manera que ni&ntilde;os, j&oacute;venes y adultos disfruten y logren su sue&ntilde;o musical sin l&iacute;mite.</p>
           <div class="vm-row">
             <div class="vm-card">
@@ -614,6 +654,7 @@
               <p>Crear arte en nuestra sociedad, promoviendo el placer de la m&uacute;sica e inspirando a grandes y peque&ntilde;os a so&ntilde;ar.</p>
             </div>
           </div>
+          <p style="margin-top: 1.5rem; padding-top: 1.25rem; border-top: 1px solid var(--border); font-size: 0.8rem; color: var(--ink-muted); font-weight: 300; line-height: 1.7; font-style: italic;">Nuestro material did&aacute;ctico es 100% original, desarrollado desde 2010, patentado y registrado &mdash; incluyendo los libros del programa Peque&ntilde;o Gran M&uacute;sico con actividades interactivas para ni&ntilde;os.</p>
         </div>
       </div>
     </div>
@@ -695,7 +736,7 @@
         </div>
 
         <div class="wa-box">
-          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="var(--terra)" stroke-width="1.2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6A19.79 19.79 0 012.12 4.18 2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6A19.79 19.79 0 012.12 4.18 2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
           <h3>Tu primera lecci&oacute;n</h3>
           <p>Escribinos y te contamos todo sobre carreras, horarios y c&oacute;mo empezar.</p>
           <a href="https://wa.me/50688053997?text=Hola%2C%20me%20interesa%20info%20sobre%20las%20clases%20en%20Selah%20Music%20Academia" class="btn btn-wa" target="_blank" rel="noopener">

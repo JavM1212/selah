@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Selah Music — Requerimientos</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&display=swap">
+<style>
+  html { color-scheme: light; }
+  /* Layout: single-column document, max 780px, clear hierarchy */
+  :root {
+    --bg: #F8FAFA;
+    --surface: #FFFFFF;
+    --ink: #1A1D2B;
+    --ink-soft: #3D4155;
+    --ink-muted: #7B7F91;
+    --teal: #4EAAA0;
+    --teal-soft: #E8F5F3;
+    --purple: #7B4B9E;
+    --purple-soft: #F3EEF7;
+    --magenta: #D44B8E;
+    --magenta-soft: #FDF0F5;
+    --border: #E4E8EA;
+    --red: #D9534F;
+    --amber: #E6A23C;
+    --green: #4EAA68;
+    --font-display: 'DM Serif Display', Georgia, serif;
+    --font-body: 'DM Sans', system-ui, sans-serif;
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--ink-soft);
+    font-family: var(--font-body);
+    line-height: 1.7;
+    padding-left: max(16px, env(safe-area-inset-left, 0px));
+    padding-right: max(16px, env(safe-area-inset-right, 0px));
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .wrap {
+    max-width: 780px;
+    margin: 0 auto;
+    padding-block: 2rem 4rem;
+  }
+
+  /* Header */
+  .header {
+    margin-bottom: 3rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .header-eyebrow {
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--teal);
+    margin-bottom: 0.5rem;
+  }
+  .header h1 {
+    font-family: var(--font-display);
+    font-size: clamp(1.75rem, 4vw, 2.5rem);
+    font-weight: 400;
+    color: var(--ink);
+    line-height: 1.15;
+    margin-bottom: 0.75rem;
+  }
+  .header p {
+    font-size: 0.95rem;
+    color: var(--ink-muted);
+    max-width: 520px;
+    font-weight: 300;
+  }
+  .header-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    margin-top: 1.25rem;
+    font-size: 0.75rem;
+    color: var(--ink-muted);
+  }
+  .header-meta span {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+  }
+  .header-meta .dot {
+    width: 5px; height: 5px; border-radius: 50%;
+    background: var(--teal);
+    display: inline-block;
+  }
+
+  /* Section */
+  .section {
+    margin-bottom: 2.5rem;
+  }
+  .section-title {
+    font-family: var(--font-display);
+    font-size: 1.35rem;
+    font-weight: 400;
+    color: var(--ink);
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .section-desc {
+    font-size: 0.85rem;
+    color: var(--ink-muted);
+    margin-bottom: 1.25rem;
+    font-weight: 300;
+  }
+
+  /* Priority table */
+  .priority-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.8rem;
+  }
+  .priority-table th {
+    text-align: left;
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    padding: 0.6rem 0.75rem;
+    border-bottom: 2px solid var(--border);
+  }
+  .priority-table td {
+    padding: 0.65rem 0.75rem;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+  }
+  .priority-table tr:last-child td {
+    border-bottom: none;
+  }
+  .badge {
+    display: inline-block;
+    padding: 0.15rem 0.5rem;
+    border-radius: 100px;
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+  .badge-alta { background: var(--magenta-soft); color: var(--magenta); }
+  .badge-media { background: var(--purple-soft); color: var(--purple); }
+  .badge-baja { background: var(--teal-soft); color: var(--teal); }
+
+  /* Cards grid */
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 0.75rem;
+  }
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.25rem;
+  }
+  .card-label {
+    font-size: 0.6rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--teal);
+    margin-bottom: 0.35rem;
+  }
+  .card h3 {
+    font-family: var(--font-display);
+    font-size: 1rem;
+    font-weight: 400;
+    color: var(--ink);
+    margin-bottom: 0.35rem;
+  }
+  .card p {
+    font-size: 0.78rem;
+    color: var(--ink-muted);
+    line-height: 1.6;
+    font-weight: 300;
+  }
+
+  /* Palette */
+  .palette-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+  }
+  .swatch {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 0.5rem 0.75rem 0.5rem 0.5rem;
+    min-width: 0;
+  }
+  .swatch-color {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    flex-shrink: 0;
+  }
+  .swatch-info {
+    min-width: 0;
+  }
+  .swatch-name {
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: var(--ink);
+  }
+  .swatch-hex {
+    font-size: 0.65rem;
+    color: var(--ink-muted);
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Checklist */
+  .checklist {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+  .checklist li {
+    display: flex;
+    gap: 0.6rem;
+    align-items: flex-start;
+    font-size: 0.82rem;
+    line-height: 1.5;
+    padding: 0.5rem 0.75rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+  }
+  .checklist .num {
+    font-family: var(--font-display);
+    font-size: 0.9rem;
+    color: var(--teal);
+    line-height: 1.4;
+    flex-shrink: 0;
+    width: 1.5rem;
+    text-align: center;
+  }
+
+  /* Phases */
+  .phase {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 1.5rem;
+    margin-bottom: 0.75rem;
+  }
+  .phase-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 0.75rem;
+  }
+  .phase-num {
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-display);
+    font-size: 0.85rem;
+    flex-shrink: 0;
+  }
+  .phase-num-1 { background: var(--teal-soft); color: var(--teal); }
+  .phase-num-2 { background: var(--purple-soft); color: var(--purple); }
+  .phase-num-3 { background: var(--magenta-soft); color: var(--magenta); }
+  .phase h3 {
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    font-weight: 400;
+    color: var(--ink);
+  }
+  .phase-items {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+  .phase-items li {
+    font-size: 0.8rem;
+    color: var(--ink-soft);
+    padding: 0.25rem 0;
+    padding-left: 1rem;
+    position: relative;
+    line-height: 1.5;
+  }
+  .phase-items li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.65rem;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: var(--ink-muted);
+  }
+
+  /* Gradient bar */
+  .gradient-bar {
+    height: 4px;
+    border-radius: 2px;
+    background: linear-gradient(135deg, #4EAAA0, #7B4B9E, #D44B8E);
+    margin-bottom: 1.5rem;
+  }
+
+  /* Next steps */
+  .steps {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .step {
+    display: flex;
+    gap: 0.75rem;
+    align-items: flex-start;
+    padding: 0.85rem 1rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+  }
+  .step-num {
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    color: var(--teal);
+    line-height: 1.3;
+    flex-shrink: 0;
+  }
+  .step-content h4 {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--ink);
+    margin-bottom: 0.15rem;
+  }
+  .step-content p {
+    font-size: 0.78rem;
+    color: var(--ink-muted);
+    font-weight: 300;
+  }
+
+  /* Responsive */
+  @media (max-width: 600px) {
+    .priority-table { font-size: 0.75rem; }
+    .priority-table th, .priority-table td { padding: 0.5rem 0.4rem; }
+    .cards { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- Header -->
+  <header class="header">
+    <p class="header-eyebrow">Análisis de requerimientos</p>
+    <h1>Selah Music Academia</h1>
+    <p>Análisis consolidado del sitio web, basado en la reunión del 22 de octubre 2026 con el profesor Bryan Martínez y el estado actual del proyecto.</p>
+    <div class="header-meta">
+      <span><span class="dot"></span> 5 agentes de análisis</span>
+      <span><span class="dot"></span> 22 oct 2026 — reunión fuente</span>
+      <span><span class="dot"></span> Sitio actual: ~70% completo</span>
+    </div>
+  </header>
+
+  <!-- Hallazgo clave -->
+  <div class="section">
+    <div class="gradient-bar"></div>
+    <h2 class="section-title">Hallazgos clave</h2>
+    <div class="cards">
+      <div class="card">
+        <p class="card-label">Identidad visual</p>
+        <h3>La paleta no coincide con la marca</h3>
+        <p>El logo usa un gradiente teal → purple → magenta, pero el sitio tiene tonos terracotta. Hay que alinear.</p>
+      </div>
+      <div class="card">
+        <p class="card-label">Contenido</p>
+        <h3>La academia se vende corta</h3>
+        <p>Grabación, bodas, reparación, curso de audio — servicios activos que no están en el sitio.</p>
+      </div>
+      <div class="card">
+        <p class="card-label">Digital</p>
+        <h3>Cero presencia online</h3>
+        <p>No hay Instagram, Facebook, YouTube ni TikTok. Este sitio es el debut digital de Selah.</p>
+      </div>
+      <div class="card">
+        <p class="card-label">SEO</p>
+        <h3>6+ escuelas "Selah Music" en el mundo</h3>
+        <p>Hay que diferenciar con "Costa Rica" y "San José" en el título y meta tags.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Gaps prioritarios -->
+  <div class="section">
+    <h2 class="section-title">Gaps prioritarios</h2>
+    <p class="section-desc">Lo que falta o necesita corrección en el sitio actual.</p>
+    <div style="overflow-x: auto;">
+      <table class="priority-table">
+        <thead>
+          <tr>
+            <th>Prioridad</th>
+            <th>Sección</th>
+            <th>Estado</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="badge badge-alta">Alta</span></td>
+            <td style="color: var(--ink); font-weight: 500;">Servicios adicionales</td>
+            <td>No existe — contenido real disponible de la reunión (grabación, bodas, reparación, audio)</td>
+          </tr>
+          <tr>
+            <td><span class="badge badge-alta">Alta</span></td>
+            <td style="color: var(--ink); font-weight: 500;">Profesores / Equipo</td>
+            <td>No existe — al menos Bryan Martínez como fundador con su filosofía</td>
+          </tr>
+          <tr>
+            <td><span class="badge badge-alta">Alta</span></td>
+            <td style="color: var(--ink); font-weight: 500;">Paleta de colores</td>
+            <td>Cambiar terracotta (#C4836A) → teal (#4EAAA0) del logo</td>
+          </tr>
+          <tr>
+            <td><span class="badge badge-alta">Alta</span></td>
+            <td style="color: var(--ink); font-weight: 500;">Links de redes sociales</td>
+            <td>Todos apuntan a # — necesitan URLs reales o ser ocultados</td>
+          </tr>
+          <tr>
+            <td><span class="badge badge-alta">Alta</span></td>
+            <td style="color: var(--ink); font-weight: 500;">Archivos opcion-*.html</td>
+            <td>6 archivos de diseño previo que no deben ir a producción</td>
+          </tr>
+          <tr>
+            <td><span class="badge badge-alta">Alta</span></td>
+            <td style="color: var(--ink); font-weight: 500;">Deploy a Vercel</td>
+            <td>El profe necesita ver la página en vivo para dar feedback</td>
+          </tr>
+          <tr>
+            <td><span class="badge badge-media">Media</span></td>
+            <td style="color: var(--ink); font-weight: 500;">Nosotros</td>
+            <td>Falta Bryan como fundador, historia de los libros patentados desde 2010</td>
+          </tr>
+          <tr>
+            <td><span class="badge badge-media">Media</span></td>
+            <td style="color: var(--ink); font-weight: 500;">Libros / Material didáctico</td>
+            <td>Diferenciador clave — 100% original, patentado. No se menciona.</td>
+          </tr>
+          <tr>
+            <td><span class="badge badge-media">Media</span></td>
+            <td style="color: var(--ink); font-weight: 500;">SEO title</td>
+            <td>Agregar "Costa Rica" para diferenciarse de las otras 6+ escuelas</td>
+          </tr>
+          <tr>
+            <td><span class="badge badge-media">Media</span></td>
+            <td style="color: var(--ink); font-weight: 500;">Optimización de imágenes</td>
+            <td>img-9.png pesa 658KB — convertir a WebP, lazy loading</td>
+          </tr>
+          <tr>
+            <td><span class="badge badge-baja">Baja</span></td>
+            <td style="color: var(--ink); font-weight: 500;">Testimonios</td>
+            <td>Esperar videos reales (Familia 3G, niño prodigio) — no fabricar</td>
+          </tr>
+          <tr>
+            <td><span class="badge badge-baja">Baja</span></td>
+            <td style="color: var(--ink); font-weight: 500;">Tienda de instrumentos</td>
+            <td>Mencionar como "próximamente" dentro de servicios</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Paleta recomendada -->
+  <div class="section">
+    <h2 class="section-title">Paleta recomendada</h2>
+    <p class="section-desc">Alineada al logo real de Selah Music. Tonos claros, minimalista pero no vacío.</p>
+    <div class="palette-row">
+      <div class="swatch">
+        <div class="swatch-color" style="background: #4EAAA0;"></div>
+        <div class="swatch-info">
+          <div class="swatch-name">Teal (primario)</div>
+          <div class="swatch-hex">#4EAAA0</div>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background: #7B4B9E;"></div>
+        <div class="swatch-info">
+          <div class="swatch-name">Purple (secundario)</div>
+          <div class="swatch-hex">#7B4B9E</div>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background: #D44B8E;"></div>
+        <div class="swatch-info">
+          <div class="swatch-name">Magenta (pop)</div>
+          <div class="swatch-hex">#D44B8E</div>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background: #1A1D2B;"></div>
+        <div class="swatch-info">
+          <div class="swatch-name">Ink (texto)</div>
+          <div class="swatch-hex">#1A1D2B</div>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background: #F8FAFA; border: 1px solid #E4E8EA;"></div>
+        <div class="swatch-info">
+          <div class="swatch-name">Background</div>
+          <div class="swatch-hex">#F8FAFA</div>
+        </div>
+      </div>
+    </div>
+    <div style="height: 6px; border-radius: 3px; background: linear-gradient(135deg, #4EAAA0, #7B4B9E, #D44B8E); max-width: 200px;"></div>
+    <p style="font-size: 0.75rem; color: var(--ink-muted); margin-top: 0.5rem;">Gradiente del logo — usar con moderación para acentos decorativos</p>
+  </div>
+
+  <!-- Fases -->
+  <div class="section">
+    <h2 class="section-title">Roadmap por fases</h2>
+
+    <div class="phase">
+      <div class="phase-header">
+        <div class="phase-num phase-num-1">1</div>
+        <h3>MVP — Lanzamiento</h3>
+      </div>
+      <ul class="phase-items">
+        <li>Hero con branding Selah Music, CTA a WhatsApp, stats (9 años, 15+ instrumentos)</li>
+        <li>Carreras: 16 instrumentos, 3 modalidades, PGM, talleres, presentaciones</li>
+        <li>Servicios: grabación, bodas/eventos, reparación, curso de audio</li>
+        <li>Nosotros: Bryan Martínez fundador, historia, libros originales desde 2010</li>
+        <li>Precios: matrícula, individual, grupal (confirmar montos con Bryan)</li>
+        <li>Contacto: WhatsApp, ubicación, horarios, redes sociales</li>
+        <li>Deploy a Vercel para feedback en tiempo real</li>
+      </ul>
+    </div>
+
+    <div class="phase">
+      <div class="phase-header">
+        <div class="phase-num phase-num-2">2</div>
+        <h3>Mejorado — Con contenido del cliente</h3>
+      </div>
+      <ul class="phase-items">
+        <li>Sección de profesores con fotos y bios reales</li>
+        <li>Testimonios en video: Familia 3G, niño prodigio, entrevistas a papás</li>
+        <li>Galería de fotos/videos de recitales</li>
+        <li>Preview de libros originales patentados</li>
+        <li>Tienda básica: catálogo de instrumentos con financiamiento</li>
+        <li>Páginas individuales por carrera/instrumento con niveles</li>
+        <li>Links reales a redes sociales, Google Maps con ubicación exacta</li>
+      </ul>
+    </div>
+
+    <div class="phase">
+      <div class="phase-header">
+        <div class="phase-num phase-num-3">3</div>
+        <h3>Futuro — Plataforma completa</h3>
+      </div>
+      <ul class="phase-items">
+        <li>App móvil con iconos de instrumentos → descripción por nivel</li>
+        <li>E-commerce: tienda con carrito, pago en línea, financiamiento</li>
+        <li>Plataforma de videoclases pregrabadas</li>
+        <li>Portal de estudiantes con progreso</li>
+        <li>QR dinámicos en libros físicos → landing pages</li>
+        <li>Programas especializados: estimulación temprana, adultos mayores, discapacidad</li>
+        <li>Red de academias: página por sucursal</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Confirmar con Bryan -->
+  <div class="section">
+    <h2 class="section-title">Confirmar con Bryan</h2>
+    <p class="section-desc">Datos que necesitamos validar antes de considerar el sitio completo.</p>
+    <ol class="checklist">
+      <li><span class="num">1</span> Precios actuales: matrícula, individual, grupal, PGM, virtual</li>
+      <li><span class="num">2</span> Dirección exacta de la academia en San José</li>
+      <li><span class="num">3</span> Links de redes sociales (¿existen o hay que crearlas?)</li>
+      <li><span class="num">4</span> Foto y biografía de Bryan Martínez</li>
+      <li><span class="num">5</span> Nombres y fotos de otros profesores</li>
+      <li><span class="num">6</span> ¿Los testimonios en video ya existen o son plan futuro?</li>
+      <li><span class="num">7</span> ¿La tienda de instrumentos debe aparecer ya en la web?</li>
+      <li><span class="num">8</span> Año oficial: ¿2017 la academia? ¿2010 la experiencia con libros?</li>
+      <li><span class="num">9</span> ¿"Cellar Music" es marca separada o error de transcripción?</li>
+      <li><span class="num">10</span> ¿Grabación, eventos y reparación se ofrecen activamente hoy?</li>
+    </ol>
+  </div>
+
+  <!-- Next steps -->
+  <div class="section">
+    <h2 class="section-title">Next steps inmediatos</h2>
+    <div class="steps">
+      <div class="step">
+        <span class="step-num">1</span>
+        <div class="step-content">
+          <h4>Conectar repo a Vercel</h4>
+          <p>Darle un link live a Bryan para que vea la página y dé feedback en tiempo real.</p>
+        </div>
+      </div>
+      <div class="step">
+        <span class="step-num">2</span>
+        <div class="step-content">
+          <h4>Limpiar archivos de opciones</h4>
+          <p>Eliminar opcion-1.html a opcion-6.html y opciones-index.html antes de producción.</p>
+        </div>
+      </div>
+      <div class="step">
+        <span class="step-num">3</span>
+        <div class="step-content">
+          <h4>Actualizar paleta de colores</h4>
+          <p>Cambiar terracotta → teal/purple/magenta alineado al logo real.</p>
+        </div>
+      </div>
+      <div class="step">
+        <span class="step-num">4</span>
+        <div class="step-content">
+          <h4>Agregar sección de Servicios</h4>
+          <p>Grabación, bodas/eventos, reparación de instrumentos, curso de audio/producción.</p>
+        </div>
+      </div>
+      <div class="step">
+        <span class="step-num">5</span>
+        <div class="step-content">
+          <h4>Expandir sección Nosotros</h4>
+          <p>Bryan Martínez como fundador, legado de libros originales patentados desde 2010.</p>
+        </div>
+      </div>
+      <div class="step">
+        <span class="step-num">6</span>
+        <div class="step-content">
+          <h4>Optimizar imágenes</h4>
+          <p>Convertir PNGs pesados a WebP, agregar lazy loading, responsive images.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer style="border-top: 1px solid var(--border); padding-top: 1.5rem; margin-top: 1rem;">
+    <p style="font-size: 0.7rem; color: var(--ink-muted); font-weight: 300;">
+      Selah Music Academia — Análisis de requerimientos · Generado 25 oct 2026 · Basado en reunión del 22 oct con Bryan Martínez
+    </p>
+  </footer>
+
+</div>
+</body>
+</html>
