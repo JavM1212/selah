@@ -1,0 +1,17 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "low-contrast",
+        "value": "*",
+        "files": [
+          "index.html"
+        ],
+        "createdAt": "2026-10-26T01:56:59.028Z",
+        "reason": "Decorative large numbers and nav on transparent hero — intentional design choices"
+      }
+    ]
+  }
+}

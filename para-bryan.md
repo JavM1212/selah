@@ -55,10 +55,8 @@ Basado en la reunión del 22 de octubre:
 
 ### V2 — Corto plazo
 - **QR en libros físicos** — código QR en los libros impresos que redirige a la página (actualizable sin reimprimir)
-- **Preview de libros** — sección donde se puedan hojear los libros del PGM desde la web
-- **Locución como servicio** — agregar a la lista de servicios (Bryan mencionó que tiene el equipo)
-- **Combo matrícula + instrumento** — paquete promocional con financiamiento
-- **Marca de agua digital** — "Selah Music by Bryan Martínez" en contenido descargable
+- **Preview de libros** — sección donde se puedan hojear los libros del PGM desde la web (Issuu gratis)
+- **Marca de agua digital** — "Selah Music by Bryan Martínez" en contenido descargable (iLovePDF/Canva gratis)
 - **Canal de YouTube** — embeber videos cuando exista el canal
 
 ### V3 — Mediano plazo
@@ -76,3 +74,32 @@ Basado en la reunión del 22 de octubre:
 - **Red de academias** — secciones para sucursales futuras (Joan y Mónica como subdirectores)
 - **Plataforma de videoclases** — acceso por suscripción a clases pregrabadas
 - **Agenda y reservas** — los alumnos reservan su horario de clase directamente
+
+---
+
+## Protección de contenido digital (videos, libros, pistas)
+
+Bryan quiere que cierto contenido (videoclases, libros del PGM, pistas) sea accesible para alumnos pero no descargable ni redistribuible. Opciones investigadas:
+
+### Videos de clases
+
+| Opción | Precio | Protección |
+|--------|--------|-----------|
+| YouTube no listado | Gratis | Mínima — se descarga con extensiones |
+| **Vimeo Starter** | ~$12/mes | Buena — desactiva descarga, restringe por dominio |
+| **Hotmart** | Gratis (cobra % por venta) | Buena — watermark automático con email del alumno |
+| Teachable/Thinkific | $39-49/mes | Buena pero cara para empezar |
+
+### PDFs / Libros
+
+| Opción | Precio | Protección |
+|--------|--------|-----------|
+| **Issuu** | Gratis (con ads) / $19/mes | Visor flipbook, sin descarga, sin clic derecho |
+| FlipHTML5 | Gratis limitado / $15/mes | Similar, se puede embeber en el sitio |
+
+### Recomendación
+
+- **Para vender cursos como producto:** Hotmart (gratis, cobra comisión) — incluye watermark dinámico + protección de video y PDF
+- **Solo para alumnos activos:** Vimeo Starter ($12/mes) + Issuu (gratis)
+- **Marca de agua estática:** iLovePDF o Canva (gratis) — "Selah Music by Bryan Martínez"
+- DRM completo (tipo Netflix) no es viable para una academia pequeña, pero el DRM ligero (login + sin descarga + watermark) disuade al 95% de los casos
