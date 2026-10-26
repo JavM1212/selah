@@ -436,6 +436,43 @@
       .tags { gap: 0.3rem; }
       .tag { font-size: 0.75rem; padding: 0.4rem 0.85rem; }
     }
+    /* ─── TIENDA ─── */
+    .tienda-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem;
+      max-width: 900px; margin: 0 auto;
+    }
+    .tienda-card {
+      background: var(--white); border-radius: 20px; padding: 2rem 1.5rem;
+      text-align: center; border: 1px solid var(--border); position: relative;
+      transition: transform 0.2s;
+    }
+    .tienda-card:hover { transform: translateY(-2px); }
+    .tienda-featured {
+      background: var(--accent-soft); border-color: var(--accent);
+    }
+    .tienda-icon { font-size: 2rem; margin-bottom: 0.75rem; }
+    .tienda-card h3 {
+      font-family: var(--font-display); font-size: 1.05rem; font-weight: 400;
+      color: var(--ink); margin-bottom: 0.35rem;
+    }
+    .tienda-price {
+      font-family: var(--font-display); font-size: 1.25rem; color: var(--accent);
+      margin-bottom: 0.5rem;
+    }
+    .tienda-desc {
+      font-size: 0.8rem; color: var(--ink-muted); font-weight: 300; line-height: 1.6;
+    }
+    .tienda-installments {
+      font-size: 0.75rem; color: var(--accent); font-weight: 500;
+      margin-top: 0.5rem;
+    }
+    @media (max-width: 900px) {
+      .tienda-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 480px) {
+      .tienda-grid { grid-template-columns: 1fr; max-width: 320px; }
+    }
+
     /* ─── PROFESORES ─── */
     .profesores-grid {
       display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem;
@@ -690,8 +727,69 @@
         </div>
       </div>
 
+    </div>
+  </section>
+
+  <!-- TIENDA -->
+  <section class="sec" id="tienda">
+    <div class="sec-inner">
+      <div class="carreras-header reveal">
+        <p class="sec-label">Tienda</p>
+        <h2 class="sec-title">Instrumentos y accesorios</h2>
+        <p class="sec-desc">Facilidades de pago para nuestros alumnos. Consult&aacute; disponibilidad por WhatsApp.</p>
+      </div>
+
+      <div class="tienda-grid reveal">
+        <div class="tienda-card">
+          <div class="tienda-icon">&#127928;</div>
+          <h3>Guitarra ac&uacute;stica</h3>
+          <p class="tienda-price">Desde &#8353;85,000</p>
+          <p class="tienda-desc">Ac&uacute;stica y electroac&uacute;stica. Varias marcas disponibles.</p>
+          <span class="placeholder-flag">&#9888;&#65039; Confirmar precios y marcas</span>
+        </div>
+        <div class="tienda-card tienda-featured">
+          <span class="featured-label">Combo</span>
+          <div class="tienda-icon">&#127929;</div>
+          <h3>Combo guitarra el&eacute;ctrica</h3>
+          <p class="tienda-price">&#8353;210,000</p>
+          <p class="tienda-desc">Guitarra Stratocaster + estuche + cable + amplificador. 4 colores disponibles.</p>
+          <p class="tienda-installments">Apartado en 3 cuotas de &#8353;70,000</p>
+        </div>
+        <div class="tienda-card">
+          <div class="tienda-icon">&#127931;</div>
+          <h3>Viol&iacute;n</h3>
+          <p class="tienda-price">Desde &#8353;65,000</p>
+          <p class="tienda-desc">Incluye estuche y arco. Tama&ntilde;os completo y 3/4.</p>
+          <span class="placeholder-flag">&#9888;&#65039; Confirmar precios</span>
+        </div>
+        <div class="tienda-card">
+          <div class="tienda-icon">&#127927;</div>
+          <h3>Teclado</h3>
+          <p class="tienda-price">Desde &#8353;89,900</p>
+          <p class="tienda-desc">Teclados para principiantes y nivel intermedio.</p>
+          <span class="placeholder-flag">&#9888;&#65039; Confirmar precios</span>
+        </div>
+        <div class="tienda-card">
+          <div class="tienda-icon">&#128268;</div>
+          <h3>Accesorios</h3>
+          <p class="tienda-price">Desde &#8353;3,500</p>
+          <p class="tienda-desc">Cuerdas, cables, capos, afinadores, fajas, estuches y micr&oacute;fonos.</p>
+          <span class="placeholder-flag">&#9888;&#65039; Confirmar cat&aacute;logo completo</span>
+        </div>
+        <div class="tienda-card">
+          <div class="tienda-icon">&#128666;</div>
+          <h3>Env&iacute;os</h3>
+          <p class="tienda-price">A domicilio</p>
+          <p class="tienda-desc">Entregas en San Jos&eacute; y env&iacute;os por correo a todo el pa&iacute;s.</p>
+        </div>
+      </div>
+
       <div class="reveal" style="text-align: center; margin-top: 2.5rem;">
-        <span class="placeholder-flag">&#9888;&#65039; PENDIENTE: &iquest;La tienda de instrumentos debe aparecer como secci&oacute;n en la web?</span>
+        <a href="https://wa.me/50688053997?text=Hola%2C%20me%20interesa%20info%20sobre%20instrumentos%20en%20Selah%20Music" class="btn btn-dark" target="_blank" rel="noopener">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51l-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          Consultar disponibilidad
+        </a>
+        <p style="font-size: 0.75rem; color: var(--ink-muted); margin-top: 0.75rem; font-weight: 300;">Facilidades de pago disponibles para alumnos activos</p>
       </div>
     </div>
   </section>
