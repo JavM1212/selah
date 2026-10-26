@@ -436,6 +436,58 @@
       .tags { gap: 0.3rem; }
       .tag { font-size: 0.75rem; padding: 0.4rem 0.85rem; }
     }
+    /* ─── PROFESORES ─── */
+    .profesores-grid {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem;
+      margin-top: 3rem;
+    }
+    .prof-card {
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: 20px; padding: 2rem 1.5rem; text-align: center;
+    }
+    .prof-card.featured { grid-column: 1 / -1; display: grid;
+      grid-template-columns: auto 1fr; text-align: left; gap: 2rem;
+      align-items: center; padding: 2.5rem;
+    }
+    .prof-avatar {
+      width: 80px; height: 80px; border-radius: 50%;
+      background: var(--warm); display: flex; align-items: center;
+      justify-content: center; margin: 0 auto 1rem; overflow: hidden;
+    }
+    .prof-card.featured .prof-avatar {
+      width: 120px; height: 120px; margin: 0;
+    }
+    .prof-avatar svg { opacity: 0.25; }
+    .prof-name {
+      font-family: var(--font-display); font-size: 1.05rem; font-weight: 400;
+      color: var(--ink); margin-bottom: 0.15rem;
+    }
+    .prof-card.featured .prof-name { font-size: 1.35rem; }
+    .prof-role {
+      font-size: 0.75rem; color: var(--accent); font-weight: 500;
+      letter-spacing: 0.05em; text-transform: uppercase;
+    }
+    .prof-bio {
+      font-size: 0.85rem; color: var(--ink-muted); font-weight: 300;
+      line-height: 1.7; margin-top: 0.5rem;
+    }
+    .placeholder-flag {
+      background: #FFF3CD; border: 2px dashed #F59E0B;
+      border-radius: 8px; padding: 0.5rem 0.75rem;
+      font-size: 0.75rem; color: #92400E; font-weight: 500;
+      display: inline-block; margin-top: 0.5rem;
+    }
+
+    @media (max-width: 900px) {
+      .profesores-grid { grid-template-columns: 1fr 1fr; }
+      .prof-card.featured { grid-column: 1 / -1; }
+    }
+    @media (max-width: 480px) {
+      .profesores-grid { grid-template-columns: 1fr; }
+      .prof-card.featured { grid-template-columns: 1fr; text-align: center; }
+      .prof-card.featured .prof-avatar { margin: 0 auto; }
+    }
+
     @media (prefers-reduced-motion: reduce) {
       .reveal { opacity: 1; transform: none; transition: none; }
       .marquee-track { animation: none; }
@@ -489,6 +541,7 @@
         <div class="stat">
           <div class="stat-num">100+</div>
           <div class="stat-label">Alumnos</div>
+          <span class="placeholder-flag">&#9888;&#65039; Confirmar cantidad</span>
         </div>
       </div>
     </div>
@@ -554,7 +607,7 @@
         <div class="mode">
           <div class="mode-num">02</div>
           <h3>Virtual</h3>
-          <p>Aprend&eacute; desde la comodidad de tu hogar con atenci&oacute;n personalizada y la misma calidad de estar presencialmente.</p>
+          <p>Aprend&eacute; desde la comodidad de tu hogar con instrumento digital en pantalla en tiempo real, atenci&oacute;n personalizada y la misma calidad de estar presencialmente.</p>
         </div>
         <div class="mode">
           <div class="mode-num">03</div>
@@ -568,8 +621,9 @@
         <div class="pgm-body">
           <p class="sec-label">Programa infantil</p>
           <h3>&ldquo;Peque&ntilde;o Gran M&uacute;sico&rdquo;</h3>
-          <p>Carrera adecuada para ni&ntilde;os de 4 a 10 a&ntilde;os en canto e instrumentos, fortaleciendo destrezas y seguridad en distintas &aacute;reas.</p>
+          <p>Carrera adecuada para ni&ntilde;os de 4 a 10 a&ntilde;os en canto e instrumentos, fortaleciendo destrezas y seguridad en distintas &aacute;reas. Incluye libros propios coloreables con pistas animadas en YouTube, material 100% original, patentado y registrado. Tambi&eacute;n contamos con libros grupales dise&ntilde;ados para ensambles de 5 personas con roles distintos.</p>
           <span class="pgm-age">4 a 10 a&ntilde;os</span>
+          <br><span class="placeholder-flag">&#9888;&#65039; PENDIENTE: Link a pista animada de YouTube</span>
         </div>
         <div class="pgm-photo">
           <img src="img/img-10.webp" alt="Ni&ntilde;os aprendiendo m&uacute;sica" loading="lazy" width="612" height="408">
@@ -587,6 +641,17 @@
           <p class="sec-label">Presentaciones en vivo</p>
           <h3>Sub&iacute; al escenario</h3>
           <p>Presentaciones musicales de medio y fin de a&ntilde;o. Brindamos la oportunidad de participar de esta gran experiencia.</p>
+        </div>
+        <div class="extra">
+          <p class="sec-label">Estimulaci&oacute;n temprana</p>
+          <h3>M&uacute;sica desde peque&ntilde;os</h3>
+          <p>Estimulaci&oacute;n musical temprana para los m&aacute;s peque&ntilde;os, desarrollando habilidades cognitivas y sensoriales a trav&eacute;s del ritmo y la melod&iacute;a.</p>
+        </div>
+        <div class="extra">
+          <p class="sec-label">Contenido educativo</p>
+          <h3>Videoclases pregrabadas</h3>
+          <p>T&eacute;cnicas de canto, viol&iacute;n y m&aacute;s instrumentos en formato de videoclases profesionales para reforzar tu aprendizaje.</p>
+          <span class="placeholder-flag">&#9888;&#65039; PENDIENTE: Link o contenido de videoclases</span>
         </div>
       </div>
     </div>
@@ -624,7 +689,9 @@
         </div>
       </div>
 
-      <p class="reveal" style="text-align: center; font-size: 0.8rem; color: var(--ink-muted); margin-top: 2.5rem; font-weight: 300; font-style: italic;">Pr&oacute;ximamente: venta de instrumentos y accesorios con facilidades de pago.</p>
+      <div class="reveal" style="text-align: center; margin-top: 2.5rem;">
+        <span class="placeholder-flag">&#9888;&#65039; PENDIENTE: &iquest;La tienda de instrumentos debe aparecer como secci&oacute;n en la web?</span>
+      </div>
     </div>
   </section>
 
@@ -660,6 +727,92 @@
     </div>
   </section>
 
+  <!-- PROFESORES -->
+  <section class="sec" id="profesores" style="background: var(--bg);">
+    <div class="sec-inner">
+      <div class="carreras-header reveal">
+        <p class="sec-label">Equipo</p>
+        <h2 class="sec-title">Nuestro equipo docente</h2>
+        <p class="sec-desc">Profesores con vocaci&oacute;n, paciencia y pasi&oacute;n por ense&ntilde;ar m&uacute;sica.</p>
+      </div>
+
+      <div class="profesores-grid reveal">
+        <!-- Bryan -->
+        <div class="prof-card featured">
+          <div class="prof-avatar">
+            <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="var(--ink)" stroke-width="1"><circle cx="12" cy="8" r="4"/><path d="M4 21v-1a6 6 0 0112 0v1"/></svg>
+          </div>
+          <div>
+            <div class="prof-name">Bryan Mart&iacute;nez</div>
+            <div class="prof-role">Fundador y Director</div>
+            <p class="prof-bio">M&aacute;s de 15 a&ntilde;os de experiencia musical. Autor de los libros originales y patentados del programa Peque&ntilde;o Gran M&uacute;sico.</p>
+            <span class="placeholder-flag">&#9888;&#65039; PENDIENTE: Foto y bio de Bryan</span>
+          </div>
+        </div>
+
+        <!-- Profesor placeholder 1 -->
+        <div class="prof-card">
+          <div class="prof-avatar">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="var(--ink)" stroke-width="1"><circle cx="12" cy="8" r="4"/><path d="M4 21v-1a6 6 0 0112 0v1"/></svg>
+          </div>
+          <div class="prof-name">Profesor(a)</div>
+          <div class="prof-role">Instrumento</div>
+          <span class="placeholder-flag">&#9888;&#65039; PENDIENTE: Nombres y fotos de profesores</span>
+        </div>
+
+        <!-- Profesor placeholder 2 -->
+        <div class="prof-card">
+          <div class="prof-avatar">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="var(--ink)" stroke-width="1"><circle cx="12" cy="8" r="4"/><path d="M4 21v-1a6 6 0 0112 0v1"/></svg>
+          </div>
+          <div class="prof-name">Profesor(a)</div>
+          <div class="prof-role">Instrumento</div>
+          <span class="placeholder-flag">&#9888;&#65039; PENDIENTE: Nombres y fotos de profesores</span>
+        </div>
+
+        <!-- Profesor placeholder 3 -->
+        <div class="prof-card">
+          <div class="prof-avatar">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="var(--ink)" stroke-width="1"><circle cx="12" cy="8" r="4"/><path d="M4 21v-1a6 6 0 0112 0v1"/></svg>
+          </div>
+          <div class="prof-name">Profesor(a)</div>
+          <div class="prof-role">Instrumento</div>
+          <span class="placeholder-flag">&#9888;&#65039; PENDIENTE: Nombres y fotos de profesores</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIOS -->
+  <section class="sec" id="testimonios" style="background: var(--bg);">
+    <div class="sec-inner">
+      <div class="carreras-header reveal">
+        <p class="sec-label">Testimonios</p>
+        <h2 class="sec-title">Historias que inspiran</h2>
+        <p class="sec-desc">Familias y alumnos que han crecido con nosotros.</p>
+      </div>
+
+      <div class="extras reveal">
+        <div class="extra" style="border-left: 3px solid var(--accent);">
+          <h3>&ldquo;Familia 3G&rdquo;</h3>
+          <p>Tres generaciones unidas por la m&uacute;sica: abuelo, hijo y nieto. Todo empez&oacute; con una clase de guitarra que se convirti&oacute; en una tradici&oacute;n familiar.</p>
+          <span class="placeholder-flag">&#9888;&#65039; PENDIENTE: Video testimonio</span>
+        </div>
+        <div class="extra" style="border-left: 3px solid var(--accent);">
+          <h3>&ldquo;De los 4 a los 10&rdquo;</h3>
+          <p>Lleg&oacute; a la academia con apenas 4 a&ntilde;os. Hoy, con 10, es una promesa musical que inspira a todos los que lo rodean.</p>
+          <span class="placeholder-flag">&#9888;&#65039; PENDIENTE: Video testimonio</span>
+        </div>
+      </div>
+
+      <div class="reveal" style="text-align: center; margin-top: 2.5rem; padding: 2rem; background: var(--white); border-radius: 20px; border: 1px solid var(--border);">
+        <p style="font-family: var(--font-display); font-size: 1.15rem; color: var(--ink); margin-bottom: 0.5rem;">Entrevistas a pap&aacute;s</p>
+        <p style="font-size: 0.85rem; color: var(--ink-muted); font-weight: 300;">Pr&oacute;ximamente: videos de padres compartiendo la experiencia de sus hijos en Selah Music.</p>
+        <span class="placeholder-flag">&#9888;&#65039; PENDIENTE: Videos de entrevistas a pap&aacute;s</span>
+      </div>
+    </div>
+  </section>
+
   <!-- PRECIOS -->
   <section class="sec precios" id="precios">
     <div class="sec-inner">
@@ -690,6 +843,9 @@
           <div class="price-detail">A partir de 3 personas &middot; Amigos, familia o banda</div>
         </div>
       </div>
+      <div class="reveal" style="text-align: center; margin-top: 2rem;">
+        <span class="placeholder-flag">&#9888;&#65039; PENDIENTE: Confirmar precios actuales (matr&iacute;cula, individual, grupal, PGM, virtual)</span>
+      </div>
     </div>
   </section>
 
@@ -708,7 +864,11 @@
             </div>
             <div class="c-row">
               <div class="c-icon"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
-              <div><div class="c-label">Ubicaci&oacute;n</div><div class="c-val">San Jos&eacute;, Costa Rica</div></div>
+              <div>
+                <div class="c-label">Ubicaci&oacute;n</div>
+                <div class="c-val">San Jos&eacute;, Costa Rica</div>
+                <span class="placeholder-flag">&#9888;&#65039; PENDIENTE: Direcci&oacute;n exacta de la academia</span>
+              </div>
             </div>
             <div class="c-row">
               <div class="c-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div>
@@ -733,6 +893,7 @@
               <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z" fill="none" stroke="currentColor" stroke-width="1.5"/><circle cx="12" cy="10" r="3" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>
             </a>
           </div>
+          <span class="placeholder-flag" style="margin-top: 1rem;">&#9888;&#65039; PENDIENTE: Links reales de Instagram, TikTok, YouTube y Facebook (o confirmar que no existen a&uacute;n)</span>
         </div>
 
         <div class="wa-box">
