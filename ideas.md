@@ -82,7 +82,7 @@ Bryan tiene 3 calculos segun presupuesto:
 - Anuncios propios al estilo de la competencia pero con formato Selah
 - Video shorts de Bryan tocando piezas conocidas
 - Behind the scenes de clases y grabaciones
-- **Video mosaico/cuadricula (27 oct):** cada musico toca su parte en un cuadrito (guitarra, palmas, zapateo, canto — estilo flamenco). Los cuadros se van sumando hasta que suena la cancion completa. Pueden ser varias personas o una sola (one-man-band). Bryan podria hacerlo solo. Referencia: https://youtu.be/to2iDSr6_KA minuto 1:25
+- **Video mosaico/cuadricula (27 oct, idea de Jahir):** cada musico toca su parte en un cuadrito (guitarra, palmas, zapateo, canto — estilo flamenco). Los cuadros se van sumando hasta que suena la cancion completa. Pueden ser varias personas o una sola (one-man-band). Bryan podria hacerlo solo. Referencia: https://youtu.be/to2iDSr6_KA minuto 1:25
 
 ### Actualizacion 27 oct
 - Bryan va a dedicar el dia a preparar anuncios, videos y revisar la pagina para completar datos faltantes

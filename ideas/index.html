@@ -179,46 +179,13 @@
       content: '\2022'; position: absolute; left: 0;
       color: var(--ink-muted);
     }
-    .idea-bullets a, .idea-desc a, .notes a {
+    .idea-bullets a, .idea-desc a {
       color: #5A8CBE; text-decoration: none;
       border-bottom: 1px solid rgba(90,140,190,0.3);
       transition: border-color 0.15s;
     }
-    .idea-bullets a:hover, .idea-desc a:hover, .notes a:hover {
+    .idea-bullets a:hover, .idea-desc a:hover {
       border-color: #5A8CBE;
-    }
-
-    /* ─── NOTES SECTION ─── */
-    .notes-section {
-      max-width: 820px; margin: 0 auto;
-      padding: 0 1.5rem 3rem;
-    }
-    .notes-header {
-      font-size: 0.85rem; font-weight: 600; color: var(--ink);
-      margin-bottom: 0.75rem;
-      display: flex; align-items: center; gap: 0.5rem;
-    }
-    .notes-header span { font-size: 1.1rem; }
-    .notes {
-      background: var(--surface);
-      border-radius: 12px;
-      border: 1px solid var(--border);
-      overflow: hidden;
-    }
-    .note {
-      padding: 0.75rem 1rem;
-      border-bottom: 1px solid var(--border);
-      font-size: 0.85rem; color: var(--ink-soft);
-      line-height: 1.55;
-    }
-    .note:last-child { border-bottom: none; }
-    .note-date {
-      font-size: 0.688rem; color: var(--ink-muted);
-      font-weight: 500; margin-bottom: 0.2rem;
-    }
-    .note-label {
-      font-weight: 600; color: var(--ink);
-      margin-right: 0.3rem;
     }
 
     /* ─── FULL WIDTH ON OPEN ─── */
@@ -245,7 +212,6 @@
       .cat-label { font-size: 0.95rem; }
       .back { padding: 0 1rem; }
       .cat.open { grid-column: 1; }
-      .notes-section { padding: 0 1rem 2rem; }
     }
   </style>
 </head>
@@ -259,33 +225,6 @@
   <a href="../" class="back"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg> Volver al sitio</a>
 
   <div class="grid" id="grid"></div>
-
-  <div class="notes-section">
-    <div class="notes-header"><span>📋</span> Notas recientes</div>
-    <div class="notes">
-      <div class="note">
-        <div class="note-date">27 oct 2026 — Audio de Bryan</div>
-        <span class="note-label">Video mosaico:</span> Idea de hacer un video donde cada musico toca su parte en un cuadrito (guitarra, palmas, zapateo, canto — estilo flamenco). Los cuadros se ven todos a la vez y se van sumando hasta que suena la cancion completa. Puede ser varias personas o Bryan solo (one-man-band). Ref: <a href="https://youtu.be/to2iDSr6_KA" target="_blank">youtu.be/to2iDSr6_KA</a> min 1:25
-      </div>
-      <div class="note">
-        <div class="note-date">27 oct 2026 — Audio de Bryan</div>
-        <span class="note-label">Avances hoy:</span> Bryan va a dedicar el dia a preparar anuncios, videos y revisar la pagina para completar los datos faltantes. Tendra avances listos para mostrar.
-      </div>
-      <div class="note">
-        <div class="note-date">27 oct 2026 — Jahir</div>
-        <span class="note-label">Google Maps duplicado:</span> Ya existia "Shalala Music Academy" en Promenade (5.0★, 2 resenas). Solicitud enviada para administrar el perfil. Deadline: 30 oct.
-      </div>
-      <div class="note">
-        <div class="note-date">27 oct 2026 — Jahir</div>
-        <span class="note-label">Referencias de anuncios:</span>
-        <a href="https://www.instagram.com/reel/De5H8u9zlZp/" target="_blank">IG reel 1</a> ·
-        <a href="https://www.instagram.com/p/De2MN5fMn-R/" target="_blank">IG post 2</a> ·
-        <a href="https://www.instagram.com/p/DevFamAMhDN/" target="_blank">IG post 3</a> ·
-        <a href="https://www.instagram.com/p/De2ttwjgxDY/" target="_blank">IG post 4</a> ·
-        <a href="https://youtu.be/to2iDSr6_KA" target="_blank">YouTube</a>
-      </div>
-    </div>
-  </div>
 
   <script>
     var CATS = [
@@ -320,7 +259,7 @@
           {id:'c-test', title:'Videos de testimonios', desc:'Familia 3G, nino prodigio, entrevistas a papas.', owner:'Bryan', priority:'high',
             details:['Familia 3G: abuelo, hijo, nieto','Nino prodigio: llego a los 4, ahora tiene 10']},
           {id:'c-yt', title:'Canal de YouTube', desc:'Crear/configurar canal oficial y embeber en el sitio.', owner:'Ambos', priority:'high', details:[]},
-          {id:'c-mosaic', title:'Video mosaico/cuadricula', desc:'Cada musico toca su parte en un cuadrito que se va sumando hasta la cancion completa.', owner:'Bryan', priority:'high',
+          {id:'c-mosaic', title:'Video mosaico/cuadricula', desc:'Cada musico toca su parte en un cuadrito que se va sumando hasta la cancion completa.', owner:'Jahir', priority:'high',
             details:['Estilo flamenco: guitarra, palmas, zapateo, canto','Cuadros visibles todos a la vez, no secuencial','Puede ser varias personas o one-man-band (Bryan solo)','Referencia: https://youtu.be/to2iDSr6_KA (min 1:25)']},
           {id:'c-estr', title:'Estrategia definida', desc:'Publicidad (destacada) vs contenido de respaldo (posts).', owner:'Ambos', priority:'high',
             details:['Anuncios: post + historia destacada','Shorts/piezas: posts normales','Eventualmente FB/IG Ads']},
