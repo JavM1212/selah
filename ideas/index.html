@@ -45,691 +45,332 @@
     body {
       font-family: 'DM Sans', system-ui, sans-serif;
       background: var(--bg); color: var(--ink);
-      height: 100vh; overflow: hidden;
-      display: flex; flex-direction: column;
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
     }
 
-    .topbar {
+    /* ─── HEADER ─── */
+    .header {
       background: var(--surface);
       border-bottom: 1px solid var(--border);
-      padding: 0.65rem 1.25rem;
+      padding: 0.75rem 1.25rem;
       display: flex; align-items: center; gap: 0.75rem;
-      flex-shrink: 0; z-index: 10;
+      position: sticky; top: 0; z-index: 10;
     }
-    .topbar-logo { height: 28px; }
-    .topbar-sep { width: 1px; height: 20px; background: var(--border); }
-    .topbar h1 { font-size: 0.85rem; font-weight: 500; color: var(--ink-soft); }
-    .topbar-hint {
-      margin-left: auto; font-size: 0.7rem; color: var(--ink-muted);
-      font-weight: 300;
-    }
-
-    .canvas-wrap {
-      flex: 1; position: relative; overflow: hidden;
-      cursor: grab;
-    }
-    .canvas-wrap:active { cursor: grabbing; }
-    .canvas-wrap.detail-open { cursor: default; }
-
-    .canvas {
-      position: absolute; top: 0; left: 0;
-      transform-origin: 0 0;
-      will-change: transform;
+    .header-logo { height: 28px; }
+    .header-sep { width: 1px; height: 20px; background: var(--border); }
+    .header h1 { font-size: 0.9rem; font-weight: 500; color: var(--ink-soft); }
+    .header-count {
+      margin-left: auto;
+      font-size: 0.75rem; color: var(--ink-muted); font-weight: 400;
     }
 
-    /* ─── NODES ─── */
-    .node {
-      position: absolute;
-      border-radius: 12px;
-      cursor: pointer;
-      transition: box-shadow 0.2s, transform 0.2s;
-      user-select: none;
-    }
-    .node:hover {
-      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
-      transform: translateY(-1px);
+    /* ─── MAIN ─── */
+    .main {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 1.25rem 1rem 3rem;
     }
 
-    .node-root {
-      background: var(--surface);
-      border: 2px solid var(--border);
-      padding: 1.25rem 2rem;
-      text-align: center;
-      border-radius: 50%;
-      width: 160px; height: 160px;
-      display: flex; flex-direction: column;
-      align-items: center; justify-content: center;
-      box-shadow: 0 2px 12px rgba(0,0,0,0.04);
-    }
-    .node-root img { height: 40px; margin-bottom: 0.5rem; }
-    .node-root span {
-      font-size: 0.8rem; font-weight: 600; color: var(--ink);
-      line-height: 1.3;
-    }
-
-    .node-branch {
-      padding: 0.7rem 1.2rem;
-      display: flex; align-items: center; gap: 0.5rem;
-      white-space: nowrap;
-      box-shadow: 0 1px 6px rgba(0,0,0,0.04);
-      border: 1.5px solid transparent;
-    }
-    .node-branch .count {
-      font-size: 0.65rem; font-weight: 600;
-      background: rgba(0,0,0,0.06); border-radius: 10px;
-      padding: 0.1rem 0.45rem; min-width: 20px; text-align: center;
-    }
-    .node-branch .label {
-      font-size: 0.8rem; font-weight: 500;
-    }
-    .node-branch .toggle {
-      font-size: 0.7rem; color: inherit; opacity: 0.5;
-      margin-left: 0.15rem; transition: transform 0.2s;
-    }
-    .node-branch.expanded .toggle { transform: rotate(90deg); }
-
-    .node-leaf {
-      padding: 0.5rem 0.75rem;
-      background: var(--surface);
-      border: 1.5px solid var(--border);
-      max-width: 180px;
-      box-shadow: 0 1px 4px rgba(0,0,0,0.03);
-    }
-    .node-leaf .leaf-title {
-      font-size: 0.75rem; font-weight: 500; line-height: 1.35;
-      color: var(--ink);
-    }
-    .node-leaf .leaf-meta {
-      font-size: 0.65rem; color: var(--ink-muted);
-      margin-top: 0.2rem; font-weight: 300;
-    }
-    .node-leaf:hover { border-color: var(--ink-muted); }
-    .node-leaf.active {
-      border-color: var(--teal);
-      box-shadow: 0 0 0 3px var(--teal-soft);
-    }
-
-    /* ─── CONNECTORS (SVG) ─── */
-    .connectors {
-      position: absolute; top: 0; left: 0;
-      pointer-events: none;
-      overflow: visible;
-    }
-    .connector {
-      fill: none; stroke: var(--border); stroke-width: 1.5;
-      stroke-linecap: round;
-    }
-    .connector-active {
-      stroke: var(--teal-muted); stroke-width: 2;
-      stroke-linecap: round;
-    }
-
-    /* ─── DETAIL PANEL ─── */
-    .detail-panel {
-      position: fixed; top: 0; right: 0; bottom: 0;
-      width: 360px; max-width: 90vw;
-      background: var(--surface);
-      border-left: 1px solid var(--border);
-      box-shadow: -4px 0 24px rgba(0,0,0,0.06);
-      z-index: 30; padding: 1.5rem;
-      overflow-y: auto;
-      transform: translateX(100%);
-      transition: transform 0.25s ease;
-    }
-    .detail-panel.open { transform: translateX(0); }
-    .detail-close {
-      position: absolute; top: 1rem; right: 1rem;
-      background: none; border: none; cursor: pointer;
-      font-size: 1.1rem; color: var(--ink-muted);
-      width: 28px; height: 28px; border-radius: 6px;
-      display: flex; align-items: center; justify-content: center;
-    }
-    .detail-close:hover { background: var(--bg); }
-    .detail-tag {
-      display: inline-block;
-      font-size: 0.7rem; font-weight: 500;
-      padding: 0.2rem 0.6rem; border-radius: 100px;
+    /* ─── BRANCH ACCORDION ─── */
+    .branch {
       margin-bottom: 0.75rem;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      background: var(--surface);
     }
-    .detail-title {
-      font-size: 1.05rem; font-weight: 600; line-height: 1.35;
-      margin-bottom: 0.4rem;
-    }
-    .detail-desc {
-      font-size: 0.82rem; color: var(--ink-soft); line-height: 1.6;
-      font-weight: 300; margin-bottom: 1.25rem;
-    }
-    .detail-section {
-      margin-bottom: 1rem;
-    }
-    .detail-section h3 {
-      font-size: 0.7rem; font-weight: 600; text-transform: uppercase;
-      letter-spacing: 0.06em; color: var(--ink-muted); margin-bottom: 0.5rem;
-    }
-    .detail-list {
-      list-style: none;
-    }
-    .detail-list li {
-      font-size: 0.8rem; color: var(--ink-soft); line-height: 1.55;
-      font-weight: 300; padding: 0.25rem 0; padding-left: 0.75rem;
-      position: relative;
-    }
-    .detail-list li::before {
-      content: ''; position: absolute; left: 0; top: 0.6rem;
-      width: 4px; height: 4px; border-radius: 50%;
-      background: var(--ink-muted);
-    }
-    .detail-owner {
-      display: inline-flex; align-items: center; gap: 0.35rem;
-      font-size: 0.8rem; font-weight: 400; color: var(--ink-soft);
-    }
-    .detail-owner-dot {
-      width: 18px; height: 18px; border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 0.6rem; font-weight: 700; color: white;
-    }
-    .detail-priority {
-      display: inline-block;
-      font-size: 0.7rem; font-weight: 600;
-      padding: 0.15rem 0.5rem; border-radius: 4px;
-      text-transform: uppercase; letter-spacing: 0.04em;
-    }
-    .dp-critical { background: #FDE8E8; color: #C06060; }
-    .dp-high { background: var(--orange-soft); color: var(--orange); }
-    .dp-medium { background: var(--blue-soft); color: var(--blue); }
-    .dp-low { background: var(--bg); color: var(--ink-muted); }
-
-    .detail-row {
-      display: flex; align-items: center; gap: 0.75rem;
-      margin-bottom: 0.5rem;
-    }
-    .detail-row-label {
-      font-size: 0.7rem; font-weight: 500; color: var(--ink-muted);
-      min-width: 70px;
-    }
-
-    /* ─── ZOOM CONTROLS ─── */
-    .zoom-controls {
-      position: fixed; bottom: 1.25rem; right: 1.25rem;
-      display: flex; gap: 0.35rem; z-index: 20;
-    }
-    .zoom-btn {
-      width: 36px; height: 36px; border-radius: 8px;
-      background: var(--surface); border: 1px solid var(--border);
-      cursor: pointer; font-size: 1rem; color: var(--ink-soft);
-      display: flex; align-items: center; justify-content: center;
+    .branch-header {
+      display: flex; align-items: center; gap: 0.65rem;
+      padding: 0.85rem 1rem;
+      cursor: pointer;
+      user-select: none;
+      -webkit-tap-highlight-color: transparent;
       transition: background 0.15s;
     }
-    .zoom-btn:hover { background: var(--bg); }
+    .branch-header:hover { background: var(--bg); }
+    .branch-header:active { background: var(--border); }
 
-    @media (max-width: 600px) {
-      .detail-panel { width: 100%; }
-      .topbar-hint { display: none; }
+    .branch-dot {
+      width: 10px; height: 10px;
+      border-radius: 50%; flex-shrink: 0;
+    }
+    .branch-label {
+      font-size: 0.95rem; font-weight: 600;
+      flex: 1;
+    }
+    .branch-count {
+      font-size: 0.7rem; font-weight: 500;
+      padding: 0.15rem 0.5rem;
+      border-radius: 10px;
+      color: var(--ink-muted);
+      background: var(--bg);
+    }
+    .branch-arrow {
+      width: 18px; height: 18px;
+      color: var(--ink-muted);
+      transition: transform 0.25s ease;
+      flex-shrink: 0;
+    }
+    .branch.open .branch-arrow { transform: rotate(90deg); }
+
+    .branch-items {
+      display: none;
+      border-top: 1px solid var(--border);
+    }
+    .branch.open .branch-items { display: block; }
+
+    /* ─── IDEA CARD ─── */
+    .idea {
+      padding: 0.75rem 1rem 0.75rem 2.25rem;
+      border-bottom: 1px solid var(--border);
+      cursor: pointer;
+      transition: background 0.15s;
+      -webkit-tap-highlight-color: transparent;
+      position: relative;
+    }
+    .idea:last-child { border-bottom: none; }
+    .idea:hover { background: var(--bg); }
+    .idea:active { background: var(--border); }
+
+    .idea::before {
+      content: '';
+      position: absolute;
+      left: 1rem; top: 1.1rem;
+      width: 5px; height: 5px;
+      border-radius: 50%;
+      background: var(--ink-muted);
+    }
+
+    .idea-title {
+      font-size: 0.85rem; font-weight: 500;
+      margin-bottom: 0.2rem;
+      line-height: 1.35;
+    }
+    .idea-meta {
+      display: flex; align-items: center; gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+    .idea-owner {
+      font-size: 0.72rem; color: var(--ink-muted); font-weight: 400;
+    }
+    .idea-pri {
+      font-size: 0.65rem; font-weight: 500;
+      padding: 0.1rem 0.4rem;
+      border-radius: 4px;
+      line-height: 1.4;
+    }
+    .pri-critical { background: #FDEEED; color: #C0392B; }
+    .pri-high { background: #FDF6EE; color: #D4985A; }
+    .pri-medium { background: #EEF4FB; color: #6B9FD4; }
+    .pri-low { background: var(--bg); color: var(--ink-muted); }
+
+    /* ─── IDEA DETAIL (expanded inline) ─── */
+    .idea-detail {
+      display: none;
+      margin-top: 0.5rem;
+      padding: 0.6rem 0.75rem;
+      background: var(--bg);
+      border-radius: 8px;
+    }
+    .idea.expanded .idea-detail { display: block; }
+
+    .idea-desc {
+      font-size: 0.78rem; color: var(--ink-soft);
+      line-height: 1.55; margin-bottom: 0.4rem;
+    }
+    .idea-bullets {
+      list-style: none; padding: 0;
+    }
+    .idea-bullets li {
+      font-size: 0.73rem; color: var(--ink-soft);
+      line-height: 1.55;
+      padding-left: 0.85rem;
+      position: relative;
+    }
+    .idea-bullets li::before {
+      content: '—';
+      position: absolute; left: 0;
+      color: var(--ink-muted);
+    }
+
+    /* ─── BACK LINK ─── */
+    .back-link {
+      display: inline-flex; align-items: center; gap: 0.35rem;
+      font-size: 0.78rem; color: var(--ink-muted);
+      text-decoration: none; margin-bottom: 1rem;
+      transition: color 0.15s;
+    }
+    .back-link:hover { color: var(--ink-soft); }
+    .back-link svg { width: 14px; height: 14px; }
+
+    @media (max-width: 480px) {
+      .main { padding: 1rem 0.75rem 2rem; }
+      .branch-header { padding: 0.75rem 0.85rem; }
+      .idea { padding: 0.65rem 0.85rem 0.65rem 2rem; }
+      .idea::before { left: 0.85rem; }
+      .header-count { display: none; }
     }
   </style>
 </head>
 <body>
 
-  <div class="topbar">
-    <img src="../img/img-8.png" alt="Selah" class="topbar-logo">
-    <div class="topbar-sep"></div>
-    <h1>Mapa de Ideas</h1>
-    <span class="topbar-hint">Arrastra para mover · Scroll para zoom · Click en un nodo para detalles</span>
+  <div class="header">
+    <img src="../img/img-8.png" alt="Selah" class="header-logo">
+    <div class="header-sep"></div>
+    <h1>Ideas</h1>
+    <span class="header-count" id="totalCount"></span>
   </div>
 
-  <div class="canvas-wrap" id="canvasWrap">
-    <svg class="connectors" id="connectors"></svg>
-    <div class="canvas" id="canvas"></div>
-  </div>
-
-  <div class="detail-panel" id="detailPanel">
-    <button class="detail-close" id="detailClose">&times;</button>
-    <div id="detailContent"></div>
-  </div>
-
-  <div class="zoom-controls">
-    <button class="zoom-btn" id="zoomIn" title="Acercar">+</button>
-    <button class="zoom-btn" id="zoomOut" title="Alejar">&minus;</button>
-    <button class="zoom-btn" id="zoomReset" title="Centrar">&#8982;</button>
-  </div>
+  <div class="main" id="main"></div>
 
   <script>
-    /* ═══ DATA ═══ */
     var BRANCHES = [
       {
-        id: 'tienda', label: 'Tienda', color: 'var(--teal)', soft: 'var(--teal-soft)', muted: 'var(--teal-muted)',
+        id: 'tienda', label: 'Tienda', color: 'var(--teal)', soft: 'var(--teal-soft)',
         items: [
-          {id:'t-inv', title:'Inversion inicial ₡200k', desc:'Jahir pone ₡200k el 2 de noviembre para arrancar. Cuerdas, cables, stands.', owner:'J', priority:'critical',
+          {id:'t-inv', title:'Inversion inicial ₡200k', desc:'Jahir pone ₡200k el 2 de noviembre para arrancar. Cuerdas, cables, stands.', owner:'Jahir', priority:'critical',
             details:['Plan 1 (₡200k): cuerdas, cables, stands','Plan 2 (₡350k): + audifonos, ukeleles, guitarras','Plan 3 (₡450k): + teclados, sistema de apartado','Inversion completa estimada: ₡800k','Pago: SINPE o efectivo']},
-          {id:'t-fin', title:'Financiamiento a clientes', desc:'Definir contrato, proceso de cuotas, bodega de apartados.', owner:'B', priority:'high',
+          {id:'t-fin', title:'Financiamiento a clientes', desc:'Definir contrato, proceso de cuotas, bodega de apartados.', owner:'Bryan', priority:'high',
             details:['Cuotas mientras estudia, contrato + cedula','Instrumento en bodega hasta cancelar','Ejemplo: Stratocaster combo ₡210k en 3x ₡70k','16 combos disponibles, 4 colores']},
-          {id:'t-mar', title:'Margenes confirmados', desc:'Teclado, cuerdas, combos — margenes mapeados con proveedor.', owner:'JB', priority:'high',
+          {id:'t-mar', title:'Margenes confirmados', desc:'Teclado, cuerdas, combos — margenes mapeados con proveedor.', owner:'Ambos', priority:'high',
             details:['Teclado: venta ₡89,900 / costo ~₡23,000','Cuerdas: venta ₡18,000 / costo ~₡3,100','Margen por instrumento: ~₡25,000 netos','Bateria electrica ₡375k / normal ₡475k','Calibracion ₡24k / cuerdas ₡6,800']},
-          {id:'t-con', title:'Consignacion con proveedor', desc:'Proveedor envia mercaderia, se devuelve lo no vendido.', owner:'B', priority:'medium',
+          {id:'t-con', title:'Consignacion con proveedor', desc:'Proveedor envia mercaderia, se devuelve lo no vendido.', owner:'Bryan', priority:'medium',
             details:['Proveedor en Heredia','Entrega en 10 dias tras cancelacion total','Primera compra minima ~₡570k','Codigo de tienda con proveedor']},
-          {id:'t-mic', title:'Microfonos para Broers', desc:'Contacto exclusivo de microfonos de cable. Oportunidad de venta.', owner:'B', priority:'medium',
+          {id:'t-mic', title:'Microfonos para Broers', desc:'Contacto exclusivo de microfonos de cable. Oportunidad de venta.', owner:'Bryan', priority:'medium',
             details:['Broers compraba antes a Mundo Musical','Oportunidad de ser proveedor exclusivo']},
-          {id:'t-tmp', title:'Temporadas clave', desc:'Fechas de alta demanda para planificar stock.', owner:'JB', priority:'medium',
+          {id:'t-tmp', title:'Temporadas clave', desc:'Fechas de alta demanda para planificar stock.', owner:'Ambos', priority:'medium',
             details:['Septiembre (apartados para diciembre)','Navidad','Dia del Nino','Dia de la Madre / Padre']},
-          {id:'t-eco', title:'E-commerce real', desc:'Carrito, pagos en linea, tracking. Henry hace envios en SJ.', owner:'J', priority:'low', details:[]},
+          {id:'t-eco', title:'E-commerce real', desc:'Carrito, pagos en linea, tracking. Henry hace envios en SJ.', owner:'Jahir', priority:'low', details:[]},
         ]
       },
       {
-        id: 'contenido', label: 'Contenido', color: 'var(--purple)', soft: 'var(--purple-soft)', muted: 'var(--purple-muted)',
+        id: 'contenido', label: 'Contenido', color: 'var(--purple)', soft: 'var(--purple-soft)',
         items: [
-          {id:'c-short', title:'Video shorts', desc:'Bryan grabo piezas musicales (25 oct). Falta editar mezcla.', owner:'B', priority:'critical',
+          {id:'c-short', title:'Video shorts', desc:'Bryan grabo piezas musicales (25 oct). Falta editar mezcla.', owner:'Bryan', priority:'critical',
             details:['Piezas conocidas y rapidas para shorts','Falta mezclar video + audio','Contenido listo para subir a redes']},
-          {id:'c-foto', title:'Fotos reales', desc:'Reemplazar stock de Canva con fotos reales de la academia.', owner:'B', priority:'high',
+          {id:'c-foto', title:'Fotos reales', desc:'Reemplazar stock de Canva con fotos reales de la academia.', owner:'Bryan', priority:'high',
             details:['Fotos actuales son de Canva/Google','Se necesitan fotos de clases, instalaciones, alumnos']},
-          {id:'c-user', title:'Unificar usernames', desc:'Definir IG, TikTok, YouTube juntos.', owner:'JB', priority:'high',
+          {id:'c-user', title:'Unificar usernames', desc:'Definir IG, TikTok, YouTube juntos.', owner:'Ambos', priority:'high',
             details:['IG: usar @selahamusicacademia (original)','TikTok: cambiar de _cr a selahamusicacademia','YouTube: Jahir necesita credenciales','FB: ok como esta']},
-          {id:'c-anun', title:'Anuncios estilo competencia', desc:'Crear anuncios propios al formato Selah basados en referencia.', owner:'JB', priority:'high',
+          {id:'c-anun', title:'Anuncios estilo competencia', desc:'Crear anuncios propios al formato Selah basados en referencia.', owner:'Ambos', priority:'high',
             details:['Jahir guardando anuncios de competencia','Crear version propia con estilo Selah','Post + historia destacada']},
-          {id:'c-test', title:'Videos de testimonios', desc:'Familia 3G, nino prodigio, entrevistas a papas.', owner:'B', priority:'high',
+          {id:'c-test', title:'Videos de testimonios', desc:'Familia 3G, nino prodigio, entrevistas a papas.', owner:'Bryan', priority:'high',
             details:['Familia 3G: abuelo, hijo, nieto','Nino prodigio: llego a los 4, ahora tiene 10','Entrevistas a papas como formato adicional']},
-          {id:'c-yt', title:'Canal de YouTube', desc:'Crear/configurar canal oficial y embeber en el sitio.', owner:'JB', priority:'high',
+          {id:'c-yt', title:'Canal de YouTube', desc:'Crear/configurar canal oficial y embeber en el sitio.', owner:'Ambos', priority:'high',
             details:['Definir si usar existente o crear nuevo','Embeber en sitio web']},
-          {id:'c-estr', title:'Estrategia definida', desc:'Publicidad (destacada) vs contenido de respaldo (posts).', owner:'JB', priority:'high',
-            details:['Anuncios → post + historia destacada','Shorts/piezas → posts normales','Eventualmente FB/IG Ads']},
+          {id:'c-estr', title:'Estrategia definida', desc:'Publicidad (destacada) vs contenido de respaldo (posts).', owner:'Ambos', priority:'high',
+            details:['Anuncios: post + historia destacada','Shorts/piezas: posts normales','Eventualmente FB/IG Ads']},
         ]
       },
       {
-        id: 'web', label: 'Sitio Web', color: 'var(--magenta)', soft: 'var(--magenta-soft)', muted: 'var(--magenta-muted)',
+        id: 'web', label: 'Sitio Web', color: 'var(--magenta)', soft: 'var(--magenta-soft)',
         items: [
-          {id:'w-v1', title:'Completar datos V1', desc:'14 items pendientes de Bryan para quitar placeholders.', owner:'B', priority:'critical',
+          {id:'w-v1', title:'Completar datos V1', desc:'14 items pendientes de Bryan para quitar placeholders.', owner:'Bryan', priority:'critical',
             details:['Cantidad alumnos e instrumentos','Foto + bio de Bryan','Nombres/fotos de 3 profesores','Videos testimonios','Precios confirmados','Catalogo tienda completo','Link YouTube / pista PGM']},
-          {id:'w-live', title:'V1 en vivo', desc:'Responsive, SEO, WhatsApp, redes, deploy en Vercel.', owner:'J', priority:'high',
+          {id:'w-live', title:'V1 en vivo', desc:'Responsive, SEO, WhatsApp, redes, deploy en Vercel.', owner:'Jahir', priority:'high',
             details:['selah-indol.vercel.app','Instrumentos clickeables','Tienda, precios, testimonios','Programas para todas las edades']},
-          {id:'w-pal', title:'Paleta alineada', desc:'Teal, purple, magenta con contraste WCAG AA.', owner:'J', priority:'medium', details:[]},
-          {id:'w-qr', title:'QR en libros fisicos', desc:'Codigo QR que redirige a la pagina. Actualizable.', owner:'JB', priority:'medium', details:[]},
-          {id:'w-book', title:'Preview libros (Issuu)', desc:'Visor flipbook para hojear los libros del PGM online.', owner:'J', priority:'medium', details:[]},
-          {id:'w-gal', title:'Galeria de fotos/videos', desc:'Presentaciones, recitales, clases.', owner:'JB', priority:'low', details:[]},
-          {id:'w-insc', title:'Inscripcion online', desc:'Formulario de matricula con seleccion de instrumento.', owner:'J', priority:'low', details:[]},
-          {id:'w-app', title:'App movil / PWA', desc:'Iconos de instrumentos como botones interactivos.', owner:'J', priority:'low', details:[]},
+          {id:'w-pal', title:'Paleta alineada', desc:'Teal, purple, magenta con contraste WCAG AA.', owner:'Jahir', priority:'medium', details:[]},
+          {id:'w-qr', title:'QR en libros fisicos', desc:'Codigo QR que redirige a la pagina. Actualizable.', owner:'Ambos', priority:'medium', details:[]},
+          {id:'w-book', title:'Preview libros (Issuu)', desc:'Visor flipbook para hojear los libros del PGM online.', owner:'Jahir', priority:'medium', details:[]},
+          {id:'w-gal', title:'Galeria de fotos/videos', desc:'Presentaciones, recitales, clases.', owner:'Ambos', priority:'low', details:[]},
+          {id:'w-insc', title:'Inscripcion online', desc:'Formulario de matricula con seleccion de instrumento.', owner:'Jahir', priority:'low', details:[]},
+          {id:'w-app', title:'App movil / PWA', desc:'Iconos de instrumentos como botones interactivos.', owner:'Jahir', priority:'low', details:[]},
         ]
       },
       {
-        id: 'proteccion', label: 'Proteccion', color: 'var(--orange)', soft: 'var(--orange-soft)', muted: 'var(--orange-muted)',
+        id: 'proteccion', label: 'Proteccion', color: 'var(--orange)', soft: 'var(--orange-soft)',
         items: [
-          {id:'p-agua', title:'Marca de agua digital', desc:'"Selah Music by Bryan Martinez" en contenido descargable.', owner:'J', priority:'medium', details:[]},
-          {id:'p-vid', title:'DRM para videos', desc:'Vimeo Starter (~$12/mes) o Hotmart (gratis, cobra %).', owner:'J', priority:'low',
+          {id:'p-agua', title:'Marca de agua digital', desc:'"Selah Music by Bryan Martinez" en contenido descargable.', owner:'Jahir', priority:'medium', details:[]},
+          {id:'p-vid', title:'DRM para videos', desc:'Vimeo Starter (~$12/mes) o Hotmart (gratis, cobra %).', owner:'Jahir', priority:'low',
             details:['Vimeo Starter: ~$12/mes, sin descarga','Hotmart: gratis, cobra % por venta','DRM ligero disuade al 95%']},
-          {id:'p-pdf', title:'Proteccion de PDFs', desc:'Issuu gratis con ads, o $19/mes sin ads.', owner:'J', priority:'low', details:[]},
+          {id:'p-pdf', title:'Proteccion de PDFs', desc:'Issuu gratis con ads, o $19/mes sin ads.', owner:'Jahir', priority:'low', details:[]},
         ]
       },
       {
-        id: 'expansion', label: 'Expansion', color: 'var(--blue)', soft: 'var(--blue-soft)', muted: 'var(--blue-muted)',
+        id: 'expansion', label: 'Expansion', color: 'var(--blue)', soft: 'var(--blue-soft)',
         items: [
-          {id:'e-maps', title:'Google Maps registrado', desc:'Solicitud enviada 25 oct. En revision.', owner:'J', priority:'medium', details:[]},
-          {id:'e-red', title:'Red de academias', desc:'Meta: una nueva por ano. Joan y Monica como subdirectores.', owner:'B', priority:'low',
+          {id:'e-maps', title:'Google Maps registrado', desc:'Solicitud enviada 25 oct. En revision.', owner:'Jahir', priority:'medium', details:[]},
+          {id:'e-red', title:'Red de academias', desc:'Meta: una nueva por ano. Joan y Monica como subdirectores.', owner:'Bryan', priority:'low',
             details:['Joan y Monica identificados como futuros subdirectores','Criterio: paciencia + adherencia al metodo','Profesores que abran su propia academia = orgullo']},
-          {id:'e-loc', title:'Locucion como servicio', desc:'Area por incursionar. Equipo ya disponible.', owner:'B', priority:'low', details:[]},
+          {id:'e-loc', title:'Locucion como servicio', desc:'Area por incursionar. Equipo ya disponible.', owner:'Bryan', priority:'low', details:[]},
         ]
       },
       {
-        id: 'servicios', label: 'Servicios', color: 'var(--warm)', soft: 'var(--warm-soft)', muted: 'var(--warm-muted)',
+        id: 'servicios', label: 'Servicios', color: 'var(--warm)', soft: 'var(--warm-soft)',
         items: [
-          {id:'s-grab', title:'Grabacion', desc:'Podcasts, anuncios radiales, musica virtual y en vivo.', owner:'B', priority:'medium', details:[]},
-          {id:'s-bod', title:'Bodas y eventos', desc:'Repertorio de 5 canciones a eleccion.', owner:'B', priority:'medium', details:[]},
-          {id:'s-tal', title:'Talleres', desc:'Ensamble, teoria, sonido, canto, composicion, arreglo coral.', owner:'B', priority:'medium', details:[]},
-          {id:'s-rep', title:'Reparacion', desc:'Instrumentos y equipo de sonido.', owner:'B', priority:'low', details:[]},
-          {id:'s-env', title:'Envios', desc:'Henry en San Jose, correos al resto del pais.', owner:'B', priority:'low', details:[]},
-          {id:'s-aud', title:'Curso audio/produccion', desc:'Hermano de Bryan (baterista y sonidista profesional).', owner:'B', priority:'low', details:[]},
+          {id:'s-grab', title:'Grabacion', desc:'Podcasts, anuncios radiales, musica virtual y en vivo.', owner:'Bryan', priority:'medium', details:[]},
+          {id:'s-bod', title:'Bodas y eventos', desc:'Repertorio de 5 canciones a eleccion.', owner:'Bryan', priority:'medium', details:[]},
+          {id:'s-tal', title:'Talleres', desc:'Ensamble, teoria, sonido, canto, composicion, arreglo coral.', owner:'Bryan', priority:'medium', details:[]},
+          {id:'s-rep', title:'Reparacion', desc:'Instrumentos y equipo de sonido.', owner:'Bryan', priority:'low', details:[]},
+          {id:'s-env', title:'Envios', desc:'Henry en San Jose, correos al resto del pais.', owner:'Bryan', priority:'low', details:[]},
+          {id:'s-aud', title:'Curso audio/produccion', desc:'Hermano de Bryan (baterista y sonidista profesional).', owner:'Bryan', priority:'low', details:[]},
         ]
       },
     ];
 
-    var OWNER_COLORS = {B:'var(--purple)', J:'var(--teal)', JB:'var(--magenta)'};
-    var OWNER_LABELS = {B:'Bryan', J:'Jahir', JB:'Ambos'};
     var PRI_LABEL = {critical:'Critica', high:'Alta', medium:'Media', low:'Baja'};
 
-    /* ═══ LAYOUT ENGINE ═══ */
-    var canvasWrap = document.getElementById('canvasWrap');
-    var canvas = document.getElementById('canvas');
-    var svgEl = document.getElementById('connectors');
-    var detailPanel = document.getElementById('detailPanel');
-    var detailContent = document.getElementById('detailContent');
-
-    var scale = 1;
-    var panX = 0, panY = 0;
-    var dragging = false;
-    var dragStartX, dragStartY, panStartX, panStartY;
-
-    var CX = 2000, CY = 1500;
-    var branchRadius = 320;
-    var leafRadius = 300;
-    var leafArcSpan = 1.3;
-
-    var expandedBranches = {};
-    var activeLeaf = null;
-    var nodePositions = {};
-
-    function initExpanded() {
-      BRANCHES.forEach(function(b) { expandedBranches[b.id] = false; });
-    }
-    initExpanded();
-
-    function layout() {
-      var positions = {};
-      positions['root'] = {x: CX, y: CY, w: 160, h: 160, type: 'root'};
-
-      var angleStep = (Math.PI * 2) / BRANCHES.length;
-      var startAngle = -Math.PI / 2;
-
-      BRANCHES.forEach(function(branch, i) {
-        var angle = startAngle + i * angleStep;
-        var bx = CX + Math.cos(angle) * branchRadius;
-        var by = CY + Math.sin(angle) * branchRadius;
-        positions[branch.id] = {x: bx, y: by, w: 140, h: 40, type: 'branch', angle: angle, data: branch};
-
-        if (expandedBranches[branch.id]) {
-          var count = branch.items.length;
-          var minStep = 0.38;
-          var arcSpan = Math.min(leafArcSpan * Math.PI, count * minStep);
-          var arcStart = angle - arcSpan / 2;
-          var arcStep = count > 1 ? arcSpan / (count - 1) : 0;
-          var lr = count > 5 ? leafRadius + (count - 5) * 50 : leafRadius;
-
-          branch.items.forEach(function(item, j) {
-            var a = count > 1 ? arcStart + j * arcStep : angle;
-            var lx = bx + Math.cos(a) * lr;
-            var ly = by + Math.sin(a) * lr;
-            positions[item.id] = {x: lx, y: ly, w: 180, h: 44, type: 'leaf', parent: branch.id, data: item, branchData: branch};
-          });
-        }
-      });
-
-      nodePositions = positions;
-      return positions;
-    }
+    var totalItems = 0;
+    BRANCHES.forEach(function(b) { totalItems += b.items.length; });
+    document.getElementById('totalCount').textContent = totalItems + ' ideas';
 
     function render() {
-      var positions = layout();
-      canvas.innerHTML = '';
-
-      Object.keys(positions).forEach(function(key) {
-        var pos = positions[key];
-        var el = document.createElement('div');
-        el.className = 'node';
-        el.style.left = (pos.x - pos.w / 2) + 'px';
-        el.style.top = (pos.y - pos.h / 2) + 'px';
-
-        if (pos.type === 'root') {
-          el.classList.add('node-root');
-          el.innerHTML = '<img src="../img/img-8.png" alt="Selah"><span>Ideas</span>';
-        }
-        else if (pos.type === 'branch') {
-          el.classList.add('node-branch');
-          if (expandedBranches[key]) el.classList.add('expanded');
-          el.style.background = pos.data.soft;
-          el.style.borderColor = pos.data.muted;
-          el.style.color = pos.data.color;
-          el.innerHTML =
-            '<span class="label">' + pos.data.label + '</span>' +
-            '<span class="count">' + pos.data.items.length + '</span>' +
-            '<span class="toggle">&#9654;</span>';
-          (function(k, bpos) {
-            el.addEventListener('click', function(e) {
-              e.stopPropagation();
-              expandedBranches[k] = !expandedBranches[k];
-              if (!expandedBranches[k]) closeDetail();
-              render();
-              if (expandedBranches[k]) panToBranch(bpos.x, bpos.y);
-            });
-          })(key, pos);
-        }
-        else if (pos.type === 'leaf') {
-          el.classList.add('node-leaf');
-          if (activeLeaf === key) el.classList.add('active');
-          el.style.width = '180px';
-          var priColor = pos.data.priority === 'critical' ? '#C06060' :
-                         pos.data.priority === 'high' ? 'var(--orange)' :
-                         pos.data.priority === 'medium' ? 'var(--blue)' : 'var(--ink-muted)';
-          el.innerHTML =
-            '<div class="leaf-title">' + pos.data.title + '</div>' +
-            '<div class="leaf-meta">' + OWNER_LABELS[pos.data.owner] +
-            ' &middot; <span style="color:' + priColor + '">' + PRI_LABEL[pos.data.priority] + '</span></div>';
-          (function(itemKey, item, branch) {
-            el.addEventListener('click', function(e) {
-              e.stopPropagation();
-              openDetail(itemKey, item, branch);
-              render();
-            });
-          })(key, pos.data, pos.branchData);
-        }
-
-        canvas.appendChild(el);
-      });
-
-      drawConnectors(positions);
-    }
-
-    function drawConnectors(positions) {
-      var svg = '';
-      var w = 4000, h = 3000;
+      var html = '';
+      html += '<a href="../" class="back-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg> Volver al sitio</a>';
 
       BRANCHES.forEach(function(branch) {
-        var root = positions['root'];
-        var bp = positions[branch.id];
-        if (!bp) return;
-        svg += curvePath(root.x, root.y, bp.x, bp.y, 'connector');
+        html += '<div class="branch" data-branch="' + branch.id + '">';
+        html += '<div class="branch-header" onclick="toggleBranch(\'' + branch.id + '\')">';
+        html += '<span class="branch-dot" style="background:' + branch.color + '"></span>';
+        html += '<span class="branch-label">' + branch.label + '</span>';
+        html += '<span class="branch-count">' + branch.items.length + '</span>';
+        html += '<svg class="branch-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>';
+        html += '</div>';
+        html += '<div class="branch-items">';
 
-        if (expandedBranches[branch.id]) {
-          branch.items.forEach(function(item) {
-            var lp = positions[item.id];
-            if (!lp) return;
-            var cls = activeLeaf === item.id ? 'connector connector-active' : 'connector';
-            svg += curvePath(bp.x, bp.y, lp.x, lp.y, cls);
-          });
-        }
+        branch.items.forEach(function(item) {
+          var hasDetail = item.desc || (item.details && item.details.length > 0);
+          html += '<div class="idea" data-idea="' + item.id + '"' + (hasDetail ? ' onclick="toggleIdea(\'' + item.id + '\')"' : '') + '>';
+          html += '<div class="idea-title">' + item.title + '</div>';
+          html += '<div class="idea-meta">';
+          html += '<span class="idea-owner">' + item.owner + '</span>';
+          html += '<span class="idea-pri pri-' + item.priority + '">' + PRI_LABEL[item.priority] + '</span>';
+          html += '</div>';
+
+          if (hasDetail) {
+            html += '<div class="idea-detail">';
+            if (item.desc) html += '<div class="idea-desc">' + item.desc + '</div>';
+            if (item.details && item.details.length > 0) {
+              html += '<ul class="idea-bullets">';
+              item.details.forEach(function(d) {
+                html += '<li>' + d + '</li>';
+              });
+              html += '</ul>';
+            }
+            html += '</div>';
+          }
+
+          html += '</div>';
+        });
+
+        html += '</div></div>';
       });
 
-      svgEl.setAttribute('width', w);
-      svgEl.setAttribute('height', h);
-      svgEl.setAttribute('viewBox', '0 0 ' + w + ' ' + h);
-      svgEl.innerHTML = svg;
+      document.getElementById('main').innerHTML = html;
     }
 
-    function curvePath(x1, y1, x2, y2, cls) {
-      var dist = Math.sqrt((x2-x1)*(x2-x1) + (y2-y1)*(y2-y1));
-      var pull = dist * 0.35;
-      var angle = Math.atan2(y2 - y1, x2 - x1);
-      var cx1 = x1 + Math.cos(angle) * pull;
-      var cy1 = y1 + Math.sin(angle) * pull;
-      var cx2 = x2 - Math.cos(angle) * pull;
-      var cy2 = y2 - Math.sin(angle) * pull;
-
-      return '<path class="' + cls + '" d="M' + x1 + ',' + y1 + ' C' + cx1 + ',' + cy1 + ' ' + cx2 + ',' + cy2 + ' ' + x2 + ',' + y2 + '"/>';
+    function toggleBranch(id) {
+      var el = document.querySelector('[data-branch="' + id + '"]');
+      if (el) el.classList.toggle('open');
     }
 
-    /* ═══ DETAIL PANEL ═══ */
-    function openDetail(key, item, branch) {
-      activeLeaf = key;
-      var priClass = 'dp-' + item.priority;
-      var html = '';
-      html += '<span class="detail-tag" style="background:' + branch.soft + ';color:' + branch.color + '">' + branch.label + '</span>';
-      html += '<h2 class="detail-title">' + item.title + '</h2>';
-      html += '<p class="detail-desc">' + item.desc + '</p>';
-
-      html += '<div class="detail-row">';
-      html += '<span class="detail-row-label">Prioridad</span>';
-      html += '<span class="detail-priority ' + priClass + '">' + PRI_LABEL[item.priority] + '</span>';
-      html += '</div>';
-
-      html += '<div class="detail-row">';
-      html += '<span class="detail-row-label">Responsable</span>';
-      html += '<span class="detail-owner"><span class="detail-owner-dot" style="background:' + OWNER_COLORS[item.owner] + '">' + item.owner + '</span> ' + OWNER_LABELS[item.owner] + '</span>';
-      html += '</div>';
-
-      if (item.details && item.details.length) {
-        html += '<div class="detail-section"><h3>Detalles</h3><ul class="detail-list">';
-        item.details.forEach(function(d) {
-          html += '<li>' + d + '</li>';
-        });
-        html += '</ul></div>';
-      }
-
-      detailContent.innerHTML = html;
-      detailPanel.classList.add('open');
-      canvasWrap.classList.add('detail-open');
+    function toggleIdea(id) {
+      var el = document.querySelector('[data-idea="' + id + '"]');
+      if (el) el.classList.toggle('expanded');
     }
 
-    function closeDetail() {
-      activeLeaf = null;
-      detailPanel.classList.remove('open');
-      canvasWrap.classList.remove('detail-open');
-    }
-
-    document.getElementById('detailClose').addEventListener('click', function() {
-      closeDetail();
-      render();
-    });
-
-    /* ═══ PAN & ZOOM ═══ */
-    function applyTransform() {
-      canvas.style.transform = 'translate(' + panX + 'px,' + panY + 'px) scale(' + scale + ')';
-      svgEl.style.transform = 'translate(' + panX + 'px,' + panY + 'px) scale(' + scale + ')';
-    }
-
-    function centerView() {
-      var rect = canvasWrap.getBoundingClientRect();
-      scale = 0.85;
-      panX = rect.width / 2 - CX * scale;
-      panY = rect.height / 2 - CY * scale;
-      applyTransform();
-    }
-
-    function panToBranch(bx, by) {
-      var rect = canvasWrap.getBoundingClientRect();
-      var targetX = rect.width / 2 - bx * scale;
-      var targetY = rect.height / 2 - by * scale;
-      var startX = panX, startY = panY;
-      var start = null;
-      var duration = 300;
-      function step(ts) {
-        if (!start) start = ts;
-        var t = Math.min((ts - start) / duration, 1);
-        t = t * (2 - t);
-        panX = startX + (targetX - startX) * t;
-        panY = startY + (targetY - startY) * t;
-        applyTransform();
-        if (t < 1) requestAnimationFrame(step);
-      }
-      requestAnimationFrame(step);
-    }
-
-    canvasWrap.addEventListener('mousedown', function(e) {
-      if (e.target.closest('.node')) return;
-      dragging = true;
-      dragStartX = e.clientX;
-      dragStartY = e.clientY;
-      panStartX = panX;
-      panStartY = panY;
-    });
-    window.addEventListener('mousemove', function(e) {
-      if (!dragging) return;
-      panX = panStartX + (e.clientX - dragStartX);
-      panY = panStartY + (e.clientY - dragStartY);
-      applyTransform();
-    });
-    window.addEventListener('mouseup', function() { dragging = false; });
-
-    canvasWrap.addEventListener('wheel', function(e) {
-      e.preventDefault();
-      var rect = canvasWrap.getBoundingClientRect();
-      var mx = e.clientX - rect.left;
-      var my = e.clientY - rect.top;
-
-      var oldScale = scale;
-      var delta = e.deltaY > 0 ? 0.92 : 1.08;
-      scale = Math.min(2.5, Math.max(0.25, scale * delta));
-
-      panX = mx - (mx - panX) * (scale / oldScale);
-      panY = my - (my - panY) * (scale / oldScale);
-      applyTransform();
-    }, {passive: false});
-
-    // Touch support
-    var lastTouchDist = 0;
-    var lastTouchX = 0, lastTouchY = 0;
-    canvasWrap.addEventListener('touchstart', function(e) {
-      if (e.touches.length === 1 && !e.target.closest('.node')) {
-        dragging = true;
-        dragStartX = e.touches[0].clientX;
-        dragStartY = e.touches[0].clientY;
-        panStartX = panX;
-        panStartY = panY;
-      } else if (e.touches.length === 2) {
-        dragging = false;
-        var dx = e.touches[0].clientX - e.touches[1].clientX;
-        var dy = e.touches[0].clientY - e.touches[1].clientY;
-        lastTouchDist = Math.sqrt(dx * dx + dy * dy);
-        lastTouchX = (e.touches[0].clientX + e.touches[1].clientX) / 2;
-        lastTouchY = (e.touches[0].clientY + e.touches[1].clientY) / 2;
-      }
-    }, {passive: true});
-    canvasWrap.addEventListener('touchmove', function(e) {
-      if (e.touches.length === 1 && dragging) {
-        e.preventDefault();
-        panX = panStartX + (e.touches[0].clientX - dragStartX);
-        panY = panStartY + (e.touches[0].clientY - dragStartY);
-        applyTransform();
-      } else if (e.touches.length === 2) {
-        e.preventDefault();
-        var dx = e.touches[0].clientX - e.touches[1].clientX;
-        var dy = e.touches[0].clientY - e.touches[1].clientY;
-        var dist = Math.sqrt(dx * dx + dy * dy);
-        if (lastTouchDist > 0) {
-          var rect = canvasWrap.getBoundingClientRect();
-          var mx = ((e.touches[0].clientX + e.touches[1].clientX) / 2) - rect.left;
-          var my = ((e.touches[0].clientY + e.touches[1].clientY) / 2) - rect.top;
-          var oldScale = scale;
-          scale = Math.min(2.5, Math.max(0.25, scale * (dist / lastTouchDist)));
-          panX = mx - (mx - panX) * (scale / oldScale);
-          panY = my - (my - panY) * (scale / oldScale);
-          applyTransform();
-        }
-        lastTouchDist = dist;
-      }
-    }, {passive: false});
-    canvasWrap.addEventListener('touchend', function() {
-      dragging = false;
-      lastTouchDist = 0;
-    });
-
-    document.getElementById('zoomIn').addEventListener('click', function() {
-      var rect = canvasWrap.getBoundingClientRect();
-      var mx = rect.width / 2, my = rect.height / 2;
-      var oldScale = scale;
-      scale = Math.min(2.5, scale * 1.25);
-      panX = mx - (mx - panX) * (scale / oldScale);
-      panY = my - (my - panY) * (scale / oldScale);
-      applyTransform();
-    });
-    document.getElementById('zoomOut').addEventListener('click', function() {
-      var rect = canvasWrap.getBoundingClientRect();
-      var mx = rect.width / 2, my = rect.height / 2;
-      var oldScale = scale;
-      scale = Math.max(0.25, scale * 0.8);
-      panX = mx - (mx - panX) * (scale / oldScale);
-      panY = my - (my - panY) * (scale / oldScale);
-      applyTransform();
-    });
-    document.getElementById('zoomReset').addEventListener('click', function() {
-      centerView();
-    });
-
-    // Click on empty space closes detail
-    canvasWrap.addEventListener('click', function(e) {
-      if (!e.target.closest('.node') && detailPanel.classList.contains('open')) {
-        closeDetail();
-        render();
-      }
-    });
-
-    /* ═══ INIT ═══ */
     render();
-    centerView();
   </script>
 </body>
 </html>
