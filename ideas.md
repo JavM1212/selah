@@ -87,6 +87,26 @@ Bryan tiene 3 calculos segun presupuesto:
 ### Actualizacion 27 oct
 - Bryan va a dedicar el dia a preparar anuncios, videos y revisar la pagina para completar datos faltantes
 - Bryan va a tener avances listos para mostrar en la noche/tarde del 27 oct
+- Bryan pregunta si Jahir puede ir a las 3pm en vez de en la noche
+
+### Referencias de anuncios (recopilados 27 oct)
+- https://www.instagram.com/reel/De5H8u9zlZp/
+- https://www.instagram.com/p/De2MN5fMn-R/
+- https://www.instagram.com/p/DevFamAMhDN/
+- https://www.instagram.com/p/De2ttwjgxDY/
+- https://youtu.be/to2iDSr6_KA
+
+### Transcripciones de audios de Bryan (27 oct)
+
+**Audio 1 (07:36):** Idea de contenido — video estilo cuadricula/mosaico. Alguien toca guitarra (cancion de flamenco), otro hace un ritmo de fondo, otro con las palmas, otro zapatea, otro canta. Cada uno en un cuadrito que se va sumando hasta que suena la cancion completa.
+
+**Audio 2 (07:37):** Complemento — que los cuadritos se vean todos a la vez (no que aparezca uno y desaparezca el anterior). Referencia al minuto 1:25 del video de YouTube. Menciona el "canto de la oda" que ya hicieron con bateria, guitarra y voz.
+
+**Audio 3 (07:39):** Puede ser varias personas a la vez o una sola persona tocando todos los instrumentos (one-man-band). Bryan podria hacerlo solo, y probablemente algunos estudiantes tambien.
+
+**Audio 4 (07:45):** Bryan dice buenos dias, agradece las ideas. Hoy no va a ir a la tienda, va a dedicarse a preparar anuncios y videos, y a revisar a fondo la pagina para completar los datos que faltan. En la noche cuando Jahir venga, le ensena lo que tiene.
+
+**Audio 5 (08:14):** Bryan pregunta si Jahir puede venir hoy a las 3pm en lugar de la noche, para ver detalles de lo que han estado hablando y recibir clase temprano. Si no puede, lo ven en la noche.
 
 ---
 
