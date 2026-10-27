@@ -3,424 +3,718 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Selah Music — Board</title>
+  <title>Selah Music — Ideas</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #F4F5F7;
-      --white: #FFFFFF;
-      --ink: #1A1D2B;
-      --ink-soft: #3D4155;
-      --ink-muted: #5F6374;
-      --teal: #287369;
-      --teal-soft: #E8F5F3;
-      --teal-mid: #D0EBE7;
-      --purple: #7B4DAA;
-      --purple-soft: #F0E8F5;
-      --magenta: #A83A6C;
-      --magenta-soft: #F5E8EF;
-      --orange: #C77B2E;
-      --orange-soft: #FFF5E6;
-      --blue: #2E6EC7;
-      --blue-soft: #E6F0FF;
-      --red: #C73E3E;
-      --red-soft: #FDE8E8;
-      --border: #DFE1E6;
-      --col-bg: #EBECF0;
+      --bg: #FAFAFA;
+      --surface: #FFFFFF;
+      --ink: #2C2F3E;
+      --ink-soft: #5A5D6E;
+      --ink-muted: #8E909E;
+      --border: #E8E9ED;
+
+      --teal: #3D9B8F;
+      --teal-soft: #EFF8F6;
+      --teal-muted: #B8DDD8;
+
+      --purple: #9B7BBF;
+      --purple-soft: #F5F0FA;
+      --purple-muted: #D4C4E6;
+
+      --magenta: #C06B8E;
+      --magenta-soft: #FAF0F4;
+      --magenta-muted: #E4BFD0;
+
+      --orange: #D4985A;
+      --orange-soft: #FDF6EE;
+      --orange-muted: #ECCEAB;
+
+      --blue: #6B9FD4;
+      --blue-soft: #EEF4FB;
+      --blue-muted: #ABCDE8;
+
+      --warm: #B8A08A;
+      --warm-soft: #F8F4F0;
+      --warm-muted: #DDD0C3;
     }
+
     * { margin: 0; padding: 0; box-sizing: border-box; }
+
     body {
       font-family: 'DM Sans', system-ui, sans-serif;
       background: var(--bg); color: var(--ink);
-      min-height: 100vh; overflow-x: auto;
+      height: 100vh; overflow: hidden;
+      display: flex; flex-direction: column;
     }
-
-    /* ─── LOGIN ─── */
-    .login-screen {
-      display: flex; align-items: center; justify-content: center;
-      min-height: 100vh; padding: 2rem;
-      background: linear-gradient(135deg, var(--teal-soft) 0%, var(--purple-soft) 50%, var(--magenta-soft) 100%);
-    }
-    .login-box {
-      background: var(--white); border-radius: 24px; padding: 2.5rem 3rem;
-      max-width: 380px; width: 100%; text-align: center;
-      box-shadow: 0 8px 40px rgba(0,0,0,0.08);
-    }
-    .login-logo { height: 56px; margin-bottom: 1.5rem; }
-    .login-box h1 { font-size: 1.25rem; font-weight: 600; margin-bottom: 0.35rem; }
-    .login-box p { font-size: 0.8rem; color: var(--ink-muted); margin-bottom: 1.75rem; font-weight: 300; }
-    .login-input {
-      width: 100%; padding: 0.8rem 1.1rem; border: 1.5px solid var(--border);
-      border-radius: 10px; font-family: inherit; font-size: 0.85rem;
-      outline: none; transition: border-color 0.2s;
-    }
-    .login-input:focus { border-color: var(--teal); }
-    .login-input.error { border-color: var(--red); animation: shake 0.3s; }
-    @keyframes shake {
-      0%,100%{transform:translateX(0)} 25%{transform:translateX(-6px)} 75%{transform:translateX(6px)}
-    }
-    .login-btn {
-      width: 100%; padding: 0.8rem; border: none; border-radius: 10px;
-      background: var(--teal); color: var(--white); font-family: inherit;
-      font-size: 0.85rem; font-weight: 500; cursor: pointer; margin-top: 0.75rem;
-      transition: background 0.2s;
-    }
-    .login-btn:hover { background: #1F5F57; }
-
-    /* ─── APP SHELL ─── */
-    .app { display: none; }
-    .app.visible { display: flex; flex-direction: column; min-height: 100vh; }
-    .login-screen.hidden { display: none; }
 
     .topbar {
-      background: var(--white); border-bottom: 1px solid var(--border);
-      padding: 0.75rem 1.5rem; display: flex; align-items: center; gap: 1rem;
-      position: sticky; top: 0; z-index: 20;
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 0.65rem 1.25rem;
+      display: flex; align-items: center; gap: 0.75rem;
+      flex-shrink: 0; z-index: 10;
     }
-    .topbar-logo { height: 32px; }
-    .topbar-sep { width: 1px; height: 24px; background: var(--border); }
-    .topbar h1 { font-size: 0.95rem; font-weight: 600; }
-    .topbar-right { margin-left: auto; display: flex; align-items: center; gap: 1rem; }
-    .topbar-updated { font-size: 0.7rem; color: var(--ink-muted); font-weight: 300; }
-
-    /* ─── FILTERS ─── */
-    .filters {
-      padding: 0.75rem 1.5rem; display: flex; align-items: center; gap: 0.5rem;
-      flex-wrap: wrap; background: var(--white); border-bottom: 1px solid var(--border);
-    }
-    .filter-label { font-size: 0.7rem; color: var(--ink-muted); font-weight: 500; text-transform: uppercase; letter-spacing: 0.05em; margin-right: 0.25rem; }
-    .filter-btn {
-      font-family: inherit; font-size: 0.72rem; font-weight: 500;
-      padding: 0.3rem 0.7rem; border-radius: 6px; cursor: pointer;
-      border: 1.5px solid var(--border); background: var(--white); color: var(--ink-soft);
-      transition: all 0.15s;
-    }
-    .filter-btn:hover { border-color: var(--ink-muted); }
-    .filter-btn.active { background: var(--teal); color: var(--white); border-color: var(--teal); }
-    .filter-sep { width: 1px; height: 20px; background: var(--border); margin: 0 0.25rem; }
-
-    /* ─── BOARD ─── */
-    .board {
-      display: flex; gap: 0.75rem; padding: 1rem 1.5rem; flex: 1;
-      overflow-x: auto; align-items: flex-start;
+    .topbar-logo { height: 28px; }
+    .topbar-sep { width: 1px; height: 20px; background: var(--border); }
+    .topbar h1 { font-size: 0.85rem; font-weight: 500; color: var(--ink-soft); }
+    .topbar-hint {
+      margin-left: auto; font-size: 0.7rem; color: var(--ink-muted);
+      font-weight: 300;
     }
 
-    /* ─── COLUMN ─── */
-    .col {
-      min-width: 300px; max-width: 300px; flex-shrink: 0;
-      background: var(--col-bg); border-radius: 12px; padding: 0.75rem;
+    .canvas-wrap {
+      flex: 1; position: relative; overflow: hidden;
+      cursor: grab;
     }
-    .col-header {
+    .canvas-wrap:active { cursor: grabbing; }
+    .canvas-wrap.detail-open { cursor: default; }
+
+    .canvas {
+      position: absolute; top: 0; left: 0;
+      transform-origin: 0 0;
+      will-change: transform;
+    }
+
+    /* ─── NODES ─── */
+    .node {
+      position: absolute;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: box-shadow 0.2s, transform 0.2s;
+      user-select: none;
+    }
+    .node:hover {
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+      transform: translateY(-1px);
+    }
+
+    .node-root {
+      background: var(--surface);
+      border: 2px solid var(--border);
+      padding: 1.25rem 2rem;
+      text-align: center;
+      border-radius: 50%;
+      width: 160px; height: 160px;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+    }
+    .node-root img { height: 40px; margin-bottom: 0.5rem; }
+    .node-root span {
+      font-size: 0.8rem; font-weight: 600; color: var(--ink);
+      line-height: 1.3;
+    }
+
+    .node-branch {
+      padding: 0.7rem 1.2rem;
       display: flex; align-items: center; gap: 0.5rem;
-      padding: 0.25rem 0.5rem 0.65rem; user-select: none;
+      white-space: nowrap;
+      box-shadow: 0 1px 6px rgba(0,0,0,0.04);
+      border: 1.5px solid transparent;
     }
-    .col-dot { width: 10px; height: 10px; border-radius: 50%; }
-    .col-title { font-size: 0.8rem; font-weight: 600; flex: 1; }
-    .col-count {
-      font-size: 0.7rem; font-weight: 600; min-width: 20px; height: 20px;
+    .node-branch .count {
+      font-size: 0.65rem; font-weight: 600;
+      background: rgba(0,0,0,0.06); border-radius: 10px;
+      padding: 0.1rem 0.45rem; min-width: 20px; text-align: center;
+    }
+    .node-branch .label {
+      font-size: 0.8rem; font-weight: 500;
+    }
+    .node-branch .toggle {
+      font-size: 0.7rem; color: inherit; opacity: 0.5;
+      margin-left: 0.15rem; transition: transform 0.2s;
+    }
+    .node-branch.expanded .toggle { transform: rotate(90deg); }
+
+    .node-leaf {
+      padding: 0.55rem 1rem;
+      background: var(--surface);
+      border: 1.5px solid var(--border);
+      max-width: 220px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.03);
+    }
+    .node-leaf .leaf-title {
+      font-size: 0.75rem; font-weight: 500; line-height: 1.35;
+      color: var(--ink);
+    }
+    .node-leaf .leaf-meta {
+      font-size: 0.65rem; color: var(--ink-muted);
+      margin-top: 0.2rem; font-weight: 300;
+    }
+    .node-leaf:hover { border-color: var(--ink-muted); }
+    .node-leaf.active {
+      border-color: var(--teal);
+      box-shadow: 0 0 0 3px var(--teal-soft);
+    }
+
+    /* ─── CONNECTORS (SVG) ─── */
+    .connectors {
+      position: absolute; top: 0; left: 0;
+      pointer-events: none;
+      overflow: visible;
+    }
+    .connector {
+      fill: none; stroke: var(--border); stroke-width: 1.5;
+    }
+    .connector-active {
+      stroke: var(--teal-muted); stroke-width: 2;
+    }
+
+    /* ─── DETAIL PANEL ─── */
+    .detail-panel {
+      position: fixed; top: 0; right: 0; bottom: 0;
+      width: 360px; max-width: 90vw;
+      background: var(--surface);
+      border-left: 1px solid var(--border);
+      box-shadow: -4px 0 24px rgba(0,0,0,0.06);
+      z-index: 30; padding: 1.5rem;
+      overflow-y: auto;
+      transform: translateX(100%);
+      transition: transform 0.25s ease;
+    }
+    .detail-panel.open { transform: translateX(0); }
+    .detail-close {
+      position: absolute; top: 1rem; right: 1rem;
+      background: none; border: none; cursor: pointer;
+      font-size: 1.1rem; color: var(--ink-muted);
+      width: 28px; height: 28px; border-radius: 6px;
       display: flex; align-items: center; justify-content: center;
-      border-radius: 50%; background: rgba(0,0,0,0.08); color: var(--ink-muted);
     }
+    .detail-close:hover { background: var(--bg); }
+    .detail-tag {
+      display: inline-block;
+      font-size: 0.7rem; font-weight: 500;
+      padding: 0.2rem 0.6rem; border-radius: 100px;
+      margin-bottom: 0.75rem;
+    }
+    .detail-title {
+      font-size: 1.05rem; font-weight: 600; line-height: 1.35;
+      margin-bottom: 0.4rem;
+    }
+    .detail-desc {
+      font-size: 0.82rem; color: var(--ink-soft); line-height: 1.6;
+      font-weight: 300; margin-bottom: 1.25rem;
+    }
+    .detail-section {
+      margin-bottom: 1rem;
+    }
+    .detail-section h3 {
+      font-size: 0.7rem; font-weight: 600; text-transform: uppercase;
+      letter-spacing: 0.06em; color: var(--ink-muted); margin-bottom: 0.5rem;
+    }
+    .detail-list {
+      list-style: none;
+    }
+    .detail-list li {
+      font-size: 0.8rem; color: var(--ink-soft); line-height: 1.55;
+      font-weight: 300; padding: 0.25rem 0; padding-left: 0.75rem;
+      position: relative;
+    }
+    .detail-list li::before {
+      content: ''; position: absolute; left: 0; top: 0.6rem;
+      width: 4px; height: 4px; border-radius: 50%;
+      background: var(--ink-muted);
+    }
+    .detail-owner {
+      display: inline-flex; align-items: center; gap: 0.35rem;
+      font-size: 0.8rem; font-weight: 400; color: var(--ink-soft);
+    }
+    .detail-owner-dot {
+      width: 18px; height: 18px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.6rem; font-weight: 700; color: white;
+    }
+    .detail-priority {
+      display: inline-block;
+      font-size: 0.7rem; font-weight: 600;
+      padding: 0.15rem 0.5rem; border-radius: 4px;
+      text-transform: uppercase; letter-spacing: 0.04em;
+    }
+    .dp-critical { background: #FDE8E8; color: #C06060; }
+    .dp-high { background: var(--orange-soft); color: var(--orange); }
+    .dp-medium { background: var(--blue-soft); color: var(--blue); }
+    .dp-low { background: var(--bg); color: var(--ink-muted); }
 
-    /* ─── CARD ─── */
-    .card {
-      background: var(--white); border-radius: 8px; padding: 0.85rem;
-      margin-bottom: 0.5rem; box-shadow: 0 1px 2px rgba(0,0,0,0.06);
-      cursor: default; transition: box-shadow 0.15s;
-      border-left: 3px solid transparent;
+    .detail-row {
+      display: flex; align-items: center; gap: 0.75rem;
+      margin-bottom: 0.5rem;
     }
-    .card:hover { box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
-    .card-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 0.5rem; margin-bottom: 0.4rem; }
-    .card-title { font-size: 0.8rem; font-weight: 600; line-height: 1.35; flex: 1; }
-    .card-priority {
-      font-size: 0.7rem; font-weight: 700; padding: 0.15rem 0.4rem;
-      border-radius: 4px; text-transform: uppercase; letter-spacing: 0.06em;
-      flex-shrink: 0; line-height: 1.4;
-    }
-    .p-critical { background: var(--red-soft); color: var(--red); }
-    .p-high { background: var(--orange-soft); color: var(--orange); }
-    .p-medium { background: var(--blue-soft); color: var(--blue); }
-    .p-low { background: var(--col-bg); color: var(--ink-muted); }
-
-    .card-desc {
-      font-size: 0.72rem; color: var(--ink-muted); line-height: 1.55;
-      font-weight: 300; margin-bottom: 0.5rem;
-    }
-    .card-meta { display: flex; align-items: center; flex-wrap: wrap; gap: 0.35rem; }
-    .card-tag {
-      font-size: 0.7rem; font-weight: 500; padding: 0.15rem 0.5rem;
-      border-radius: 100px; letter-spacing: 0.02em;
-    }
-    .ct-tienda { background: var(--teal-soft); color: var(--teal); }
-    .ct-contenido { background: var(--purple-soft); color: var(--purple); }
-    .ct-web { background: var(--magenta-soft); color: var(--magenta); }
-    .ct-drm { background: var(--orange-soft); color: var(--orange); }
-    .ct-expansion { background: var(--blue-soft); color: var(--blue); }
-
-    .card-owner {
+    .detail-row-label {
       font-size: 0.7rem; font-weight: 500; color: var(--ink-muted);
-      margin-left: auto; display: flex; align-items: center; gap: 0.25rem;
+      min-width: 70px;
     }
-    .owner-dot {
-      width: 14px; height: 14px; border-radius: 50%;
+
+    /* ─── ZOOM CONTROLS ─── */
+    .zoom-controls {
+      position: fixed; bottom: 1.25rem; right: 1.25rem;
+      display: flex; gap: 0.35rem; z-index: 20;
+    }
+    .zoom-btn {
+      width: 36px; height: 36px; border-radius: 8px;
+      background: var(--surface); border: 1px solid var(--border);
+      cursor: pointer; font-size: 1rem; color: var(--ink-soft);
       display: flex; align-items: center; justify-content: center;
-      font-size: 0.55rem; font-weight: 700; color: var(--white);
+      transition: background 0.15s;
     }
+    .zoom-btn:hover { background: var(--bg); }
 
-    /* ─── CARD EXPAND ─── */
-    .card-details { display: none; margin-top: 0.6rem; padding-top: 0.6rem; border-top: 1px solid var(--border); }
-    .card.expanded .card-details { display: block; }
-    .card-detail-item {
-      font-size: 0.7rem; color: var(--ink-soft); padding: 0.2rem 0;
-      line-height: 1.5; font-weight: 300;
-    }
-    .card-detail-item strong { font-weight: 500; color: var(--ink); }
-    .card-expand-hint {
-      font-size: 0.7rem; color: var(--ink-muted); font-weight: 400;
-      margin-top: 0.35rem; opacity: 0.6; font-style: italic;
-    }
-    .card:hover .card-expand-hint { opacity: 1; }
-    .card.expanded .card-expand-hint { display: none; }
-
-    /* ─── PRIORITY LEGEND ─── */
-    .priority-legend {
-      display: flex; gap: 1.25rem; align-items: center;
-    }
-    .pl-item { display: flex; align-items: center; gap: 0.3rem; font-size: 0.7rem; color: var(--ink-muted); }
-    .pl-dot { width: 8px; height: 8px; border-radius: 3px; }
-
-    /* ─── RESPONSIVE ─── */
-    @media (max-width: 768px) {
-      .board { padding: 0.75rem; gap: 0.5rem; }
-      .col { min-width: 280px; max-width: 280px; }
-      .filters { padding: 0.5rem 0.75rem; }
-      .topbar { padding: 0.5rem 0.75rem; }
+    @media (max-width: 600px) {
+      .detail-panel { width: 100%; }
+      .topbar-hint { display: none; }
     }
   </style>
 </head>
 <body>
 
-  <!-- LOGIN -->
-  <div class="login-screen" id="loginScreen">
-    <div class="login-box">
-      <img src="../img/img-8.png" alt="Selah Music" class="login-logo">
-      <h1>Board de Ideas</h1>
-      <p>Ingresa la clave para ver el tablero del proyecto</p>
-      <input type="password" class="login-input" id="passInput" placeholder="Clave de acceso" autocomplete="off">
-      <button class="login-btn" id="loginBtn">Entrar</button>
-    </div>
+  <div class="topbar">
+    <img src="../img/img-8.png" alt="Selah" class="topbar-logo">
+    <div class="topbar-sep"></div>
+    <h1>Mapa de Ideas</h1>
+    <span class="topbar-hint">Arrastra para mover · Scroll para zoom · Click en un nodo para detalles</span>
   </div>
 
-  <!-- APP -->
-  <div class="app" id="app">
-    <div class="topbar">
-      <img src="../img/img-8.png" alt="Selah" class="topbar-logo">
-      <div class="topbar-sep"></div>
-      <h1>Board de Ideas</h1>
-      <div class="topbar-right">
-        <div class="priority-legend">
-          <div class="pl-item"><span class="pl-dot" style="background:var(--red);"></span> Critica</div>
-          <div class="pl-item"><span class="pl-dot" style="background:var(--orange);"></span> Alta</div>
-          <div class="pl-item"><span class="pl-dot" style="background:var(--blue);"></span> Media</div>
-          <div class="pl-item"><span class="pl-dot" style="background:var(--ink-muted);"></span> Baja</div>
-        </div>
-        <span class="topbar-updated">Act. 26 oct 2026</span>
-      </div>
-    </div>
+  <div class="canvas-wrap" id="canvasWrap">
+    <svg class="connectors" id="connectors"></svg>
+    <div class="canvas" id="canvas"></div>
+  </div>
 
-    <div class="filters">
-      <span class="filter-label">Area</span>
-      <button class="filter-btn active" data-area="all">Todas</button>
-      <button class="filter-btn" data-area="tienda">Tienda</button>
-      <button class="filter-btn" data-area="contenido">Contenido</button>
-      <button class="filter-btn" data-area="web">Sitio Web</button>
-      <button class="filter-btn" data-area="drm">Proteccion</button>
-      <button class="filter-btn" data-area="expansion">Expansion</button>
-      <div class="filter-sep"></div>
-      <span class="filter-label">Responsable</span>
-      <button class="filter-btn active" data-owner="all">Todos</button>
-      <button class="filter-btn" data-owner="B">Bryan</button>
-      <button class="filter-btn" data-owner="J">Jahir</button>
-      <button class="filter-btn" data-owner="JB">Ambos</button>
-    </div>
+  <div class="detail-panel" id="detailPanel">
+    <button class="detail-close" id="detailClose">&times;</button>
+    <div id="detailContent"></div>
+  </div>
 
-    <div class="board" id="board"></div>
+  <div class="zoom-controls">
+    <button class="zoom-btn" id="zoomIn" title="Acercar">+</button>
+    <button class="zoom-btn" id="zoomOut" title="Alejar">&minus;</button>
+    <button class="zoom-btn" id="zoomReset" title="Centrar">&#8982;</button>
   </div>
 
   <script>
-    function checkPass(p) { return p === 'selahmusic'; }
-    var passInput = document.getElementById('passInput');
-    var loginBtn = document.getElementById('loginBtn');
-    var loginScreen = document.getElementById('loginScreen');
-    var app = document.getElementById('app');
-    function tryLogin() {
-      if (checkPass(passInput.value)) {
-        loginScreen.classList.add('hidden'); app.classList.add('visible');
-        try { sessionStorage.setItem('selah-auth','1'); } catch(e){}
-      } else { passInput.classList.add('error'); setTimeout(function(){passInput.classList.remove('error');},400); }
-    }
-    loginBtn.addEventListener('click', tryLogin);
-    passInput.addEventListener('keydown', function(e){ if(e.key==='Enter') tryLogin(); });
-    try { if(sessionStorage.getItem('selah-auth')==='1'){ loginScreen.classList.add('hidden'); app.classList.add('visible'); } } catch(e){}
-
-    /*
-      PRIORITY CRITERIA (objective):
-      - CRITICAL: Blocks revenue or launch. Immediate action.
-      - HIGH: Directly impacts growth or user experience. This week.
-      - MEDIUM: Improves quality or efficiency. This month.
-      - LOW: Nice to have. When there's time.
-    */
-
-    var CARDS = [
-      // ─── DONE ───
-      {id:'d1', title:'Sitio web V1 en vivo', desc:'Responsive, SEO, WhatsApp, redes sociales, deploy en Vercel.', area:'web', owner:'J', priority:'high', status:'done',
-        details:['Instrumentos clickeables con info de cursos','Programas para todas las edades','Tienda, precios, testimonios','selah-indol.vercel.app']},
-      {id:'d2', title:'Paleta alineada con logo', desc:'Teal, purple, magenta con contraste WCAG AA verificado.', area:'web', owner:'J', priority:'medium', status:'done', details:[]},
-      {id:'d3', title:'Google Maps registrado', desc:'Solicitud enviada 25 oct. En revision por Google.', area:'expansion', owner:'J', priority:'medium', status:'done', details:[]},
-      {id:'d4', title:'Margenes y costos mapeados', desc:'Teclado, cuerdas, combos — margenes confirmados.', area:'tienda', owner:'JB', priority:'high', status:'done',
-        details:['Teclado: venta ₡89,900 / costo ~₡23,000','Cuerdas: venta ₡18,000 / costo ~₡3,100','Margen por instrumento: ~₡25,000','Bateria electrica: ₡375k / normal: ₡475k']},
-      {id:'d5', title:'Estrategia de contenido definida', desc:'Publicidad (destacada) vs contenido de respaldo (posts).', area:'contenido', owner:'JB', priority:'high', status:'done',
-        details:['Anuncios → post + historia destacada','Shorts/piezas → posts normales','Eventualmente FB/IG Ads']},
-
-      // ─── IN PROGRESS ───
-      {id:'p1', title:'Inversion inicial ₡200k', desc:'Jahir pone ₡200k el 2 de noviembre. Cuerdas, cables, stands.', area:'tienda', owner:'J', priority:'critical', status:'progress',
-        details:['Plan 1 (₡200k): cuerdas, cables, stands','Plan 2 (₡350k): + audifonos, ukeleles, guitarras','Plan 3 (₡450k): + teclados, sistema apartado','Pago: SINPE o efectivo']},
-      {id:'p2', title:'Edicion de video shorts', desc:'Bryan grabo piezas musicales (25 oct). Falta editar mezcla video/audio.', area:'contenido', owner:'B', priority:'critical', status:'progress',
-        details:['Piezas conocidas y rapidas para shorts','Falta mezclar video + audio','Contenido listo para subir a redes']},
-      {id:'p3', title:'Fotos reales de la academia', desc:'Bryan buscando archivos. Reemplazar stock de Canva.', area:'contenido', owner:'B', priority:'high', status:'progress',
-        details:['Fotos actuales son de Canva/Google','Se necesitan fotos reales de clases, instalaciones, alumnos']},
-      {id:'p4', title:'Unificar usernames de redes', desc:'Definir IG, TikTok, YouTube juntos. Sentarse a resolverlo.', area:'contenido', owner:'JB', priority:'high', status:'progress',
-        details:['IG: usar @selahamusicacademia (el original)','TikTok: cambiar de _cr a selahamusicacademia','YouTube: Jahir necesita credenciales','FB: ok como esta']},
-
-      // ─── TO DO ───
-      {id:'t1', title:'Completar datos V1 del sitio', desc:'14 items pendientes de Bryan para quitar placeholders amarillos.', area:'web', owner:'B', priority:'critical', status:'todo',
-        details:['Cantidad alumnos e instrumentos (hero)','Foto + bio de Bryan','Nombres/fotos de 3 profesores','Videos testimonios (Familia 3G, nino)','Precios actuales confirmados','Catalogo tienda completo','Link YouTube / pista PGM']},
-      {id:'t2', title:'Modelo de financiamiento a clientes', desc:'Definir contrato, proceso de cuotas, bodega de apartados.', area:'tienda', owner:'B', priority:'high', status:'todo',
-        details:['Cuotas mientras estudia, contrato + cedula','Instrumento en bodega hasta cancelar','Ejemplo: Stratocaster ₡210k → 3x ₡70k']},
-      {id:'t3', title:'Producir anuncios estilo competencia', desc:'Crear anuncios propios al formato de Selah basados en referencia.', area:'contenido', owner:'JB', priority:'high', status:'todo',
-        details:['Jahir guardando anuncios de competencia','Crear version propia con estilo Selah','Post + historia destacada']},
-      {id:'t4', title:'Consignacion con proveedor', desc:'Explorar opcion de que proveedor envie mercaderia y se devuelva lo no vendido.', area:'tienda', owner:'B', priority:'medium', status:'todo',
-        details:['Proveedor en Heredia','Primera compra minima ~₡570k','Opcion consignacion reduce riesgo']},
-      {id:'t5', title:'Oportunidad microfonos Broers', desc:'Contacto exclusivo de microfonos de cable. Vender a Broers.', area:'tienda', owner:'B', priority:'medium', status:'todo',
-        details:['Broers compraba antes a Mundo Musical','Oportunidad de ser proveedor de microfonos de cable']},
-
-      // ─── BACKLOG ───
-      {id:'b1', title:'QR en libros fisicos', desc:'Codigo QR que redirige a la pagina. Actualizable sin reimprimir.', area:'web', owner:'JB', priority:'medium', status:'backlog', details:[]},
-      {id:'b2', title:'Preview de libros en web (Issuu)', desc:'Visor flipbook para hojear los libros del PGM online.', area:'web', owner:'J', priority:'medium', status:'backlog', details:[]},
-      {id:'b3', title:'Marca de agua digital', desc:'"Selah Music by Bryan Martinez" en contenido descargable.', area:'drm', owner:'J', priority:'medium', status:'backlog', details:[]},
-      {id:'b4', title:'Canal de YouTube', desc:'Crear/configurar canal oficial y embeber videos en el sitio.', area:'contenido', owner:'JB', priority:'high', status:'backlog',
-        details:['Necesita definir si usar el existente o crear nuevo','Embeber en sitio web cuando exista']},
-      {id:'b5', title:'Proteccion de videos (Vimeo/Hotmart)', desc:'DRM ligero para videoclases pagadas. Sin descarga + watermark.', area:'drm', owner:'J', priority:'low', status:'backlog',
-        details:['Vimeo Starter: ~$12/mes','Hotmart: gratis (cobra %)','DRM ligero disuade al 95%']},
-      {id:'b6', title:'Galeria de fotos/videos', desc:'Seccion en el sitio con presentaciones, recitales, clases.', area:'web', owner:'JB', priority:'low', status:'backlog', details:[]},
-      {id:'b7', title:'Sistema de inscripcion online', desc:'Formulario de matricula con seleccion de instrumento y horario.', area:'web', owner:'J', priority:'low', status:'backlog', details:[]},
-      {id:'b8', title:'Videos de testimonios', desc:'Familia 3G, nino prodigio, entrevistas a papas.', area:'contenido', owner:'B', priority:'high', status:'backlog',
-        details:['Familia 3G: abuelo, hijo, nieto','Nino prodigio: llego a los 4, ahora tiene 10','Entrevistas a papas como formato adicional']},
-      {id:'b9', title:'Red de academias', desc:'Meta: una academia nueva por ano. Fortalecer la actual primero.', area:'expansion', owner:'B', priority:'low', status:'backlog',
-        details:['Joan y Monica como futuros subdirectores','Criterio: paciencia + adherencia al metodo','Profesores que abran su propia academia = orgullo']},
-      {id:'b10', title:'App movil / PWA', desc:'La vision de Bryan: iconos de instrumentos como botones interactivos.', area:'web', owner:'J', priority:'low', status:'backlog', details:[]},
-      {id:'b11', title:'E-commerce real', desc:'Carrito, pagos en linea, tracking. Henry hace envios en SJ.', area:'tienda', owner:'J', priority:'low', status:'backlog', details:[]},
-      {id:'b12', title:'Locucion como servicio', desc:'Area por incursionar. Equipo ya disponible.', area:'expansion', owner:'B', priority:'low', status:'backlog', details:[]},
+    /* ═══ DATA ═══ */
+    var BRANCHES = [
+      {
+        id: 'tienda', label: 'Tienda', color: 'var(--teal)', soft: 'var(--teal-soft)', muted: 'var(--teal-muted)',
+        items: [
+          {id:'t-inv', title:'Inversion inicial ₡200k', desc:'Jahir pone ₡200k el 2 de noviembre para arrancar. Cuerdas, cables, stands.', owner:'J', priority:'critical',
+            details:['Plan 1 (₡200k): cuerdas, cables, stands','Plan 2 (₡350k): + audifonos, ukeleles, guitarras','Plan 3 (₡450k): + teclados, sistema de apartado','Inversion completa estimada: ₡800k','Pago: SINPE o efectivo']},
+          {id:'t-fin', title:'Financiamiento a clientes', desc:'Definir contrato, proceso de cuotas, bodega de apartados.', owner:'B', priority:'high',
+            details:['Cuotas mientras estudia, contrato + cedula','Instrumento en bodega hasta cancelar','Ejemplo: Stratocaster combo ₡210k en 3x ₡70k','16 combos disponibles, 4 colores']},
+          {id:'t-mar', title:'Margenes confirmados', desc:'Teclado, cuerdas, combos — margenes mapeados con proveedor.', owner:'JB', priority:'high',
+            details:['Teclado: venta ₡89,900 / costo ~₡23,000','Cuerdas: venta ₡18,000 / costo ~₡3,100','Margen por instrumento: ~₡25,000 netos','Bateria electrica ₡375k / normal ₡475k','Calibracion ₡24k / cuerdas ₡6,800']},
+          {id:'t-con', title:'Consignacion con proveedor', desc:'Proveedor envia mercaderia, se devuelve lo no vendido.', owner:'B', priority:'medium',
+            details:['Proveedor en Heredia','Entrega en 10 dias tras cancelacion total','Primera compra minima ~₡570k','Codigo de tienda con proveedor']},
+          {id:'t-mic', title:'Microfonos para Broers', desc:'Contacto exclusivo de microfonos de cable. Oportunidad de venta.', owner:'B', priority:'medium',
+            details:['Broers compraba antes a Mundo Musical','Oportunidad de ser proveedor exclusivo']},
+          {id:'t-tmp', title:'Temporadas clave', desc:'Fechas de alta demanda para planificar stock.', owner:'JB', priority:'medium',
+            details:['Septiembre (apartados para diciembre)','Navidad','Dia del Nino','Dia de la Madre / Padre']},
+          {id:'t-eco', title:'E-commerce real', desc:'Carrito, pagos en linea, tracking. Henry hace envios en SJ.', owner:'J', priority:'low', details:[]},
+        ]
+      },
+      {
+        id: 'contenido', label: 'Contenido', color: 'var(--purple)', soft: 'var(--purple-soft)', muted: 'var(--purple-muted)',
+        items: [
+          {id:'c-short', title:'Video shorts', desc:'Bryan grabo piezas musicales (25 oct). Falta editar mezcla.', owner:'B', priority:'critical',
+            details:['Piezas conocidas y rapidas para shorts','Falta mezclar video + audio','Contenido listo para subir a redes']},
+          {id:'c-foto', title:'Fotos reales', desc:'Reemplazar stock de Canva con fotos reales de la academia.', owner:'B', priority:'high',
+            details:['Fotos actuales son de Canva/Google','Se necesitan fotos de clases, instalaciones, alumnos']},
+          {id:'c-user', title:'Unificar usernames', desc:'Definir IG, TikTok, YouTube juntos.', owner:'JB', priority:'high',
+            details:['IG: usar @selahamusicacademia (original)','TikTok: cambiar de _cr a selahamusicacademia','YouTube: Jahir necesita credenciales','FB: ok como esta']},
+          {id:'c-anun', title:'Anuncios estilo competencia', desc:'Crear anuncios propios al formato Selah basados en referencia.', owner:'JB', priority:'high',
+            details:['Jahir guardando anuncios de competencia','Crear version propia con estilo Selah','Post + historia destacada']},
+          {id:'c-test', title:'Videos de testimonios', desc:'Familia 3G, nino prodigio, entrevistas a papas.', owner:'B', priority:'high',
+            details:['Familia 3G: abuelo, hijo, nieto','Nino prodigio: llego a los 4, ahora tiene 10','Entrevistas a papas como formato adicional']},
+          {id:'c-yt', title:'Canal de YouTube', desc:'Crear/configurar canal oficial y embeber en el sitio.', owner:'JB', priority:'high',
+            details:['Definir si usar existente o crear nuevo','Embeber en sitio web']},
+          {id:'c-estr', title:'Estrategia definida', desc:'Publicidad (destacada) vs contenido de respaldo (posts).', owner:'JB', priority:'high',
+            details:['Anuncios → post + historia destacada','Shorts/piezas → posts normales','Eventualmente FB/IG Ads']},
+        ]
+      },
+      {
+        id: 'web', label: 'Sitio Web', color: 'var(--magenta)', soft: 'var(--magenta-soft)', muted: 'var(--magenta-muted)',
+        items: [
+          {id:'w-v1', title:'Completar datos V1', desc:'14 items pendientes de Bryan para quitar placeholders.', owner:'B', priority:'critical',
+            details:['Cantidad alumnos e instrumentos','Foto + bio de Bryan','Nombres/fotos de 3 profesores','Videos testimonios','Precios confirmados','Catalogo tienda completo','Link YouTube / pista PGM']},
+          {id:'w-live', title:'V1 en vivo', desc:'Responsive, SEO, WhatsApp, redes, deploy en Vercel.', owner:'J', priority:'high',
+            details:['selah-indol.vercel.app','Instrumentos clickeables','Tienda, precios, testimonios','Programas para todas las edades']},
+          {id:'w-pal', title:'Paleta alineada', desc:'Teal, purple, magenta con contraste WCAG AA.', owner:'J', priority:'medium', details:[]},
+          {id:'w-qr', title:'QR en libros fisicos', desc:'Codigo QR que redirige a la pagina. Actualizable.', owner:'JB', priority:'medium', details:[]},
+          {id:'w-book', title:'Preview libros (Issuu)', desc:'Visor flipbook para hojear los libros del PGM online.', owner:'J', priority:'medium', details:[]},
+          {id:'w-gal', title:'Galeria de fotos/videos', desc:'Presentaciones, recitales, clases.', owner:'JB', priority:'low', details:[]},
+          {id:'w-insc', title:'Inscripcion online', desc:'Formulario de matricula con seleccion de instrumento.', owner:'J', priority:'low', details:[]},
+          {id:'w-app', title:'App movil / PWA', desc:'Iconos de instrumentos como botones interactivos.', owner:'J', priority:'low', details:[]},
+        ]
+      },
+      {
+        id: 'proteccion', label: 'Proteccion', color: 'var(--orange)', soft: 'var(--orange-soft)', muted: 'var(--orange-muted)',
+        items: [
+          {id:'p-agua', title:'Marca de agua digital', desc:'"Selah Music by Bryan Martinez" en contenido descargable.', owner:'J', priority:'medium', details:[]},
+          {id:'p-vid', title:'DRM para videos', desc:'Vimeo Starter (~$12/mes) o Hotmart (gratis, cobra %).', owner:'J', priority:'low',
+            details:['Vimeo Starter: ~$12/mes, sin descarga','Hotmart: gratis, cobra % por venta','DRM ligero disuade al 95%']},
+          {id:'p-pdf', title:'Proteccion de PDFs', desc:'Issuu gratis con ads, o $19/mes sin ads.', owner:'J', priority:'low', details:[]},
+        ]
+      },
+      {
+        id: 'expansion', label: 'Expansion', color: 'var(--blue)', soft: 'var(--blue-soft)', muted: 'var(--blue-muted)',
+        items: [
+          {id:'e-maps', title:'Google Maps registrado', desc:'Solicitud enviada 25 oct. En revision.', owner:'J', priority:'medium', details:[]},
+          {id:'e-red', title:'Red de academias', desc:'Meta: una nueva por ano. Joan y Monica como subdirectores.', owner:'B', priority:'low',
+            details:['Joan y Monica identificados como futuros subdirectores','Criterio: paciencia + adherencia al metodo','Profesores que abran su propia academia = orgullo']},
+          {id:'e-loc', title:'Locucion como servicio', desc:'Area por incursionar. Equipo ya disponible.', owner:'B', priority:'low', details:[]},
+        ]
+      },
+      {
+        id: 'servicios', label: 'Servicios', color: 'var(--warm)', soft: 'var(--warm-soft)', muted: 'var(--warm-muted)',
+        items: [
+          {id:'s-grab', title:'Grabacion', desc:'Podcasts, anuncios radiales, musica virtual y en vivo.', owner:'B', priority:'medium', details:[]},
+          {id:'s-bod', title:'Bodas y eventos', desc:'Repertorio de 5 canciones a eleccion.', owner:'B', priority:'medium', details:[]},
+          {id:'s-tal', title:'Talleres', desc:'Ensamble, teoria, sonido, canto, composicion, arreglo coral.', owner:'B', priority:'medium', details:[]},
+          {id:'s-rep', title:'Reparacion', desc:'Instrumentos y equipo de sonido.', owner:'B', priority:'low', details:[]},
+          {id:'s-env', title:'Envios', desc:'Henry en San Jose, correos al resto del pais.', owner:'B', priority:'low', details:[]},
+          {id:'s-aud', title:'Curso audio/produccion', desc:'Hermano de Bryan (baterista y sonidista profesional).', owner:'B', priority:'low', details:[]},
+        ]
+      },
     ];
 
-    var COLUMNS = [
-      {key:'done', title:'Hecho', color:'var(--teal)', dot:'var(--teal)'},
-      {key:'progress', title:'En Progreso', color:'var(--blue)', dot:'var(--blue)'},
-      {key:'todo', title:'Por Hacer', color:'var(--orange)', dot:'var(--orange)'},
-      {key:'backlog', title:'Backlog', color:'var(--ink-muted)', dot:'var(--ink-muted)'},
-    ];
-
-    var AREA_CLASS = {tienda:'ct-tienda', contenido:'ct-contenido', web:'ct-web', drm:'ct-drm', expansion:'ct-expansion'};
-    var AREA_LABEL = {tienda:'Tienda', contenido:'Contenido', web:'Sitio Web', drm:'Proteccion', expansion:'Expansion'};
     var OWNER_COLORS = {B:'var(--purple)', J:'var(--teal)', JB:'var(--magenta)'};
     var OWNER_LABELS = {B:'Bryan', J:'Jahir', JB:'Ambos'};
-    var PRI_CLASS = {critical:'p-critical', high:'p-high', medium:'p-medium', low:'p-low'};
     var PRI_LABEL = {critical:'Critica', high:'Alta', medium:'Media', low:'Baja'};
-    var PRI_ORDER = {critical:0, high:1, medium:2, low:3};
 
-    var activeArea = 'all';
-    var activeOwner = 'all';
+    /* ═══ LAYOUT ENGINE ═══ */
+    var canvasWrap = document.getElementById('canvasWrap');
+    var canvas = document.getElementById('canvas');
+    var svgEl = document.getElementById('connectors');
+    var detailPanel = document.getElementById('detailPanel');
+    var detailContent = document.getElementById('detailContent');
 
-    function render() {
-      var board = document.getElementById('board');
-      board.innerHTML = '';
+    var scale = 1;
+    var panX = 0, panY = 0;
+    var dragging = false;
+    var dragStartX, dragStartY, panStartX, panStartY;
 
-      var filtered = CARDS.filter(function(c) {
-        if (activeArea !== 'all' && c.area !== activeArea) return false;
-        if (activeOwner !== 'all' && c.owner !== activeOwner) return false;
-        return true;
+    var CX = 2000, CY = 1500;
+    var branchRadius = 280;
+    var leafStartRadius = 160;
+    var leafSpacingY = 52;
+
+    var expandedBranches = {};
+    var activeLeaf = null;
+    var nodePositions = {};
+
+    function initExpanded() {
+      BRANCHES.forEach(function(b) { expandedBranches[b.id] = false; });
+    }
+    initExpanded();
+
+    function layout() {
+      var positions = {};
+      positions['root'] = {x: CX, y: CY, w: 160, h: 160, type: 'root'};
+
+      var angleStep = (Math.PI * 2) / BRANCHES.length;
+      var startAngle = -Math.PI / 2;
+
+      BRANCHES.forEach(function(branch, i) {
+        var angle = startAngle + i * angleStep;
+        var bx = CX + Math.cos(angle) * branchRadius;
+        var by = CY + Math.sin(angle) * branchRadius;
+        positions[branch.id] = {x: bx, y: by, w: 140, h: 40, type: 'branch', angle: angle, data: branch};
+
+        if (expandedBranches[branch.id]) {
+          var leafAngle = angle;
+          var leafDist = leafStartRadius;
+          var count = branch.items.length;
+          var totalHeight = (count - 1) * leafSpacingY;
+          var perpAngle = angle + Math.PI / 2;
+
+          branch.items.forEach(function(item, j) {
+            var offset = -totalHeight / 2 + j * leafSpacingY;
+            var lx = bx + Math.cos(leafAngle) * leafDist + Math.cos(perpAngle) * offset;
+            var ly = by + Math.sin(leafAngle) * leafDist + Math.sin(perpAngle) * offset;
+            positions[item.id] = {x: lx, y: ly, w: 200, h: 44, type: 'leaf', parent: branch.id, data: item, branchData: branch};
+          });
+        }
       });
 
-      COLUMNS.forEach(function(col) {
-        var colCards = filtered.filter(function(c){ return c.status === col.key; });
-        colCards.sort(function(a,b){ return PRI_ORDER[a.priority] - PRI_ORDER[b.priority]; });
-
-        var colEl = document.createElement('div');
-        colEl.className = 'col';
-
-        var header = document.createElement('div');
-        header.className = 'col-header';
-        header.innerHTML =
-          '<span class="col-dot" style="background:'+col.dot+'"></span>' +
-          '<span class="col-title">'+col.title+'</span>' +
-          '<span class="col-count">'+colCards.length+'</span>';
-        colEl.appendChild(header);
-
-        colCards.forEach(function(c) {
-          var card = document.createElement('div');
-          card.className = 'card';
-          card.style.borderLeftColor = col.color;
-
-          var html = '<div class="card-top">';
-          html += '<span class="card-title">'+c.title+'</span>';
-          html += '<span class="card-priority '+PRI_CLASS[c.priority]+'">'+PRI_LABEL[c.priority]+'</span>';
-          html += '</div>';
-          html += '<div class="card-desc">'+c.desc+'</div>';
-          html += '<div class="card-meta">';
-          html += '<span class="card-tag '+AREA_CLASS[c.area]+'">'+AREA_LABEL[c.area]+'</span>';
-          html += '<span class="card-owner"><span class="owner-dot" style="background:'+OWNER_COLORS[c.owner]+'">'+c.owner+'</span>'+OWNER_LABELS[c.owner]+'</span>';
-          html += '</div>';
-
-          if (c.details && c.details.length) {
-            html += '<div class="card-expand-hint">Click para ver detalles</div>';
-            html += '<div class="card-details">';
-            c.details.forEach(function(d) {
-              html += '<div class="card-detail-item">'+d+'</div>';
-            });
-            html += '</div>';
-          }
-
-          card.innerHTML = html;
-          if (c.details && c.details.length) {
-            card.addEventListener('click', function(){ this.classList.toggle('expanded'); });
-          }
-          colEl.appendChild(card);
-        });
-
-        board.appendChild(colEl);
-      });
+      nodePositions = positions;
+      return positions;
     }
 
-    // FILTERS
-    document.querySelectorAll('.filter-btn[data-area]').forEach(function(btn) {
-      btn.addEventListener('click', function() {
-        document.querySelectorAll('.filter-btn[data-area]').forEach(function(b){ b.classList.remove('active'); });
-        this.classList.add('active');
-        activeArea = this.getAttribute('data-area');
-        render();
+    function render() {
+      var positions = layout();
+      canvas.innerHTML = '';
+
+      Object.keys(positions).forEach(function(key) {
+        var pos = positions[key];
+        var el = document.createElement('div');
+        el.className = 'node';
+        el.style.left = (pos.x - pos.w / 2) + 'px';
+        el.style.top = (pos.y - pos.h / 2) + 'px';
+
+        if (pos.type === 'root') {
+          el.classList.add('node-root');
+          el.innerHTML = '<img src="../img/img-8.png" alt="Selah"><span>Ideas</span>';
+        }
+        else if (pos.type === 'branch') {
+          el.classList.add('node-branch');
+          if (expandedBranches[key]) el.classList.add('expanded');
+          el.style.background = pos.data.soft;
+          el.style.borderColor = pos.data.muted;
+          el.style.color = pos.data.color;
+          el.innerHTML =
+            '<span class="label">' + pos.data.label + '</span>' +
+            '<span class="count">' + pos.data.items.length + '</span>' +
+            '<span class="toggle">&#9654;</span>';
+          el.addEventListener('click', function(e) {
+            e.stopPropagation();
+            expandedBranches[key] = !expandedBranches[key];
+            if (!expandedBranches[key]) closeDetail();
+            render();
+          });
+        }
+        else if (pos.type === 'leaf') {
+          el.classList.add('node-leaf');
+          if (activeLeaf === key) el.classList.add('active');
+          el.style.width = pos.w + 'px';
+          var priColor = pos.data.priority === 'critical' ? '#C06060' :
+                         pos.data.priority === 'high' ? 'var(--orange)' :
+                         pos.data.priority === 'medium' ? 'var(--blue)' : 'var(--ink-muted)';
+          el.innerHTML =
+            '<div class="leaf-title">' + pos.data.title + '</div>' +
+            '<div class="leaf-meta">' + OWNER_LABELS[pos.data.owner] +
+            ' &middot; <span style="color:' + priColor + '">' + PRI_LABEL[pos.data.priority] + '</span></div>';
+          (function(itemKey, item, branch) {
+            el.addEventListener('click', function(e) {
+              e.stopPropagation();
+              openDetail(itemKey, item, branch);
+              render();
+            });
+          })(key, pos.data, pos.branchData);
+        }
+
+        canvas.appendChild(el);
       });
-    });
-    document.querySelectorAll('.filter-btn[data-owner]').forEach(function(btn) {
-      btn.addEventListener('click', function() {
-        document.querySelectorAll('.filter-btn[data-owner]').forEach(function(b){ b.classList.remove('active'); });
-        this.classList.add('active');
-        activeOwner = this.getAttribute('data-owner');
-        render();
+
+      drawConnectors(positions);
+    }
+
+    function drawConnectors(positions) {
+      var svg = '';
+      var w = 4000, h = 3000;
+
+      BRANCHES.forEach(function(branch) {
+        var root = positions['root'];
+        var bp = positions[branch.id];
+        if (!bp) return;
+        svg += curvePath(root.x, root.y, bp.x, bp.y, 'connector');
+
+        if (expandedBranches[branch.id]) {
+          branch.items.forEach(function(item) {
+            var lp = positions[item.id];
+            if (!lp) return;
+            var cls = activeLeaf === item.id ? 'connector connector-active' : 'connector';
+            svg += curvePath(bp.x, bp.y, lp.x, lp.y, cls);
+          });
+        }
       });
+
+      svgEl.setAttribute('width', w);
+      svgEl.setAttribute('height', h);
+      svgEl.setAttribute('viewBox', '0 0 ' + w + ' ' + h);
+      svgEl.innerHTML = svg;
+    }
+
+    function curvePath(x1, y1, x2, y2, cls) {
+      var mx = (x1 + x2) / 2;
+      var my = (y1 + y2) / 2;
+      var dx = Math.abs(x2 - x1) * 0.4;
+      var dy = Math.abs(y2 - y1) * 0.4;
+
+      var cx1, cy1, cx2, cy2;
+      if (Math.abs(x2 - x1) > Math.abs(y2 - y1)) {
+        cx1 = x1 + (x2 > x1 ? dx : -dx);
+        cy1 = y1;
+        cx2 = x2 - (x2 > x1 ? dx : -dx);
+        cy2 = y2;
+      } else {
+        cx1 = x1;
+        cy1 = y1 + (y2 > y1 ? dy : -dy);
+        cx2 = x2;
+        cy2 = y2 - (y2 > y1 ? dy : -dy);
+      }
+
+      return '<path class="' + cls + '" d="M' + x1 + ',' + y1 + ' C' + cx1 + ',' + cy1 + ' ' + cx2 + ',' + cy2 + ' ' + x2 + ',' + y2 + '"/>';
+    }
+
+    /* ═══ DETAIL PANEL ═══ */
+    function openDetail(key, item, branch) {
+      activeLeaf = key;
+      var priClass = 'dp-' + item.priority;
+      var html = '';
+      html += '<span class="detail-tag" style="background:' + branch.soft + ';color:' + branch.color + '">' + branch.label + '</span>';
+      html += '<h2 class="detail-title">' + item.title + '</h2>';
+      html += '<p class="detail-desc">' + item.desc + '</p>';
+
+      html += '<div class="detail-row">';
+      html += '<span class="detail-row-label">Prioridad</span>';
+      html += '<span class="detail-priority ' + priClass + '">' + PRI_LABEL[item.priority] + '</span>';
+      html += '</div>';
+
+      html += '<div class="detail-row">';
+      html += '<span class="detail-row-label">Responsable</span>';
+      html += '<span class="detail-owner"><span class="detail-owner-dot" style="background:' + OWNER_COLORS[item.owner] + '">' + item.owner + '</span> ' + OWNER_LABELS[item.owner] + '</span>';
+      html += '</div>';
+
+      if (item.details && item.details.length) {
+        html += '<div class="detail-section"><h3>Detalles</h3><ul class="detail-list">';
+        item.details.forEach(function(d) {
+          html += '<li>' + d + '</li>';
+        });
+        html += '</ul></div>';
+      }
+
+      detailContent.innerHTML = html;
+      detailPanel.classList.add('open');
+      canvasWrap.classList.add('detail-open');
+    }
+
+    function closeDetail() {
+      activeLeaf = null;
+      detailPanel.classList.remove('open');
+      canvasWrap.classList.remove('detail-open');
+    }
+
+    document.getElementById('detailClose').addEventListener('click', function() {
+      closeDetail();
+      render();
     });
 
+    /* ═══ PAN & ZOOM ═══ */
+    function applyTransform() {
+      canvas.style.transform = 'translate(' + panX + 'px,' + panY + 'px) scale(' + scale + ')';
+      svgEl.style.transform = 'translate(' + panX + 'px,' + panY + 'px) scale(' + scale + ')';
+    }
+
+    function centerView() {
+      var rect = canvasWrap.getBoundingClientRect();
+      scale = 0.85;
+      panX = rect.width / 2 - CX * scale;
+      panY = rect.height / 2 - CY * scale;
+      applyTransform();
+    }
+
+    canvasWrap.addEventListener('mousedown', function(e) {
+      if (e.target.closest('.node')) return;
+      dragging = true;
+      dragStartX = e.clientX;
+      dragStartY = e.clientY;
+      panStartX = panX;
+      panStartY = panY;
+    });
+    window.addEventListener('mousemove', function(e) {
+      if (!dragging) return;
+      panX = panStartX + (e.clientX - dragStartX);
+      panY = panStartY + (e.clientY - dragStartY);
+      applyTransform();
+    });
+    window.addEventListener('mouseup', function() { dragging = false; });
+
+    canvasWrap.addEventListener('wheel', function(e) {
+      e.preventDefault();
+      var rect = canvasWrap.getBoundingClientRect();
+      var mx = e.clientX - rect.left;
+      var my = e.clientY - rect.top;
+
+      var oldScale = scale;
+      var delta = e.deltaY > 0 ? 0.92 : 1.08;
+      scale = Math.min(2.5, Math.max(0.25, scale * delta));
+
+      panX = mx - (mx - panX) * (scale / oldScale);
+      panY = my - (my - panY) * (scale / oldScale);
+      applyTransform();
+    }, {passive: false});
+
+    // Touch support
+    var lastTouchDist = 0;
+    var lastTouchX = 0, lastTouchY = 0;
+    canvasWrap.addEventListener('touchstart', function(e) {
+      if (e.touches.length === 1 && !e.target.closest('.node')) {
+        dragging = true;
+        dragStartX = e.touches[0].clientX;
+        dragStartY = e.touches[0].clientY;
+        panStartX = panX;
+        panStartY = panY;
+      } else if (e.touches.length === 2) {
+        dragging = false;
+        var dx = e.touches[0].clientX - e.touches[1].clientX;
+        var dy = e.touches[0].clientY - e.touches[1].clientY;
+        lastTouchDist = Math.sqrt(dx * dx + dy * dy);
+        lastTouchX = (e.touches[0].clientX + e.touches[1].clientX) / 2;
+        lastTouchY = (e.touches[0].clientY + e.touches[1].clientY) / 2;
+      }
+    }, {passive: true});
+    canvasWrap.addEventListener('touchmove', function(e) {
+      if (e.touches.length === 1 && dragging) {
+        e.preventDefault();
+        panX = panStartX + (e.touches[0].clientX - dragStartX);
+        panY = panStartY + (e.touches[0].clientY - dragStartY);
+        applyTransform();
+      } else if (e.touches.length === 2) {
+        e.preventDefault();
+        var dx = e.touches[0].clientX - e.touches[1].clientX;
+        var dy = e.touches[0].clientY - e.touches[1].clientY;
+        var dist = Math.sqrt(dx * dx + dy * dy);
+        if (lastTouchDist > 0) {
+          var rect = canvasWrap.getBoundingClientRect();
+          var mx = ((e.touches[0].clientX + e.touches[1].clientX) / 2) - rect.left;
+          var my = ((e.touches[0].clientY + e.touches[1].clientY) / 2) - rect.top;
+          var oldScale = scale;
+          scale = Math.min(2.5, Math.max(0.25, scale * (dist / lastTouchDist)));
+          panX = mx - (mx - panX) * (scale / oldScale);
+          panY = my - (my - panY) * (scale / oldScale);
+          applyTransform();
+        }
+        lastTouchDist = dist;
+      }
+    }, {passive: false});
+    canvasWrap.addEventListener('touchend', function() {
+      dragging = false;
+      lastTouchDist = 0;
+    });
+
+    document.getElementById('zoomIn').addEventListener('click', function() {
+      var rect = canvasWrap.getBoundingClientRect();
+      var mx = rect.width / 2, my = rect.height / 2;
+      var oldScale = scale;
+      scale = Math.min(2.5, scale * 1.25);
+      panX = mx - (mx - panX) * (scale / oldScale);
+      panY = my - (my - panY) * (scale / oldScale);
+      applyTransform();
+    });
+    document.getElementById('zoomOut').addEventListener('click', function() {
+      var rect = canvasWrap.getBoundingClientRect();
+      var mx = rect.width / 2, my = rect.height / 2;
+      var oldScale = scale;
+      scale = Math.max(0.25, scale * 0.8);
+      panX = mx - (mx - panX) * (scale / oldScale);
+      panY = my - (my - panY) * (scale / oldScale);
+      applyTransform();
+    });
+    document.getElementById('zoomReset').addEventListener('click', function() {
+      centerView();
+    });
+
+    // Click on empty space closes detail
+    canvasWrap.addEventListener('click', function(e) {
+      if (!e.target.closest('.node') && detailPanel.classList.contains('open')) {
+        closeDetail();
+        render();
+      }
+    });
+
+    /* ═══ INIT ═══ */
     render();
+    centerView();
   </script>
 </body>
 </html>
