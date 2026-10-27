@@ -8,36 +8,12 @@
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #FAFAFA;
+      --bg: #F5F4F1;
       --surface: #FFFFFF;
       --ink: #2C2F3E;
       --ink-soft: #5A5D6E;
       --ink-muted: #8E909E;
       --border: #E8E9ED;
-
-      --teal: #3D9B8F;
-      --teal-soft: #EFF8F6;
-      --teal-muted: #B8DDD8;
-
-      --purple: #9B7BBF;
-      --purple-soft: #F5F0FA;
-      --purple-muted: #D4C4E6;
-
-      --magenta: #C06B8E;
-      --magenta-soft: #FAF0F4;
-      --magenta-muted: #E4BFD0;
-
-      --orange: #D4985A;
-      --orange-soft: #FDF6EE;
-      --orange-muted: #ECCEAB;
-
-      --blue: #6B9FD4;
-      --blue-soft: #EEF4FB;
-      --blue-muted: #ABCDE8;
-
-      --warm: #B8A08A;
-      --warm-soft: #F8F4F0;
-      --warm-muted: #DDD0C3;
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -51,165 +27,182 @@
 
     /* ─── HEADER ─── */
     .header {
-      background: var(--surface);
-      border-bottom: 1px solid var(--border);
-      padding: 0.75rem 1.25rem;
+      padding: 2rem 1.5rem 1rem;
       display: flex; align-items: center; gap: 0.75rem;
-      position: sticky; top: 0; z-index: 10;
     }
-    .header-logo { height: 28px; }
-    .header-sep { width: 1px; height: 20px; background: var(--border); }
-    .header h1 { font-size: 0.9rem; font-weight: 500; color: var(--ink-soft); }
+    .header-logo { height: 32px; }
+    .header h1 {
+      font-size: 1.35rem; font-weight: 600; color: var(--ink);
+      letter-spacing: -0.01em;
+    }
     .header-count {
       margin-left: auto;
       font-size: 0.75rem; color: var(--ink-muted); font-weight: 400;
+      background: var(--surface); padding: 0.25rem 0.65rem;
+      border-radius: 20px;
     }
 
-    /* ─── MAIN ─── */
-    .main {
-      max-width: 720px;
+    /* ─── GRID ─── */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.75rem;
+      padding: 1rem 1.5rem 2rem;
+      max-width: 820px;
       margin: 0 auto;
-      padding: 1.25rem 1rem 3rem;
     }
 
-    /* ─── BRANCH ACCORDION ─── */
-    .branch {
-      margin-bottom: 0.75rem;
-      border-radius: 12px;
-      overflow: hidden;
-      border: 1px solid var(--border);
-      background: var(--surface);
-    }
-    .branch-header {
-      display: flex; align-items: center; gap: 0.65rem;
-      padding: 0.85rem 1rem;
+    /* ─── CATEGORY CARD ─── */
+    .cat {
+      border-radius: 16px;
       cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
       user-select: none;
       -webkit-tap-highlight-color: transparent;
-      transition: background 0.15s;
-    }
-    .branch-header:hover { background: var(--bg); }
-    .branch-header:active { background: var(--border); }
-
-    .branch-dot {
-      width: 10px; height: 10px;
-      border-radius: 50%; flex-shrink: 0;
-    }
-    .branch-label {
-      font-size: 0.95rem; font-weight: 600;
-      flex: 1;
-    }
-    .branch-count {
-      font-size: 0.7rem; font-weight: 500;
-      padding: 0.15rem 0.5rem;
-      border-radius: 10px;
-      color: var(--ink-muted);
-      background: var(--bg);
-    }
-    .branch-arrow {
-      width: 18px; height: 18px;
-      color: var(--ink-muted);
-      transition: transform 0.25s ease;
-      flex-shrink: 0;
-    }
-    .branch.open .branch-arrow { transform: rotate(90deg); }
-
-    .branch-items {
-      display: none;
-      border-top: 1px solid var(--border);
-    }
-    .branch.open .branch-items { display: block; }
-
-    /* ─── IDEA CARD ─── */
-    .idea {
-      padding: 0.75rem 1rem 0.75rem 2.25rem;
-      border-bottom: 1px solid var(--border);
-      cursor: pointer;
-      transition: background 0.15s;
-      -webkit-tap-highlight-color: transparent;
+      overflow: hidden;
       position: relative;
     }
-    .idea:last-child { border-bottom: none; }
-    .idea:hover { background: var(--bg); }
-    .idea:active { background: var(--border); }
+    .cat:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.08); }
+    .cat:active { transform: scale(0.98); }
 
-    .idea::before {
-      content: '';
-      position: absolute;
-      left: 1rem; top: 1.1rem;
-      width: 5px; height: 5px;
+    .cat-face {
+      padding: 1.35rem 1.15rem;
+      min-height: 130px;
+      display: flex; flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+    }
+    .cat-icon {
+      font-size: 1.6rem;
+      margin-bottom: 0.5rem;
+      line-height: 1;
+    }
+    .cat-label {
+      font-size: 1.05rem; font-weight: 600;
+      color: var(--ink);
+      line-height: 1.25;
+    }
+    .cat-count {
+      font-size: 0.7rem; font-weight: 500;
+      color: var(--ink-soft);
+      margin-top: 0.35rem;
+      opacity: 0.7;
+    }
+    .cat-arrow {
+      position: absolute; bottom: 1rem; right: 1rem;
+      width: 22px; height: 22px;
       border-radius: 50%;
-      background: var(--ink-muted);
+      background: rgba(0,0,0,0.06);
+      display: flex; align-items: center; justify-content: center;
+      transition: transform 0.25s;
+    }
+    .cat-arrow svg {
+      width: 12px; height: 12px; color: var(--ink-soft);
+    }
+    .cat.open .cat-arrow { transform: rotate(90deg); }
+
+    /* ─── EXPANDED IDEAS ─── */
+    .cat-ideas {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.35s ease;
+      background: rgba(255,255,255,0.5);
+    }
+    .cat.open .cat-ideas {
+      max-height: 2000px;
+    }
+    .cat-ideas-inner {
+      padding: 0 1.15rem 1rem;
+    }
+    .ideas-divider {
+      height: 1px;
+      background: rgba(0,0,0,0.08);
+      margin-bottom: 0.75rem;
     }
 
+    .idea {
+      padding: 0.6rem 0;
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .idea + .idea {
+      border-top: 1px solid rgba(0,0,0,0.05);
+    }
+
+    .idea-row {
+      display: flex; align-items: baseline; gap: 0.5rem;
+    }
     .idea-title {
-      font-size: 0.85rem; font-weight: 500;
-      margin-bottom: 0.2rem;
-      line-height: 1.35;
-    }
-    .idea-meta {
-      display: flex; align-items: center; gap: 0.5rem;
-      flex-wrap: wrap;
-    }
-    .idea-owner {
-      font-size: 0.72rem; color: var(--ink-muted); font-weight: 400;
+      font-size: 0.8rem; font-weight: 500;
+      flex: 1; line-height: 1.4;
     }
     .idea-pri {
-      font-size: 0.65rem; font-weight: 500;
-      padding: 0.1rem 0.4rem;
+      font-size: 0.6rem; font-weight: 600;
+      padding: 0.12rem 0.4rem;
       border-radius: 4px;
-      line-height: 1.4;
+      flex-shrink: 0;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
     }
-    .pri-critical { background: #FDEEED; color: #C0392B; }
-    .pri-high { background: #FDF6EE; color: #D4985A; }
-    .pri-medium { background: #EEF4FB; color: #6B9FD4; }
-    .pri-low { background: var(--bg); color: var(--ink-muted); }
+    .pri-critical { background: rgba(192,57,43,0.12); color: #C0392B; }
+    .pri-high { background: rgba(212,152,90,0.15); color: #B07840; }
+    .pri-medium { background: rgba(107,159,212,0.12); color: #5A8CBE; }
+    .pri-low { background: rgba(0,0,0,0.05); color: var(--ink-muted); }
 
-    /* ─── IDEA DETAIL (expanded inline) ─── */
+    .idea-owner {
+      font-size: 0.68rem; color: var(--ink-muted);
+      margin-top: 0.15rem;
+    }
+
     .idea-detail {
       display: none;
-      margin-top: 0.5rem;
-      padding: 0.6rem 0.75rem;
-      background: var(--bg);
+      margin-top: 0.4rem;
+      padding: 0.5rem 0.65rem;
+      background: rgba(255,255,255,0.6);
       border-radius: 8px;
+      border: 1px solid rgba(0,0,0,0.04);
     }
     .idea.expanded .idea-detail { display: block; }
 
     .idea-desc {
-      font-size: 0.78rem; color: var(--ink-soft);
-      line-height: 1.55; margin-bottom: 0.4rem;
-    }
-    .idea-bullets {
-      list-style: none; padding: 0;
-    }
-    .idea-bullets li {
       font-size: 0.73rem; color: var(--ink-soft);
-      line-height: 1.55;
-      padding-left: 0.85rem;
+      line-height: 1.55; margin-bottom: 0.3rem;
+    }
+    .idea-bullets { list-style: none; }
+    .idea-bullets li {
+      font-size: 0.7rem; color: var(--ink-soft);
+      line-height: 1.55; padding-left: 0.8rem;
       position: relative;
     }
     .idea-bullets li::before {
-      content: '—';
-      position: absolute; left: 0;
+      content: '\2022'; position: absolute; left: 0;
       color: var(--ink-muted);
     }
 
-    /* ─── BACK LINK ─── */
-    .back-link {
-      display: inline-flex; align-items: center; gap: 0.35rem;
-      font-size: 0.78rem; color: var(--ink-muted);
-      text-decoration: none; margin-bottom: 1rem;
+    /* ─── FULL WIDTH ON OPEN ─── */
+    .cat.open {
+      grid-column: 1 / -1;
+    }
+
+    /* ─── BACK ─── */
+    .back {
+      display: inline-flex; align-items: center; gap: 0.3rem;
+      font-size: 0.75rem; color: var(--ink-muted);
+      text-decoration: none; padding: 0 1.5rem;
       transition: color 0.15s;
     }
-    .back-link:hover { color: var(--ink-soft); }
-    .back-link svg { width: 14px; height: 14px; }
+    .back:hover { color: var(--ink-soft); }
+    .back svg { width: 14px; height: 14px; }
 
-    @media (max-width: 480px) {
-      .main { padding: 1rem 0.75rem 2rem; }
-      .branch-header { padding: 0.75rem 0.85rem; }
-      .idea { padding: 0.65rem 0.85rem 0.65rem 2rem; }
-      .idea::before { left: 0.85rem; }
-      .header-count { display: none; }
+    /* ─── MOBILE ─── */
+    @media (max-width: 520px) {
+      .header { padding: 1.5rem 1rem 0.75rem; }
+      .grid { grid-template-columns: 1fr; padding: 0.75rem 1rem 2rem; gap: 0.6rem; }
+      .cat-face { min-height: 90px; padding: 1rem; }
+      .cat-icon { font-size: 1.3rem; }
+      .cat-label { font-size: 0.95rem; }
+      .back { padding: 0 1rem; }
+      .cat.open { grid-column: 1; }
     }
   </style>
 </head>
@@ -217,87 +210,89 @@
 
   <div class="header">
     <img src="../img/img-8.png" alt="Selah" class="header-logo">
-    <div class="header-sep"></div>
     <h1>Ideas</h1>
     <span class="header-count" id="totalCount"></span>
   </div>
+  <a href="../" class="back"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg> Volver al sitio</a>
 
-  <div class="main" id="main"></div>
+  <div class="grid" id="grid"></div>
 
   <script>
-    var BRANCHES = [
+    var CATS = [
       {
-        id: 'tienda', label: 'Tienda', color: 'var(--teal)', soft: 'var(--teal-soft)',
+        id: 'tienda', label: 'Tienda', icon: '🎸',
+        bg: '#E8F5F3', accent: '#3D9B8F',
         items: [
           {id:'t-inv', title:'Inversion inicial ₡200k', desc:'Jahir pone ₡200k el 2 de noviembre para arrancar. Cuerdas, cables, stands.', owner:'Jahir', priority:'critical',
             details:['Plan 1 (₡200k): cuerdas, cables, stands','Plan 2 (₡350k): + audifonos, ukeleles, guitarras','Plan 3 (₡450k): + teclados, sistema de apartado','Inversion completa estimada: ₡800k','Pago: SINPE o efectivo']},
-          {id:'t-fin', title:'Financiamiento a clientes', desc:'Definir contrato, proceso de cuotas, bodega de apartados.', owner:'Bryan', priority:'high',
-            details:['Cuotas mientras estudia, contrato + cedula','Instrumento en bodega hasta cancelar','Ejemplo: Stratocaster combo ₡210k en 3x ₡70k','16 combos disponibles, 4 colores']},
+          {id:'t-fin', title:'Financiamiento a clientes', desc:'Cuotas mientras estudia, contrato + cedula. Instrumento en bodega hasta cancelar.', owner:'Bryan', priority:'high',
+            details:['Ejemplo: Stratocaster combo ₡210k en 3x ₡70k','16 combos disponibles, 4 colores']},
           {id:'t-mar', title:'Margenes confirmados', desc:'Teclado, cuerdas, combos — margenes mapeados con proveedor.', owner:'Ambos', priority:'high',
-            details:['Teclado: venta ₡89,900 / costo ~₡23,000','Cuerdas: venta ₡18,000 / costo ~₡3,100','Margen por instrumento: ~₡25,000 netos','Bateria electrica ₡375k / normal ₡475k','Calibracion ₡24k / cuerdas ₡6,800']},
+            details:['Teclado: venta ₡89,900 / costo ~₡23,000','Cuerdas: venta ₡18,000 / costo ~₡3,100','Margen por instrumento: ~₡25,000 netos','Bateria electrica ₡375k / normal ₡475k']},
           {id:'t-con', title:'Consignacion con proveedor', desc:'Proveedor envia mercaderia, se devuelve lo no vendido.', owner:'Bryan', priority:'medium',
-            details:['Proveedor en Heredia','Entrega en 10 dias tras cancelacion total','Primera compra minima ~₡570k','Codigo de tienda con proveedor']},
-          {id:'t-mic', title:'Microfonos para Broers', desc:'Contacto exclusivo de microfonos de cable. Oportunidad de venta.', owner:'Bryan', priority:'medium',
-            details:['Broers compraba antes a Mundo Musical','Oportunidad de ser proveedor exclusivo']},
-          {id:'t-tmp', title:'Temporadas clave', desc:'Fechas de alta demanda para planificar stock.', owner:'Ambos', priority:'medium',
-            details:['Septiembre (apartados para diciembre)','Navidad','Dia del Nino','Dia de la Madre / Padre']},
-          {id:'t-eco', title:'E-commerce real', desc:'Carrito, pagos en linea, tracking. Henry hace envios en SJ.', owner:'Jahir', priority:'low', details:[]},
+            details:['Proveedor en Heredia','Entrega en 10 dias tras cancelacion total','Primera compra minima ~₡570k']},
+          {id:'t-mic', title:'Microfonos para Broers', desc:'Contacto exclusivo de microfonos de cable.', owner:'Bryan', priority:'medium', details:[]},
+          {id:'t-tmp', title:'Temporadas clave', desc:'Sept, Navidad, Dia del Nino, Dia de la Madre/Padre.', owner:'Ambos', priority:'medium', details:[]},
+          {id:'t-eco', title:'E-commerce real', desc:'Carrito, pagos en linea, tracking.', owner:'Jahir', priority:'low', details:[]},
         ]
       },
       {
-        id: 'contenido', label: 'Contenido', color: 'var(--purple)', soft: 'var(--purple-soft)',
+        id: 'contenido', label: 'Contenido', icon: '🎥',
+        bg: '#F0ECF5', accent: '#9B7BBF',
         items: [
-          {id:'c-short', title:'Video shorts', desc:'Bryan grabo piezas musicales (25 oct). Falta editar mezcla.', owner:'Bryan', priority:'critical',
-            details:['Piezas conocidas y rapidas para shorts','Falta mezclar video + audio','Contenido listo para subir a redes']},
-          {id:'c-foto', title:'Fotos reales', desc:'Reemplazar stock de Canva con fotos reales de la academia.', owner:'Bryan', priority:'high',
-            details:['Fotos actuales son de Canva/Google','Se necesitan fotos de clases, instalaciones, alumnos']},
-          {id:'c-user', title:'Unificar usernames', desc:'Definir IG, TikTok, YouTube juntos.', owner:'Ambos', priority:'high',
-            details:['IG: usar @selahamusicacademia (original)','TikTok: cambiar de _cr a selahamusicacademia','YouTube: Jahir necesita credenciales','FB: ok como esta']},
-          {id:'c-anun', title:'Anuncios estilo competencia', desc:'Crear anuncios propios al formato Selah basados en referencia.', owner:'Ambos', priority:'high',
-            details:['Jahir guardando anuncios de competencia','Crear version propia con estilo Selah','Post + historia destacada']},
+          {id:'c-short', title:'Video shorts', desc:'Bryan grabo piezas musicales. Falta editar mezcla de video y audio.', owner:'Bryan', priority:'critical',
+            details:['Piezas conocidas y rapidas para shorts','Contenido listo para subir a redes']},
+          {id:'c-foto', title:'Fotos reales', desc:'Reemplazar stock de Canva con fotos reales de la academia.', owner:'Bryan', priority:'high', details:[]},
+          {id:'c-user', title:'Unificar usernames', desc:'IG, TikTok, YouTube — definir juntos.', owner:'Ambos', priority:'high',
+            details:['IG: usar @selahamusicacademia (original)','TikTok: cambiar de _cr a selahamusicacademia','YouTube: Jahir necesita credenciales']},
+          {id:'c-anun', title:'Anuncios estilo competencia', desc:'Crear anuncios propios al formato Selah.', owner:'Ambos', priority:'high',
+            details:['Jahir guardando anuncios de competencia','Post + historia destacada']},
           {id:'c-test', title:'Videos de testimonios', desc:'Familia 3G, nino prodigio, entrevistas a papas.', owner:'Bryan', priority:'high',
-            details:['Familia 3G: abuelo, hijo, nieto','Nino prodigio: llego a los 4, ahora tiene 10','Entrevistas a papas como formato adicional']},
-          {id:'c-yt', title:'Canal de YouTube', desc:'Crear/configurar canal oficial y embeber en el sitio.', owner:'Ambos', priority:'high',
-            details:['Definir si usar existente o crear nuevo','Embeber en sitio web']},
+            details:['Familia 3G: abuelo, hijo, nieto','Nino prodigio: llego a los 4, ahora tiene 10']},
+          {id:'c-yt', title:'Canal de YouTube', desc:'Crear/configurar canal oficial y embeber en el sitio.', owner:'Ambos', priority:'high', details:[]},
           {id:'c-estr', title:'Estrategia definida', desc:'Publicidad (destacada) vs contenido de respaldo (posts).', owner:'Ambos', priority:'high',
             details:['Anuncios: post + historia destacada','Shorts/piezas: posts normales','Eventualmente FB/IG Ads']},
         ]
       },
       {
-        id: 'web', label: 'Sitio Web', color: 'var(--magenta)', soft: 'var(--magenta-soft)',
+        id: 'web', label: 'Sitio Web', icon: '🌐',
+        bg: '#F8EEF2', accent: '#C06B8E',
         items: [
           {id:'w-v1', title:'Completar datos V1', desc:'14 items pendientes de Bryan para quitar placeholders.', owner:'Bryan', priority:'critical',
             details:['Cantidad alumnos e instrumentos','Foto + bio de Bryan','Nombres/fotos de 3 profesores','Videos testimonios','Precios confirmados','Catalogo tienda completo','Link YouTube / pista PGM']},
           {id:'w-live', title:'V1 en vivo', desc:'Responsive, SEO, WhatsApp, redes, deploy en Vercel.', owner:'Jahir', priority:'high',
-            details:['selah-indol.vercel.app','Instrumentos clickeables','Tienda, precios, testimonios','Programas para todas las edades']},
+            details:['selah-indol.vercel.app','Instrumentos clickeables','Tienda, precios, testimonios']},
           {id:'w-pal', title:'Paleta alineada', desc:'Teal, purple, magenta con contraste WCAG AA.', owner:'Jahir', priority:'medium', details:[]},
           {id:'w-qr', title:'QR en libros fisicos', desc:'Codigo QR que redirige a la pagina. Actualizable.', owner:'Ambos', priority:'medium', details:[]},
           {id:'w-book', title:'Preview libros (Issuu)', desc:'Visor flipbook para hojear los libros del PGM online.', owner:'Jahir', priority:'medium', details:[]},
           {id:'w-gal', title:'Galeria de fotos/videos', desc:'Presentaciones, recitales, clases.', owner:'Ambos', priority:'low', details:[]},
           {id:'w-insc', title:'Inscripcion online', desc:'Formulario de matricula con seleccion de instrumento.', owner:'Jahir', priority:'low', details:[]},
-          {id:'w-app', title:'App movil / PWA', desc:'Iconos de instrumentos como botones interactivos.', owner:'Jahir', priority:'low', details:[]},
+          {id:'w-app', title:'App movil / PWA', desc:'Version app del sitio.', owner:'Jahir', priority:'low', details:[]},
         ]
       },
       {
-        id: 'proteccion', label: 'Proteccion', color: 'var(--orange)', soft: 'var(--orange-soft)',
+        id: 'proteccion', label: 'Proteccion', icon: '🔒',
+        bg: '#FDF5EC', accent: '#D4985A',
         items: [
           {id:'p-agua', title:'Marca de agua digital', desc:'"Selah Music by Bryan Martinez" en contenido descargable.', owner:'Jahir', priority:'medium', details:[]},
           {id:'p-vid', title:'DRM para videos', desc:'Vimeo Starter (~$12/mes) o Hotmart (gratis, cobra %).', owner:'Jahir', priority:'low',
-            details:['Vimeo Starter: ~$12/mes, sin descarga','Hotmart: gratis, cobra % por venta','DRM ligero disuade al 95%']},
+            details:['Vimeo Starter: ~$12/mes, sin descarga','Hotmart: gratis, cobra % por venta']},
           {id:'p-pdf', title:'Proteccion de PDFs', desc:'Issuu gratis con ads, o $19/mes sin ads.', owner:'Jahir', priority:'low', details:[]},
         ]
       },
       {
-        id: 'expansion', label: 'Expansion', color: 'var(--blue)', soft: 'var(--blue-soft)',
+        id: 'expansion', label: 'Expansion', icon: '🚀',
+        bg: '#ECF2FA', accent: '#6B9FD4',
         items: [
           {id:'e-maps', title:'Google Maps registrado', desc:'Solicitud enviada 25 oct. En revision.', owner:'Jahir', priority:'medium', details:[]},
           {id:'e-red', title:'Red de academias', desc:'Meta: una nueva por ano. Joan y Monica como subdirectores.', owner:'Bryan', priority:'low',
-            details:['Joan y Monica identificados como futuros subdirectores','Criterio: paciencia + adherencia al metodo','Profesores que abran su propia academia = orgullo']},
+            details:['Criterio: paciencia + adherencia al metodo','Profesores que abran su propia academia = orgullo']},
           {id:'e-loc', title:'Locucion como servicio', desc:'Area por incursionar. Equipo ya disponible.', owner:'Bryan', priority:'low', details:[]},
         ]
       },
       {
-        id: 'servicios', label: 'Servicios', color: 'var(--warm)', soft: 'var(--warm-soft)',
+        id: 'servicios', label: 'Servicios', icon: '🎤',
+        bg: '#F5F1ED', accent: '#B8A08A',
         items: [
           {id:'s-grab', title:'Grabacion', desc:'Podcasts, anuncios radiales, musica virtual y en vivo.', owner:'Bryan', priority:'medium', details:[]},
           {id:'s-bod', title:'Bodas y eventos', desc:'Repertorio de 5 canciones a eleccion.', owner:'Bryan', priority:'medium', details:[]},
@@ -309,43 +304,42 @@
       },
     ];
 
-    var PRI_LABEL = {critical:'Critica', high:'Alta', medium:'Media', low:'Baja'};
+    var PRI = {critical:'Critica', high:'Alta', medium:'Media', low:'Baja'};
 
-    var totalItems = 0;
-    BRANCHES.forEach(function(b) { totalItems += b.items.length; });
-    document.getElementById('totalCount').textContent = totalItems + ' ideas';
+    var total = 0;
+    CATS.forEach(function(c) { total += c.items.length; });
+    document.getElementById('totalCount').textContent = total + ' ideas';
 
     function render() {
       var html = '';
-      html += '<a href="../" class="back-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg> Volver al sitio</a>';
+      CATS.forEach(function(cat) {
+        html += '<div class="cat" data-cat="' + cat.id + '" style="background:' + cat.bg + '">';
 
-      BRANCHES.forEach(function(branch) {
-        html += '<div class="branch" data-branch="' + branch.id + '">';
-        html += '<div class="branch-header" onclick="toggleBranch(\'' + branch.id + '\')">';
-        html += '<span class="branch-dot" style="background:' + branch.color + '"></span>';
-        html += '<span class="branch-label">' + branch.label + '</span>';
-        html += '<span class="branch-count">' + branch.items.length + '</span>';
-        html += '<svg class="branch-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>';
+        html += '<div class="cat-face" onclick="toggle(\'' + cat.id + '\')">';
+        html += '<div><span class="cat-icon">' + cat.icon + '</span>';
+        html += '<div class="cat-label">' + cat.label + '</div>';
+        html += '<div class="cat-count">' + cat.items.length + ' ideas</div></div>';
+        html += '<div class="cat-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg></div>';
         html += '</div>';
-        html += '<div class="branch-items">';
 
-        branch.items.forEach(function(item) {
-          var hasDetail = item.desc || (item.details && item.details.length > 0);
-          html += '<div class="idea" data-idea="' + item.id + '"' + (hasDetail ? ' onclick="toggleIdea(\'' + item.id + '\')"' : '') + '>';
+        html += '<div class="cat-ideas"><div class="cat-ideas-inner">';
+        html += '<div class="ideas-divider"></div>';
+
+        cat.items.forEach(function(item) {
+          var has = item.desc || (item.details && item.details.length > 0);
+          html += '<div class="idea" data-idea="' + item.id + '"' + (has ? ' onclick="toggleIdea(event,\'' + item.id + '\')"' : '') + '>';
+          html += '<div class="idea-row">';
           html += '<div class="idea-title">' + item.title + '</div>';
-          html += '<div class="idea-meta">';
-          html += '<span class="idea-owner">' + item.owner + '</span>';
-          html += '<span class="idea-pri pri-' + item.priority + '">' + PRI_LABEL[item.priority] + '</span>';
+          html += '<span class="idea-pri pri-' + item.priority + '">' + PRI[item.priority] + '</span>';
           html += '</div>';
+          html += '<div class="idea-owner">' + item.owner + '</div>';
 
-          if (hasDetail) {
+          if (has) {
             html += '<div class="idea-detail">';
             if (item.desc) html += '<div class="idea-desc">' + item.desc + '</div>';
             if (item.details && item.details.length > 0) {
               html += '<ul class="idea-bullets">';
-              item.details.forEach(function(d) {
-                html += '<li>' + d + '</li>';
-              });
+              item.details.forEach(function(d) { html += '<li>' + d + '</li>'; });
               html += '</ul>';
             }
             html += '</div>';
@@ -354,18 +348,26 @@
           html += '</div>';
         });
 
-        html += '</div></div>';
+        html += '</div></div></div>';
       });
 
-      document.getElementById('main').innerHTML = html;
+      document.getElementById('grid').innerHTML = html;
     }
 
-    function toggleBranch(id) {
-      var el = document.querySelector('[data-branch="' + id + '"]');
-      if (el) el.classList.toggle('open');
+    function toggle(id) {
+      var el = document.querySelector('[data-cat="' + id + '"]');
+      if (!el) return;
+      var wasOpen = el.classList.contains('open');
+      el.classList.toggle('open');
+      if (!wasOpen) {
+        setTimeout(function() {
+          el.scrollIntoView({behavior:'smooth', block:'start'});
+        }, 50);
+      }
     }
 
-    function toggleIdea(id) {
+    function toggleIdea(e, id) {
+      e.stopPropagation();
       var el = document.querySelector('[data-idea="' + id + '"]');
       if (el) el.classList.toggle('expanded');
     }
