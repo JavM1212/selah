@@ -66,7 +66,12 @@ Bryan tiene 3 calculos segun presupuesto:
 1. **Publicidad (monetizable):** anuncios propios estilo competencia → post + historia destacada
 2. **Contenido de respaldo:** videos cortos, piezas musicales, shorts → posts normales (sin destacar)
 3. Eventualmente considerar Facebook e Instagram Ads
-4. Jahir esta guardando anuncios de competencia como referencia
+4. Jahir esta guardando anuncios de competencia como referencia:
+   - https://www.instagram.com/reel/De5H8u9zlZp/
+   - https://www.instagram.com/p/De2MN5fMn-R/
+   - https://www.instagram.com/p/DevFamAMhDN/
+   - https://www.instagram.com/p/De2ttwjgxDY/
+   - https://youtu.be/to2iDSr6_KA
 
 ### Contenido en produccion
 - Bryan grabo piezas musicales para video shorts (25 oct) — falta editar mezcla de video y audio
@@ -169,8 +174,10 @@ Bryan quiere que cierto contenido pagado no sea descargable:
 ---
 
 ## Google Maps
-- Jahir envio solicitud para registrar "Selah Music Academia" como lugar en Google Maps (25 oct)
-- Estado: en revision
+- Ya existia un perfil "Shalala Music Academy" en Promenade de la Casa Presidencial (5.0 estrellas, 2 resenas)
+- Jahir envio solicitud para administrar ese perfil existente (27 oct) — deadline para respuesta: 30 oct 2026
+- Solicitud anterior (25 oct) para registrar "Selah Music Academia" tambien en revision
+- Direccion en Maps: Centro de Artes Promenade De la Casa Presidencial, 200m Oeste y 75m Norte, San Jose Zapote, El Jardin, 10105
 
 ---
 
