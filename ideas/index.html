@@ -422,14 +422,16 @@
 
         if (expandedBranches[branch.id]) {
           var count = branch.items.length;
-          var arcSpan = Math.min(leafArcSpan * Math.PI, count * 0.28);
+          var minStep = 0.38;
+          var arcSpan = Math.min(leafArcSpan * Math.PI, count * minStep);
           var arcStart = angle - arcSpan / 2;
           var arcStep = count > 1 ? arcSpan / (count - 1) : 0;
+          var lr = count > 5 ? leafRadius + (count - 5) * 50 : leafRadius;
 
           branch.items.forEach(function(item, j) {
             var a = count > 1 ? arcStart + j * arcStep : angle;
-            var lx = bx + Math.cos(a) * leafRadius;
-            var ly = by + Math.sin(a) * leafRadius;
+            var lx = bx + Math.cos(a) * lr;
+            var ly = by + Math.sin(a) * lr;
             positions[item.id] = {x: lx, y: ly, w: 180, h: 44, type: 'leaf', parent: branch.id, data: item, branchData: branch};
           });
         }
