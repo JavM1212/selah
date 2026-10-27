@@ -25,7 +25,7 @@ Bryan tiene 3 calculos segun presupuesto:
 ### Financiamiento al cliente
 - Cuotas mientras estudia el curso, con contrato y cedula
 - Instrumento queda en bodega apartado hasta cancelar
-- Ejemplo: combo guitarra electrica (Stratocaster) — guitarra, estuche, cable, amplificador a ₡210,000. Apartado en 3 cuotas de ₡70,000. 16 combos, 4 colores.
+- Combo guitarra electrica (Stratocaster) para Jahir — guitarra, estuche, cable, amplificador a ₡210,000. Apartado en 3 cuotas de ₡70,000. 16 combos, 4 colores.
 
 ### Productos de alta rotacion
 - Guitarras (acustica, electroacustica, electrica)
