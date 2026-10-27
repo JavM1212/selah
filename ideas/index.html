@@ -394,9 +394,9 @@
     var dragStartX, dragStartY, panStartX, panStartY;
 
     var CX = 2000, CY = 1500;
-    var branchRadius = 280;
-    var leafStartRadius = 160;
-    var leafSpacingY = 52;
+    var branchRadius = 300;
+    var leafRadius = 200;
+    var leafArcSpan = 0.9;
 
     var expandedBranches = {};
     var activeLeaf = null;
@@ -421,16 +421,15 @@
         positions[branch.id] = {x: bx, y: by, w: 140, h: 40, type: 'branch', angle: angle, data: branch};
 
         if (expandedBranches[branch.id]) {
-          var leafAngle = angle;
-          var leafDist = leafStartRadius;
           var count = branch.items.length;
-          var totalHeight = (count - 1) * leafSpacingY;
-          var perpAngle = angle + Math.PI / 2;
+          var arcSpan = Math.min(leafArcSpan * Math.PI, count * 0.22);
+          var arcStart = angle - arcSpan / 2;
+          var arcStep = count > 1 ? arcSpan / (count - 1) : 0;
 
           branch.items.forEach(function(item, j) {
-            var offset = -totalHeight / 2 + j * leafSpacingY;
-            var lx = bx + Math.cos(leafAngle) * leafDist + Math.cos(perpAngle) * offset;
-            var ly = by + Math.sin(leafAngle) * leafDist + Math.sin(perpAngle) * offset;
+            var a = count > 1 ? arcStart + j * arcStep : angle;
+            var lx = bx + Math.cos(a) * leafRadius;
+            var ly = by + Math.sin(a) * leafRadius;
             positions[item.id] = {x: lx, y: ly, w: 200, h: 44, type: 'leaf', parent: branch.id, data: item, branchData: branch};
           });
         }
