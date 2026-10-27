@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Selah Music — Ideas</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #F8FAFA;
+      --white: #FFFFFF;
+      --ink: #1A1D2B;
+      --ink-soft: #3D4155;
+      --ink-muted: #5F6374;
+      --accent: #287369;
+      --accent-soft: #E8F5F3;
+      --purple: #7B4DAA;
+      --purple-soft: #F0E8F5;
+      --magenta: #A83A6C;
+      --magenta-soft: #F5E8EF;
+      --border: #E4E8EA;
+      --orange: #C77B2E;
+      --orange-soft: #FFF5E6;
+      --blue: #2E6EC7;
+      --blue-soft: #E6F0FF;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'DM Sans', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      min-height: 100vh;
+    }
+
+    /* ─── LOGIN ─── */
+    .login-screen {
+      display: flex; align-items: center; justify-content: center;
+      min-height: 100vh; padding: 2rem;
+    }
+    .login-box {
+      background: var(--white); border-radius: 24px; padding: 3rem;
+      max-width: 380px; width: 100%; text-align: center;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+    }
+    .login-box h1 {
+      font-size: 1.5rem; font-weight: 600; margin-bottom: 0.5rem;
+    }
+    .login-box p {
+      font-size: 0.85rem; color: var(--ink-muted); margin-bottom: 2rem; font-weight: 300;
+    }
+    .login-input {
+      width: 100%; padding: 0.85rem 1.2rem; border: 1px solid var(--border);
+      border-radius: 12px; font-family: inherit; font-size: 0.9rem;
+      outline: none; transition: border-color 0.2s;
+    }
+    .login-input:focus { border-color: var(--accent); }
+    .login-input.error { border-color: var(--magenta); animation: shake 0.3s; }
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-6px); }
+      75% { transform: translateX(6px); }
+    }
+    .login-btn {
+      width: 100%; padding: 0.85rem; border: none; border-radius: 12px;
+      background: var(--accent); color: var(--white); font-family: inherit;
+      font-size: 0.9rem; font-weight: 500; cursor: pointer; margin-top: 1rem;
+      transition: background 0.2s;
+    }
+    .login-btn:hover { background: #1F5F57; }
+
+    /* ─── APP ─── */
+    .app { display: none; }
+    .app.visible { display: block; }
+    .login-screen.hidden { display: none; }
+
+    .app-header {
+      padding: 1.5rem 2rem; background: var(--white);
+      border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between;
+      position: sticky; top: 0; z-index: 10;
+    }
+    .app-header h1 { font-size: 1.15rem; font-weight: 600; }
+    .app-header .updated {
+      font-size: 0.75rem; color: var(--ink-muted); font-weight: 300;
+    }
+
+    .mindmap {
+      padding: 2rem;
+      max-width: 1200px; margin: 0 auto;
+    }
+
+    /* ─── CLUSTER ─── */
+    .cluster {
+      margin-bottom: 2rem;
+    }
+    .cluster-header {
+      display: flex; align-items: center; gap: 0.75rem;
+      padding: 1rem 1.5rem; border-radius: 16px;
+      cursor: pointer; transition: all 0.2s; user-select: none;
+    }
+    .cluster-header:hover { filter: brightness(0.97); }
+    .cluster-dot {
+      width: 12px; height: 12px; border-radius: 50%; flex-shrink: 0;
+    }
+    .cluster-title {
+      font-size: 1.1rem; font-weight: 600; flex: 1;
+    }
+    .cluster-count {
+      font-size: 0.7rem; font-weight: 500; padding: 0.2rem 0.6rem;
+      border-radius: 100px; background: rgba(0,0,0,0.06);
+    }
+    .cluster-chevron {
+      width: 20px; height: 20px; transition: transform 0.3s;
+    }
+    .cluster.open .cluster-chevron { transform: rotate(180deg); }
+
+    .cluster-body {
+      display: none; padding: 0.5rem 0 0 2.25rem;
+    }
+    .cluster.open .cluster-body { display: block; }
+
+    /* ─── NODES ─── */
+    .node {
+      position: relative; padding: 1.25rem 1.5rem;
+      background: var(--white); border-radius: 16px;
+      margin-bottom: 0.75rem; border: 1px solid var(--border);
+      transition: box-shadow 0.2s;
+    }
+    .node:hover { box-shadow: 0 2px 12px rgba(0,0,0,0.04); }
+    .node::before {
+      content: ''; position: absolute; left: -1.25rem; top: 50%;
+      width: 1.25rem; height: 1px; background: var(--border);
+    }
+    .node-title {
+      font-size: 0.9rem; font-weight: 500; margin-bottom: 0.35rem;
+    }
+    .node-desc {
+      font-size: 0.8rem; color: var(--ink-muted); line-height: 1.6; font-weight: 300;
+    }
+    .node-tags { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-top: 0.5rem; }
+    .node-tag {
+      font-size: 0.65rem; font-weight: 500; padding: 0.2rem 0.6rem;
+      border-radius: 100px; text-transform: uppercase; letter-spacing: 0.05em;
+    }
+    .tag-done { background: var(--accent-soft); color: var(--accent); }
+    .tag-pending { background: var(--orange-soft); color: var(--orange); }
+    .tag-future { background: var(--blue-soft); color: var(--blue); }
+    .tag-decision { background: var(--purple-soft); color: var(--purple); }
+    .tag-bryan { background: var(--magenta-soft); color: var(--magenta); }
+
+    /* ─── SUBNODES ─── */
+    .subnodes { margin-top: 0.75rem; padding-left: 1rem; border-left: 2px solid var(--border); }
+    .subnode {
+      font-size: 0.8rem; color: var(--ink-soft); padding: 0.3rem 0;
+      line-height: 1.5; font-weight: 300;
+    }
+    .subnode strong { font-weight: 500; color: var(--ink); }
+
+    /* ─── COLOR THEMES ─── */
+    .theme-teal .cluster-header { background: var(--accent-soft); }
+    .theme-teal .cluster-dot { background: var(--accent); }
+    .theme-purple .cluster-header { background: var(--purple-soft); }
+    .theme-purple .cluster-dot { background: var(--purple); }
+    .theme-magenta .cluster-header { background: var(--magenta-soft); }
+    .theme-magenta .cluster-dot { background: var(--magenta); }
+    .theme-orange .cluster-header { background: var(--orange-soft); }
+    .theme-orange .cluster-dot { background: var(--orange); }
+    .theme-blue .cluster-header { background: var(--blue-soft); }
+    .theme-blue .cluster-dot { background: var(--blue); }
+
+    /* ─── LEGEND ─── */
+    .legend {
+      display: flex; flex-wrap: wrap; gap: 0.5rem; padding: 0 2rem 1rem;
+      max-width: 1200px; margin: 0 auto;
+    }
+    .legend-item {
+      display: flex; align-items: center; gap: 0.35rem;
+      font-size: 0.7rem; color: var(--ink-muted);
+    }
+    .legend-dot {
+      width: 8px; height: 8px; border-radius: 50%;
+    }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 768px) {
+      .mindmap { padding: 1rem; }
+      .cluster-body { padding-left: 1rem; }
+      .node::before { left: -0.5rem; width: 0.5rem; }
+      .app-header { padding: 1rem 1.25rem; }
+      .legend { padding: 0 1rem 1rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- LOGIN -->
+  <div class="login-screen" id="loginScreen">
+    <div class="login-box">
+      <h1>Selah Music</h1>
+      <p>Ingresa la clave para ver las ideas del proyecto</p>
+      <input type="password" class="login-input" id="passInput" placeholder="Clave de acceso" autocomplete="off">
+      <button class="login-btn" id="loginBtn">Entrar</button>
+    </div>
+  </div>
+
+  <!-- APP -->
+  <div class="app" id="app">
+    <div class="app-header">
+      <div>
+        <h1>Selah Music — Mapa de Ideas</h1>
+        <span class="updated">Actualizado: 26 octubre 2026</span>
+      </div>
+    </div>
+
+    <div class="legend">
+      <div class="legend-item"><span class="legend-dot" style="background: var(--accent);"></span> Hecho</div>
+      <div class="legend-item"><span class="legend-dot" style="background: var(--orange);"></span> Pendiente</div>
+      <div class="legend-item"><span class="legend-dot" style="background: var(--blue);"></span> Futuro</div>
+      <div class="legend-item"><span class="legend-dot" style="background: var(--purple);"></span> Decision</div>
+      <div class="legend-item"><span class="legend-dot" style="background: var(--magenta);"></span> Necesita a Bryan</div>
+    </div>
+
+    <div class="mindmap" id="mindmap"></div>
+  </div>
+
+  <script>
+    var PASS_HASH = '5e6026a8e8e79b87b2a8b58a0b89e0e2';
+
+    function md5simple(s) {
+      var h = 0;
+      for (var i = 0; i < s.length; i++) {
+        h = ((h << 5) - h) + s.charCodeAt(i);
+        h |= 0;
+      }
+      return h.toString(16);
+    }
+
+    function checkPass(p) {
+      return p === 'selahmusic';
+    }
+
+    var passInput = document.getElementById('passInput');
+    var loginBtn = document.getElementById('loginBtn');
+    var loginScreen = document.getElementById('loginScreen');
+    var app = document.getElementById('app');
+
+    function tryLogin() {
+      if (checkPass(passInput.value)) {
+        loginScreen.classList.add('hidden');
+        app.classList.add('visible');
+        try { sessionStorage.setItem('selah-auth', '1'); } catch(e) {}
+      } else {
+        passInput.classList.add('error');
+        setTimeout(function() { passInput.classList.remove('error'); }, 400);
+      }
+    }
+    loginBtn.addEventListener('click', tryLogin);
+    passInput.addEventListener('keydown', function(e) { if (e.key === 'Enter') tryLogin(); });
+
+    try {
+      if (sessionStorage.getItem('selah-auth') === '1') {
+        loginScreen.classList.add('hidden');
+        app.classList.add('visible');
+      }
+    } catch(e) {}
+
+    var DATA = [
+      {
+        title: 'Tienda de Instrumentos',
+        theme: 'teal',
+        nodes: [
+          {
+            title: 'Inversion inicial — 3 planes',
+            desc: 'Segun presupuesto disponible',
+            tags: ['decision'],
+            subs: [
+              '<strong>Plan 1 (₡200k):</strong> cuerdas, cables, stands',
+              '<strong>Plan 2 (₡350k):</strong> + audifonos, ukeleles, guitarras',
+              '<strong>Plan 3 (₡450k):</strong> + 2-3 teclados, sistema de apartado',
+              '<strong>Decision:</strong> Jahir pone ₡200k el 2 de noviembre para arrancar'
+            ]
+          },
+          {
+            title: 'Modelo de negocio',
+            desc: 'Stock fisico en academia, no tienda formal',
+            tags: ['pending'],
+            subs: [
+              'Inversion completa estimada: ₡800,000',
+              'Codigo de proveedor: primera compra minima ~₡570k',
+              'Opcion consignacion: proveedor envia, se devuelve lo no vendido',
+              'Proveedor en Heredia, entrega en 10 dias'
+            ]
+          },
+          {
+            title: 'Financiamiento al cliente',
+            desc: 'Cuotas mientras estudia, contrato + cedula',
+            tags: ['pending'],
+            subs: [
+              'Instrumento en bodega hasta cancelar',
+              'Ejemplo: combo Stratocaster ₡210k → 3 cuotas de ₡70k',
+              '16 combos disponibles, 4 colores'
+            ]
+          },
+          {
+            title: 'Margenes y precios',
+            desc: 'Datos confirmados de costos y margenes',
+            tags: ['done'],
+            subs: [
+              'Teclado: venta ₡89,900 / costo ~₡23,000',
+              'Margen por instrumento: ~₡25,000 netos',
+              'Cuerdas: venta ₡18,000 / costo ~₡3,100',
+              'Calibracion guitarra: ₡24,000',
+              'Cuerdas sueltas: ₡6,800',
+              'Bateria electrica: ₡375,000',
+              'Bateria normal: ₡475,000',
+              'Oportunidad: vender microfonos de cable a Broers'
+            ]
+          },
+          {
+            title: 'Temporadas clave',
+            desc: 'Momentos de mayor venta',
+            tags: ['future'],
+            subs: [
+              'Septiembre — apartados para diciembre',
+              'Navidad',
+              'Dia del Nino',
+              'Dia de la Madre / Padre'
+            ]
+          }
+        ]
+      },
+      {
+        title: 'Contenido y Redes Sociales',
+        theme: 'purple',
+        nodes: [
+          {
+            title: 'Cuentas de redes sociales',
+            desc: 'Unificar usernames entre plataformas',
+            tags: ['pending', 'bryan'],
+            subs: [
+              '<strong>Instagram:</strong> usar @selahamusicacademia (el original)',
+              '<strong>TikTok:</strong> cambiar de _cr a selahamusicacademia',
+              '<strong>Facebook:</strong> ok como esta',
+              '<strong>YouTube:</strong> Jahir necesita credenciales',
+              '<strong>Pendiente:</strong> sentarse juntos a definir'
+            ]
+          },
+          {
+            title: 'Estrategia de contenido',
+            desc: 'Dos tipos: publicidad monetizable + contenido de respaldo',
+            tags: ['decision'],
+            subs: [
+              '<strong>Publicidad:</strong> anuncios → post + historia destacada',
+              '<strong>Contenido:</strong> shorts, piezas → posts normales',
+              'Eventualmente Facebook/Instagram Ads',
+              'Guardando anuncios de competencia como referencia'
+            ]
+          },
+          {
+            title: 'Contenido en produccion',
+            desc: 'Bryan grabo piezas para shorts (25 oct)',
+            tags: ['pending', 'bryan'],
+            subs: [
+              'Falta editar mezcla de video y audio',
+              'Bryan buscando fotos reales de la academia',
+              'Reemplazar fotos stock de Canva'
+            ]
+          },
+          {
+            title: 'Ideas de contenido',
+            desc: 'Para ir produciendo cuando se pueda',
+            tags: ['future'],
+            subs: [
+              'Videos de testimonios (Familia 3G, nino prodigio)',
+              'Entrevistas a papas',
+              'Anuncios estilo competencia pero formato Selah',
+              'Shorts de Bryan tocando piezas conocidas',
+              'Behind the scenes de clases y grabaciones'
+            ]
+          }
+        ]
+      },
+      {
+        title: 'Sitio Web',
+        theme: 'magenta',
+        nodes: [
+          {
+            title: 'V1 — En vivo',
+            desc: 'selah-indol.vercel.app — funcional y responsive',
+            tags: ['done'],
+            subs: [
+              'Navegacion, hero, marquee, instrumentos clickeables',
+              'Programas, servicios, tienda, testimonios, precios',
+              'WhatsApp directo, Google Maps, redes sociales',
+              'SEO con Open Graph, responsive, deploy en Vercel'
+            ]
+          },
+          {
+            title: 'Datos pendientes de Bryan',
+            desc: '14 items por confirmar para completar V1',
+            tags: ['bryan'],
+            subs: [
+              'Cantidad exacta alumnos e instrumentos',
+              'Link pista animada YouTube (PGM)',
+              'Foto y bio de Bryan + otros profesores',
+              'Videos testimonios y entrevistas',
+              'Precios actuales + catalogo tienda completo',
+              'Link canal YouTube',
+              'Fotos reales de la academia'
+            ]
+          },
+          {
+            title: 'Features pedidos por Bryan',
+            desc: 'De la reunion del 22 de octubre',
+            tags: ['pending'],
+            subs: [
+              '<strong>Instrumentos clickeables</strong> ✅ hecho',
+              '<strong>Preview de libros:</strong> posible con Issuu gratis',
+              '<strong>QR en libros fisicos:</strong> redirige a pagina, actualizable',
+              '<strong>Marca de agua:</strong> "Selah Music by Bryan Martinez"'
+            ]
+          },
+          {
+            title: 'Roadmap V2-V4',
+            desc: 'Mejoras futuras planificadas',
+            tags: ['future'],
+            subs: [
+              '<strong>V2:</strong> QR, preview libros, marca de agua, YouTube',
+              '<strong>V3:</strong> galeria, blog, temporadas, inscripcion online',
+              '<strong>V4:</strong> app movil/PWA, e-commerce, plataforma videoclases'
+            ]
+          }
+        ]
+      },
+      {
+        title: 'Proteccion de Contenido',
+        theme: 'orange',
+        nodes: [
+          {
+            title: 'Videos de clases',
+            desc: 'Opciones para proteger videoclases pagadas',
+            tags: ['future'],
+            subs: [
+              '<strong>Vimeo Starter:</strong> ~$12/mes — sin descarga, restringe por dominio',
+              '<strong>Hotmart:</strong> gratis (cobra %) — watermark con email del alumno',
+              'YouTube no listado: gratis pero se descarga facil'
+            ]
+          },
+          {
+            title: 'PDFs y libros',
+            desc: 'Proteger libros del PGM digitales',
+            tags: ['future'],
+            subs: [
+              '<strong>Issuu:</strong> gratis con ads / $19/mes — visor flipbook sin descarga',
+              '<strong>Marca de agua:</strong> iLovePDF o Canva gratis'
+            ]
+          },
+          {
+            title: 'Recomendacion',
+            desc: 'Segun el caso de uso',
+            tags: ['decision'],
+            subs: [
+              '<strong>Vender cursos:</strong> Hotmart (gratis, cobra comision)',
+              '<strong>Solo alumnos activos:</strong> Vimeo + Issuu',
+              'DRM completo no viable, pero DRM ligero disuade al 95%'
+            ]
+          }
+        ]
+      },
+      {
+        title: 'Expansion y Vision',
+        theme: 'blue',
+        nodes: [
+          {
+            title: 'Red de academias',
+            desc: 'Meta: una academia nueva por ano',
+            tags: ['future'],
+            subs: [
+              'Fortalecer la actual primero',
+              'Joan y Monica como futuros subdirectores (no informados aun)',
+              'Criterio: paciencia + adherencia al metodo > titulos'
+            ]
+          },
+          {
+            title: 'Servicios adicionales',
+            desc: 'Mas alla de las clases de musica',
+            tags: ['pending'],
+            subs: [
+              '<strong>Grabacion:</strong> podcasts, anuncios, musica en vivo',
+              '<strong>Eventos:</strong> bodas, repertorio 5 canciones',
+              '<strong>Talleres:</strong> ensamble, teoria, composicion, canto',
+              '<strong>Reparacion:</strong> instrumentos y equipo de sonido',
+              '<strong>Audio/produccion:</strong> hermano de Bryan',
+              '<strong>Locucion:</strong> equipo disponible, area por incursionar',
+              '<strong>Envios:</strong> Henry en SJ, correos al resto del pais'
+            ]
+          },
+          {
+            title: 'Google Maps',
+            desc: 'Registro como lugar oficial',
+            tags: ['pending'],
+            subs: [
+              'Solicitud enviada 25 oct — en revision'
+            ]
+          },
+          {
+            title: 'Metodos de pago',
+            desc: 'SINPE o efectivo (confirmado)',
+            tags: ['done'],
+            subs: []
+          }
+        ]
+      }
+    ];
+
+    var TAG_LABELS = {
+      done: 'Hecho', pending: 'Pendiente', future: 'Futuro',
+      decision: 'Decision', bryan: 'Necesita a Bryan'
+    };
+    var TAG_CLASSES = {
+      done: 'tag-done', pending: 'tag-pending', future: 'tag-future',
+      decision: 'tag-decision', bryan: 'tag-bryan'
+    };
+
+    var mindmap = document.getElementById('mindmap');
+
+    DATA.forEach(function(cluster, ci) {
+      var div = document.createElement('div');
+      div.className = 'cluster theme-' + cluster.theme + (ci < 2 ? ' open' : '');
+
+      var header = document.createElement('div');
+      header.className = 'cluster-header';
+      header.innerHTML =
+        '<span class="cluster-dot"></span>' +
+        '<span class="cluster-title">' + cluster.title + '</span>' +
+        '<span class="cluster-count">' + cluster.nodes.length + '</span>' +
+        '<svg class="cluster-chevron" viewBox="0 0 20 20" fill="currentColor"><path d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"/></svg>';
+
+      header.addEventListener('click', function() {
+        div.classList.toggle('open');
+      });
+
+      var body = document.createElement('div');
+      body.className = 'cluster-body';
+
+      cluster.nodes.forEach(function(node) {
+        var n = document.createElement('div');
+        n.className = 'node';
+
+        var html = '<div class="node-title">' + node.title + '</div>';
+        html += '<div class="node-desc">' + node.desc + '</div>';
+
+        if (node.tags && node.tags.length) {
+          html += '<div class="node-tags">';
+          node.tags.forEach(function(t) {
+            html += '<span class="node-tag ' + (TAG_CLASSES[t] || '') + '">' + (TAG_LABELS[t] || t) + '</span>';
+          });
+          html += '</div>';
+        }
+
+        if (node.subs && node.subs.length) {
+          html += '<div class="subnodes">';
+          node.subs.forEach(function(s) {
+            html += '<div class="subnode">' + s + '</div>';
+          });
+          html += '</div>';
+        }
+
+        n.innerHTML = html;
+        body.appendChild(n);
+      });
+
+      div.appendChild(header);
+      div.appendChild(body);
+      mindmap.appendChild(div);
+    });
+  </script>
+</body>
+</html>
