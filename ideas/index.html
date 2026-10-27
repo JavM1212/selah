@@ -157,9 +157,11 @@
     }
     .connector {
       fill: none; stroke: var(--border); stroke-width: 1.5;
+      stroke-linecap: round;
     }
     .connector-active {
       stroke: var(--teal-muted); stroke-width: 2;
+      stroke-linecap: round;
     }
 
     /* ─── DETAIL PANEL ─── */
@@ -529,23 +531,13 @@
     }
 
     function curvePath(x1, y1, x2, y2, cls) {
-      var mx = (x1 + x2) / 2;
-      var my = (y1 + y2) / 2;
-      var dx = Math.abs(x2 - x1) * 0.4;
-      var dy = Math.abs(y2 - y1) * 0.4;
-
-      var cx1, cy1, cx2, cy2;
-      if (Math.abs(x2 - x1) > Math.abs(y2 - y1)) {
-        cx1 = x1 + (x2 > x1 ? dx : -dx);
-        cy1 = y1;
-        cx2 = x2 - (x2 > x1 ? dx : -dx);
-        cy2 = y2;
-      } else {
-        cx1 = x1;
-        cy1 = y1 + (y2 > y1 ? dy : -dy);
-        cx2 = x2;
-        cy2 = y2 - (y2 > y1 ? dy : -dy);
-      }
+      var dist = Math.sqrt((x2-x1)*(x2-x1) + (y2-y1)*(y2-y1));
+      var pull = dist * 0.35;
+      var angle = Math.atan2(y2 - y1, x2 - x1);
+      var cx1 = x1 + Math.cos(angle) * pull;
+      var cy1 = y1 + Math.sin(angle) * pull;
+      var cx2 = x2 - Math.cos(angle) * pull;
+      var cy2 = y2 - Math.sin(angle) * pull;
 
       return '<path class="' + cls + '" d="M' + x1 + ',' + y1 + ' C' + cx1 + ',' + cy1 + ' ' + cx2 + ',' + cy2 + ' ' + x2 + ',' + y2 + '"/>';
     }
