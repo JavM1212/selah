@@ -150,10 +150,6 @@
     .pri-medium { background: rgba(107,159,212,0.12); color: #5A8CBE; }
     .pri-low { background: rgba(0,0,0,0.05); color: var(--ink-muted); }
 
-    .idea-owner {
-      font-size: 0.75rem; color: var(--ink-muted);
-      margin-top: 0.15rem;
-    }
 
     .idea-detail {
       display: none;
@@ -232,36 +228,44 @@
         id: 'tienda', label: 'Tienda', icon: '🎸',
         bg: '#E8F5F3', accent: '#3D9B8F',
         items: [
-          {id:'t-inv', title:'Inversion inicial ₡200k', desc:'Jahir pone ₡200k el 2 de noviembre para arrancar. Cuerdas, cables, stands.', owner:'Jahir', priority:'critical',
+          {id:'t-inv', title:'Inversion inicial ₡200k', desc:'Jahir pone ₡200k el 2 de noviembre para arrancar. Cuerdas, cables, stands.', priority:'critical',
             details:['Plan 1 (₡200k): cuerdas, cables, stands','Plan 2 (₡350k): + audifonos, ukeleles, guitarras','Plan 3 (₡450k): + teclados, sistema de apartado','Inversion completa estimada: ₡800k','Pago: SINPE o efectivo']},
-          {id:'t-fin', title:'Financiamiento a clientes', desc:'Cuotas mientras estudia, contrato + cedula. Instrumento en bodega hasta cancelar.', owner:'Bryan', priority:'high',
+          {id:'t-fin', title:'Financiamiento a clientes', desc:'Cuotas mientras estudia, contrato + cedula. Instrumento en bodega hasta cancelar.', priority:'high',
             details:['Stratocaster combo para Jahir: ₡210k en 3x ₡70k','16 combos disponibles, 4 colores']},
-          {id:'t-mar', title:'Margenes confirmados', desc:'Teclado, cuerdas, combos — margenes mapeados con proveedor.', owner:'Ambos', priority:'high',
+          {id:'t-mar', title:'Margenes confirmados', desc:'Teclado, cuerdas, combos — margenes mapeados con proveedor.', priority:'high',
             details:['Teclado: venta ₡89,900 / costo ~₡23,000','Cuerdas: venta ₡18,000 / costo ~₡3,100','Margen por instrumento: ~₡25,000 netos','Bateria electrica ₡375k / normal ₡475k']},
-          {id:'t-con', title:'Consignacion con proveedor', desc:'Proveedor envia mercaderia, se devuelve lo no vendido.', owner:'Bryan', priority:'medium',
+          {id:'t-con', title:'Consignacion con proveedor', desc:'Proveedor envia mercaderia, se devuelve lo no vendido.', priority:'medium',
             details:['Proveedor en Heredia','Entrega en 10 dias tras cancelacion total','Primera compra minima ~₡570k']},
-          {id:'t-mic', title:'Microfonos para Broers', desc:'Contacto exclusivo de microfonos de cable.', owner:'Bryan', priority:'medium', details:[]},
-          {id:'t-tmp', title:'Temporadas clave', desc:'Sept, Navidad, Dia del Nino, Dia de la Madre/Padre.', owner:'Ambos', priority:'medium', details:[]},
-          {id:'t-eco', title:'E-commerce real', desc:'Carrito, pagos en linea, tracking.', owner:'Jahir', priority:'low', details:[]},
+          {id:'t-mic', title:'Microfonos para Broers', desc:'Contacto exclusivo de microfonos de cable.', priority:'medium', details:[]},
+          {id:'t-tmp', title:'Temporadas clave', desc:'Sept, Navidad, Dia del Nino, Dia de la Madre/Padre.', priority:'medium',
+            details:['Nov-dic: luces bohemio, parlantes karaoke — 2-3 unidades','Temporada baja dic-ene: clase doble en noviembre (alumno paga por adelantado)','Talleres de verano para ninos, cursos cortos 3 meses']},
+          {id:'t-igl', title:'Clientes recurrentes (iglesias)', desc:'~30 iglesias con pedidos cada 3 meses: cuerdas, cables, parches.', priority:'high',
+            details:['Mantenimiento periodico garantiza retorno','Estrategia de anzuelo: cuerdas/cables/parches cada 3 meses']},
+          {id:'t-esc', title:'Cotizacion anual escuela', desc:'Venta perdida de ₡4.7M por no tener inventario. Oportunidad de cotizar para el proximo ano.', priority:'high',
+            details:['~₡2M libres si se hubiera tenido inventario','Ofrecer cotizacion anual anticipada']},
+          {id:'t-contra', title:'Seccion contrapedido', desc:'Separar en la pagina: entrega inmediata vs pedidos con 11-22 dias.', priority:'medium', details:[]},
+          {id:'t-eco', title:'E-commerce real', desc:'Carrito, pagos en linea, tracking.', priority:'low', details:[]},
         ]
       },
       {
         id: 'contenido', label: 'Contenido', icon: '🎥',
         bg: '#F0ECF5', accent: '#9B7BBF',
         items: [
-          {id:'c-short', title:'Video shorts', desc:'Bryan grabo piezas musicales. Falta editar mezcla. Bryan trabajando en esto hoy (27 oct).', owner:'Bryan', priority:'critical',
+          {id:'c-short', title:'Video shorts', desc:'Bryan grabo piezas musicales. Falta editar mezcla. Bryan trabajando en esto hoy (27 oct).', priority:'critical',
             details:['Piezas conocidas y rapidas para shorts','Falta mezclar video + audio','Bryan dedicando el 27 oct a preparar videos y anuncios']},
-          {id:'c-foto', title:'Fotos reales', desc:'Reemplazar stock de Canva con fotos reales de la academia.', owner:'Bryan', priority:'high', details:[]},
-          {id:'c-user', title:'Unificar usernames', desc:'IG, TikTok, YouTube — definir juntos.', owner:'Ambos', priority:'high',
+          {id:'c-foto', title:'Fotos reales', desc:'Reemplazar stock de Canva con fotos reales de la academia.', priority:'high', details:[]},
+          {id:'c-user', title:'Unificar usernames', desc:'IG, TikTok, YouTube — definir juntos.', priority:'high',
             details:['IG: usar @selahamusicacademia (original)','TikTok: cambiar de _cr a selahamusicacademia','YouTube: Jahir necesita credenciales']},
-          {id:'c-anun', title:'Anuncios estilo competencia', desc:'Crear anuncios propios al formato Selah. 5 referencias guardadas.', owner:'Ambos', priority:'high',
+          {id:'c-anun', title:'Anuncios estilo competencia', desc:'Crear anuncios propios al formato Selah. 5 referencias guardadas.', priority:'high',
             details:['Jahir guardando anuncios de competencia como referencia','https://www.instagram.com/reel/De5H8u9zlZp/','https://www.instagram.com/p/De2MN5fMn-R/','https://www.instagram.com/p/DevFamAMhDN/','https://www.instagram.com/p/De2ttwjgxDY/','https://youtu.be/to2iDSr6_KA','Post + historia destacada']},
-          {id:'c-test', title:'Videos de testimonios', desc:'Familia 3G, nino prodigio, entrevistas a papas.', owner:'Bryan', priority:'high',
+          {id:'c-test', title:'Videos de testimonios', desc:'Familia 3G, nino prodigio, entrevistas a papas.', priority:'high',
             details:['Familia 3G: abuelo, hijo, nieto','Nino prodigio: llego a los 4, ahora tiene 10']},
-          {id:'c-yt', title:'Canal de YouTube', desc:'Crear/configurar canal oficial y embeber en el sitio.', owner:'Ambos', priority:'high', details:[]},
-          {id:'c-mosaic', title:'Video mosaico/cuadricula', desc:'Cada musico toca su parte en un cuadrito que se va sumando hasta la cancion completa.', owner:'Jahir', priority:'high',
+          {id:'c-yt', title:'Canal de YouTube', desc:'Canal principal — todo contenido se sube primero ahi como Shorts.', priority:'high',
+            details:['YouTube es la plataforma principal','Todo contenido de otras redes se sube primero ahi','Falta resolver acceso (credenciales de Bryan)']},
+          {id:'c-recital', title:'Post del recital', desc:'Publicar fotos, horarios y ubicacion del recital. Videos tocando sin produccion elaborada.', priority:'high', details:[]},
+          {id:'c-mosaic', title:'Video mosaico/cuadricula', desc:'Cada musico toca su parte en un cuadrito que se va sumando hasta la cancion completa.', priority:'high',
             details:['Estilo flamenco: guitarra, palmas, zapateo, canto','Cuadros visibles todos a la vez, no secuencial','Puede ser varias personas o one-man-band (Bryan solo)','Referencia: https://youtu.be/to2iDSr6_KA (min 1:25)']},
-          {id:'c-estr', title:'Estrategia definida', desc:'Publicidad (destacada) vs contenido de respaldo (posts).', owner:'Ambos', priority:'high',
+          {id:'c-estr', title:'Estrategia definida', desc:'Publicidad (destacada) vs contenido de respaldo (posts).', priority:'high',
             details:['Anuncios: post + historia destacada','Shorts/piezas: posts normales','Eventualmente FB/IG Ads']},
         ]
       },
@@ -269,49 +273,61 @@
         id: 'web', label: 'Sitio Web', icon: '🌐',
         bg: '#F8EEF2', accent: '#C06B8E',
         items: [
-          {id:'w-v1', title:'Completar datos V1', desc:'14 items pendientes de Bryan. El va a revisar la pagina hoy (27 oct) para completar datos.', owner:'Bryan', priority:'critical',
+          {id:'w-v1', title:'Completar datos V1', desc:'14 items pendientes de Bryan. El va a revisar la pagina hoy (27 oct) para completar datos.', priority:'critical',
             details:['Cantidad alumnos e instrumentos','Foto + bio de Bryan','Nombres/fotos de 3 profesores','Videos testimonios','Precios confirmados','Catalogo tienda completo','Link YouTube / pista PGM']},
-          {id:'w-live', title:'V1 en vivo', desc:'Responsive, SEO, WhatsApp, redes, deploy en Vercel.', owner:'Jahir', priority:'high',
+          {id:'w-live', title:'V1 en vivo', desc:'Responsive, SEO, WhatsApp, redes, deploy en Vercel.', priority:'high',
             details:['selah-indol.vercel.app','Instrumentos clickeables','Tienda, precios, testimonios']},
-          {id:'w-pal', title:'Paleta alineada', desc:'Teal, purple, magenta con contraste WCAG AA.', owner:'Jahir', priority:'medium', details:[]},
-          {id:'w-qr', title:'QR en libros fisicos', desc:'Codigo QR que redirige a la pagina. Actualizable.', owner:'Ambos', priority:'medium', details:[]},
-          {id:'w-book', title:'Preview libros (Issuu)', desc:'Visor flipbook para hojear los libros del PGM online.', owner:'Jahir', priority:'medium', details:[]},
-          {id:'w-gal', title:'Galeria de fotos/videos', desc:'Presentaciones, recitales, clases.', owner:'Ambos', priority:'low', details:[]},
-          {id:'w-insc', title:'Inscripcion online', desc:'Formulario de matricula con seleccion de instrumento.', owner:'Jahir', priority:'low', details:[]},
-          {id:'w-app', title:'App movil / PWA', desc:'Version app del sitio.', owner:'Jahir', priority:'low', details:[]},
+          {id:'w-look', title:'Ajustes visuales (Bryan)', desc:'Logo mas grande estilo banner, fondo oscuro con letras blancas.', priority:'high',
+            details:['Logo mas grande, estilo banner','Invertir colores: fondo oscuro, letras blancas']},
+          {id:'w-noprecios', title:'No mostrar precios ni alumnos', desc:'Forzar consulta por WhatsApp en vez de mostrar numeros directamente.', priority:'high', details:[]},
+          {id:'w-rename', title:'Renombrar cursos y servicios', desc:'Nombres mas claros para cursos especiales y servicio de grabacion.', priority:'high',
+            details:['Curso tercera edad → "Curso especializado tercera edad"','Curso discapacidad → "Curso especial"','Grabacion → "Servicio de Estudio y Grabacion"']},
+          {id:'w-dom', title:'Comprar dominio .com', desc:'selamusicacademia.com disponible a $0.01 primer ano (~$49 renovacion).', priority:'high',
+            details:['.com recomendado por clientes internacionales','Clases en linea requieren dominio profesional']},
+          {id:'w-pal', title:'Paleta alineada', desc:'Teal, purple, magenta con contraste WCAG AA.', priority:'medium', details:[]},
+          {id:'w-qr', title:'QR en libros fisicos', desc:'Codigo QR que redirige a la pagina. Actualizable.', priority:'medium', details:[]},
+          {id:'w-book', title:'Preview libros (Issuu)', desc:'Visor flipbook para hojear los libros del PGM online.', priority:'medium', details:[]},
+          {id:'w-gal', title:'Galeria de fotos/videos', desc:'Presentaciones, recitales, clases.', priority:'low', details:[]},
+          {id:'w-insc', title:'Inscripcion online', desc:'Formulario de matricula con seleccion de instrumento.', priority:'low', details:[]},
+          {id:'w-app', title:'App movil / PWA', desc:'Version app del sitio.', priority:'low', details:[]},
         ]
       },
       {
         id: 'proteccion', label: 'Proteccion', icon: '🔒',
         bg: '#FDF5EC', accent: '#D4985A',
         items: [
-          {id:'p-agua', title:'Marca de agua digital', desc:'"Selah Music by Bryan Martinez" en contenido descargable.', owner:'Jahir', priority:'medium', details:[]},
-          {id:'p-vid', title:'DRM para videos', desc:'Vimeo Starter (~$12/mes) o Hotmart (gratis, cobra %).', owner:'Jahir', priority:'low',
+          {id:'p-agua', title:'Marca de agua digital', desc:'"Selah Music by Bryan Martinez" en contenido descargable.', priority:'medium', details:[]},
+          {id:'p-vid', title:'DRM para videos', desc:'Vimeo Starter (~$12/mes) o Hotmart (gratis, cobra %).', priority:'low',
             details:['Vimeo Starter: ~$12/mes, sin descarga','Hotmart: gratis, cobra % por venta']},
-          {id:'p-pdf', title:'Proteccion de PDFs', desc:'Issuu gratis con ads, o $19/mes sin ads.', owner:'Jahir', priority:'low', details:[]},
+          {id:'p-pdf', title:'Proteccion de PDFs', desc:'Issuu gratis con ads, o $19/mes sin ads.', priority:'low', details:[]},
         ]
       },
       {
         id: 'expansion', label: 'Expansion', icon: '🚀',
         bg: '#ECF2FA', accent: '#6B9FD4',
         items: [
-          {id:'e-maps', title:'Google Maps registrado', desc:'Ya existia perfil "Shalala Music Academy" en Promenade. Solicitud para administrar enviada 27 oct.', owner:'Jahir', priority:'medium',
-            details:['Perfil existente: 5.0 estrellas, 2 resenas','Ubicacion: Promenade de la Casa Presidencial, Zapote','Deadline respuesta: 30 oct 2026','Solicitud anterior (25 oct) tambien en revision']},
-          {id:'e-red', title:'Red de academias', desc:'Meta: una nueva por ano. Joan y Monica como subdirectores.', owner:'Bryan', priority:'low',
-            details:['Criterio: paciencia + adherencia al metodo','Profesores que abran su propia academia = orgullo']},
-          {id:'e-loc', title:'Locucion como servicio', desc:'Area por incursionar. Equipo ya disponible.', owner:'Bryan', priority:'low', details:[]},
+          {id:'e-ret', title:'Retencion y fidelizacion', desc:'Mantener linea que enamore al musico. Todo en el mismo lugar. Matricula especial como gancho.', priority:'high',
+            details:['Alumno adicto al instrumento, no amarrado a pagar','Cuerdas, calibracion, reparacion: todo en el mismo lugar','Matricula especial: ₡25k incluye estuche o cuerda de regalo','Clientes dificiles: siempre servicial, nunca confrontacional','Mantenimiento periodico garantiza retorno cada 3 meses']},
+          {id:'e-nums', title:'Metas por local', desc:'8-10 alumnos diarios, 20 alumnos = ₡800k/mes, meta ₡1M/local.', priority:'high',
+            details:['Punto equilibrio: 8-10 alumnos diarios','20 alumnos = ~₡800k mensuales','Meta: ₡1M por local para estabilidad','Minimo 20 clases semanales por local','Crecimiento 30-40% posible con promocion sin cambiar infraestructura']},
+          {id:'e-maps', title:'Google Maps registrado', desc:'Perfil existente en Promenade. Solicitud para administrar enviada. Cuenta correo pendiente.', priority:'medium',
+            details:['Perfil existente: 5.0 estrellas, 2 resenas','Ubicacion: Promenade de la Casa Presidencial, Zapote','Deadline respuesta: 30 oct 2026','Cuenta de correo Sela pendiente de revisar']},
+          {id:'e-red', title:'Red de academias', desc:'Vision: 3 academias cada una con responsable. Joan y Monica como subdirectores.', priority:'low',
+            details:['Meta: una nueva por ano','Criterio: paciencia + adherencia al metodo','Profesores que abran su propia academia = orgullo']},
+          {id:'e-loc', title:'Locucion como servicio', desc:'Area por incursionar. Equipo ya disponible.', priority:'low', details:[]},
         ]
       },
       {
         id: 'servicios', label: 'Servicios', icon: '🎤',
         bg: '#F5F1ED', accent: '#B8A08A',
         items: [
-          {id:'s-grab', title:'Grabacion', desc:'Podcasts, anuncios radiales, musica virtual y en vivo.', owner:'Bryan', priority:'medium', details:[]},
-          {id:'s-bod', title:'Bodas y eventos', desc:'Repertorio de 5 canciones a eleccion.', owner:'Bryan', priority:'medium', details:[]},
-          {id:'s-tal', title:'Talleres', desc:'Ensamble, teoria, sonido, canto, composicion, arreglo coral.', owner:'Bryan', priority:'medium', details:[]},
-          {id:'s-rep', title:'Reparacion', desc:'Instrumentos y equipo de sonido.', owner:'Bryan', priority:'low', details:[]},
-          {id:'s-env', title:'Envios', desc:'Henry en San Jose, correos al resto del pais.', owner:'Bryan', priority:'low', details:[]},
-          {id:'s-aud', title:'Curso audio/produccion', desc:'Hermano de Bryan (baterista y sonidista profesional).', owner:'Bryan', priority:'low', details:[]},
+          {id:'s-grab', title:'Estudio y Grabacion', desc:'Podcasts, anuncios, musica en vivo. 2 clientes esperando. Musicos avanzados como instrumentistas.', priority:'high',
+            details:['2 clientes esperando grabacion (bloqueados por falta de tiempo)','Modelo: musicos avanzados participan en producciones de clientes','Cliente paga al musico, academia coordina contrato','Musico con credito en album, red de recomendacion','Diferenciador vs IA: musicos reales suenan mas natural']},
+          {id:'s-bod', title:'Bodas y eventos', desc:'Repertorio de 5 canciones a eleccion.', priority:'medium', details:[]},
+          {id:'s-tal', title:'Talleres', desc:'Ensamble, teoria, sonido, canto, composicion, arreglo coral.', priority:'medium', details:[]},
+          {id:'s-rep', title:'Reparacion', desc:'Instrumentos y equipo de sonido.', priority:'low', details:[]},
+          {id:'s-env', title:'Envios', desc:'Henry en San Jose, correos al resto del pais.', priority:'low', details:[]},
+          {id:'s-aud', title:'Curso audio/produccion', desc:'Hermano de Bryan (baterista y sonidista profesional).', priority:'low', details:[]},
         ]
       },
     ];
@@ -353,7 +369,6 @@
           html += '<div class="idea-title">' + item.title + '</div>';
           html += '<span class="idea-pri pri-' + item.priority + '">' + PRI[item.priority] + '</span>';
           html += '</div>';
-          html += '<div class="idea-owner">' + item.owner + '</div>';
 
           if (has) {
             html += '<div class="idea-detail">';

@@ -1,7 +1,7 @@
 # Selah Music — Repositorio de Ideas
 
-**Actualizado:** 26 octubre 2026
-**Fuentes:** Reunion con Bryan (22 oct), chat WhatsApp (25-26 oct), desarrollo del sitio web
+**Actualizado:** 29 octubre 2026
+**Fuentes:** Reunion con Bryan (22 oct), chat WhatsApp (25-27 oct), reunion presencial con Bryan (27 oct), desarrollo del sitio web
 
 ---
 
@@ -43,6 +43,17 @@ Bryan tiene 3 calculos segun presupuesto:
 - Navidad
 - Dia del Nino
 - Dia de la Madre / Padre
+- **Noviembre-diciembre (reunion 27 oct):** luces estilo bohemio, parlantes karaoke — tener 2-3 unidades de cada
+- **Temporada baja (dic-ene):** clase doble en noviembre — alumno recibe dic anticipado, ya pagado
+  - Talleres de verano para ninos, cursos cortos (3 meses) en instrumento basico
+
+### Clientes recurrentes (reunion 27 oct)
+- Iglesias: ~30 clientes con pedidos recurrentes cada 3 meses (cuerdas, cables, parches)
+- Estrategia de anzuelo: mantenimiento periodico garantiza retorno
+- Venta perdida de ₡4.7M (escuela) — ~₡2M libres si se hubiera tenido inventario
+  - Oportunidad: ofrecer cotizacion anual a esa escuela para el ano siguiente
+- Seccion de "contrapedido" en la pagina: separar entrega inmediata de pedidos 11-22 dias
+- Credito: solo para productos pequenos y alta rotacion, nunca articulos caros
 
 ### Precios de servicios (confirmados 26 oct)
 - Calibracion de guitarra: ₡24,000
@@ -56,11 +67,13 @@ Bryan tiene 3 calculos segun presupuesto:
 
 ### Redes sociales — estado actual
 - **Instagram:** existe @selahamusicacademia (el original). Jahir creo @selahamusicacademia_cr (porque el otro estaba ocupado). Mejor usar el original.
+  - Cambiar username de cuenta antigua para liberar el nombre correcto (27 oct)
 - **Facebook:** existe, no importa mucho el username
 - **TikTok:** cambiar de selahamusicacademia_cr a selahamusicacademia (ya que Insta usa el original)
-- **YouTube:** Jahir necesita credenciales de Bryan para acceder
+- **YouTube:** canal principal — todo contenido de otras redes se sube primero ahi como Shorts (27 oct)
+  - Jahir necesita credenciales de Bryan para acceder
 
-**Pendiente:** sentarse juntos a definir credenciales y unificar usernames.
+**Pendiente:** consolidar cuentas duplicadas en IG y TikTok, resolver acceso a YouTube.
 
 ### Estrategia de contenido
 1. **Publicidad (monetizable):** anuncios propios estilo competencia → post + historia destacada
@@ -150,11 +163,28 @@ Bryan tiene 3 calculos segun presupuesto:
 | 13 | Link canal YouTube (o confirmar que no existe) | Footer |
 | 14 | Fotos reales de la academia | Varias secciones |
 
+### Feedback de Bryan sobre la pagina (reunion 27 oct)
+- **Logo mas grande** estilo banner
+- **Invertir colores:** fondo oscuro, letras blancas
+- **No mostrar cantidad de alumnos ni precios** — forzar consulta por WhatsApp
+- **Catalogo de instrumentos con fotos reales** + seccion de contrapedido (entrega inmediata vs pedidos 11-22 dias)
+- **Renombrar cursos:**
+  - "Pequeño Gran Musico" (ya esta)
+  - "Curso especializado tercera edad"
+  - "Curso especial" (discapacidad)
+- **Servicio de grabacion** → renombrar a "Servicio de Estudio y Grabacion"
+- **Contenido inmediato:** post del recital con fotos, horarios y ubicacion; videos tocando sin produccion elaborada
+
 ### Funcionalidades pedidas por Bryan
 - **Iconos clickeables de instrumentos** → ✅ ya implementado (cada instrumento se despliega con info del curso)
 - **Preview de libros en la web** → pendiente (posible con Issuu gratis)
 - **QR en libros fisicos** → pendiente (redirige a la pagina, actualizable sin reimprimir)
 - **Marca de agua en contenido digital** → pendiente ("Selah Music by Bryan Martinez")
+
+### Dominio (reunion 27 oct)
+- selamusicacademia.com disponible a $0.01 el primer ano (~$49 renovacion)
+- Recomendado .com por clientes internacionales que reciben clases en linea
+- **Pendiente: comprarlo**
 
 ### Roadmap
 - **V2:** QR en libros, preview de libros (Issuu), marca de agua, canal de YouTube embebido
@@ -179,16 +209,23 @@ Bryan quiere que cierto contenido pagado no sea descargable:
 
 ## Expansion y Vision
 
-- Meta: abrir una academia nueva por ano
+- Meta: abrir una academia nueva por ano → vision 3 academias, cada una con responsable
 - Joan y Monica identificados como futuros subdirectores (aun no informados)
 - Criterio de profesores: paciencia y adherencia al metodo > titulos
 - Filosofia: los profesores que abran su propia academia es motivo de orgullo
+- Punto de equilibrio por local: 8-10 alumnos diarios, ~20 alumnos = ~₡800k/mes, meta ₡1M/local
+- Minimo 20 clases semanales por local como meta base
+- Crecimiento actual puede subir 30-40% con promocion sin cambiar infraestructura
 
 ---
 
 ## Servicios Adicionales
 
-- **Grabacion:** podcasts, anuncios radiales, musica virtual y en vivo
+- **Grabacion (renombrar a "Servicio de Estudio y Grabacion"):** podcasts, anuncios radiales, musica virtual y en vivo
+  - 2 clientes esperando grabacion actualmente, bloqueados por falta de tiempo (27 oct)
+  - Propuesta: musicos avanzados participan como instrumentistas en producciones de clientes
+  - Cliente paga al musico, academia coordina contrato — musico con credito en album
+  - Diferenciador vs IA: grabacion con musicos reales suena mas natural
 - **Bodas y eventos:** repertorio de 5 canciones a eleccion
 - **Talleres:** ensamble, teoria, sonido, canto, composicion, arreglo coral
 - **Reparacion:** instrumentos y equipo de sonido
@@ -202,7 +239,17 @@ Bryan quiere que cierto contenido pagado no sea descargable:
 - Ya existia un perfil "Shalala Music Academy" en Promenade de la Casa Presidencial (5.0 estrellas, 2 resenas)
 - Jahir envio solicitud para administrar ese perfil existente (27 oct) — deadline para respuesta: 30 oct 2026
 - Solicitud anterior (25 oct) para registrar "Selah Music Academia" tambien en revision
+- En proceso de verificacion; cuenta de correo Sela pendiente de revisar (27 oct)
 - Direccion en Maps: Centro de Artes Promenade De la Casa Presidencial, 200m Oeste y 75m Norte, San Jose Zapote, El Jardin, 10105
+
+---
+
+## Retencion y Fidelizacion (reunion 27 oct)
+- Mantener linea de ensenanza que "enamore al musico" — alumno adicto al instrumento, no amarrado a pagar
+- Cliente nunca debe sentir que lo mandan a otro lado: cuerdas, calibracion, reparacion todo en el mismo lugar
+- Matricula especial como gancho: ₡25,000 incluye estuche o cuerda de regalo, financiamiento incluido
+- Clientes dificiles: siempre servicial, nunca confrontacional — pueden convertirse en aliados
+- Estrategia de anzuelo: mantenimiento periodico garantiza retorno (cuerdas, cables, parches cada 3 meses)
 
 ---
 
